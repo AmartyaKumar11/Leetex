@@ -1,0 +1,8 @@
+{
+  "semi": false,
+  "singleQuote": false,
+  "trailingComma": "none",
+  "printWidth": 90,
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": ["^~/(.*)$", "^[./]"]
+}

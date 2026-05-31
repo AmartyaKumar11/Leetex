@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Plasmo
+.plasmo/
+build/
+*.zip
+
+# Environment
+.env
+.env.*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.log
+
+# TypeScript
+*.tsbuildinfo

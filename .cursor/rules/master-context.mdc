@@ -1,0 +1,28 @@
+---
+description: Keep MASTER_CONTEXT.md current after substantial milestones
+alwaysApply: true
+---
+
+# Master Context Maintenance
+
+LeetEx project truth lives in `MASTER_CONTEXT.md` at repo root. Read it at session start when context is needed.
+
+## When to Update
+
+After completing a **substantial milestone** — feature done, phase shipped, architecture decision locked, scope change — update `MASTER_CONTEXT.md` before ending the turn. Do not wait for user to ask.
+
+Substantial = new capability, completed layer/module, phase boundary crossed, or major scope pivot. Not: typo fix, small refactor, single-file tweak.
+
+## What to Update
+
+1. **Last updated** date at top
+2. **Current phase / Status** if changed
+3. **Development Milestones** table — mark row ✅ Done, add date + short note
+4. **Changelog** — one line summary
+5. **Next up** row in milestones if obvious
+
+## Rules
+
+- Never delete vision/mission/philosophy sections unless user requests
+- Keep milestone notes factual and short
+- Do not implement AI/backend/recommendations before v0.1 session tracking is complete (see Important Rule in MASTER_CONTEXT.md)
