@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
-> **Last updated:** 2026-05-31  
+> **Last updated:** 2026-06-01  
 > **Current phase:** v0.1 — The Observer  
-> **Status:** Extension scaffold complete — ready for LeetCode testing
+> **Status:** v0.1 complete — session reconstruction validated on LeetCode
 
 ---
 
@@ -266,9 +266,9 @@ This phase exists to prove that coding sessions can be reliably reconstructed.
 | Event collection pipeline | ✅ Done | 2026-05-31 | 4 event types via DOM observers |
 | Snapshot collection | ✅ Done | 2026-05-31 | Monaco editor capture on triggers |
 | Local storage + session JSON export | ✅ Done | 2026-05-31 | chrome.storage.local + export btn |
-| v0.1 complete — session reconstruction proven | ⬜ Pending | — | Needs live LeetCode validation |
+| v0.1 complete — session reconstruction proven | ✅ Done | 2026-06-01 | Live Two Sum session: OPEN/RUN/SUBMIT + export validated |
 
-**Next up:** Load extension on LeetCode, validate session JSON quality
+**Next up:** v0.2 planning — analysis layer or session history UI
 
 ---
 
@@ -276,5 +276,6 @@ This phase exists to prove that coding sessions can be reliably reconstructed.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.1 marked complete; polish: language detect, delayed start snapshot, title strip |
 | 2026-05-31 | v0.1 Observer extension built: session tracking, events, snapshots, storage, sidebar UI |
 | 2026-05-31 | Initial master context created. v0.1 milestone tracker seeded. |

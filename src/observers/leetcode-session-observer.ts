@@ -141,6 +141,8 @@ export class LeetCodeSessionObserver {
         questionSlug: metadata.slug,
         difficulty: metadata.difficulty
       })
+
+      await sessionManager.captureInitialSnapshot()
     } catch (error) {
       console.warn("[LeetEx] Failed to initialize session:", error)
     }

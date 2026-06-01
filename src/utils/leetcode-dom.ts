@@ -21,6 +21,42 @@ const RUN_BUTTON_LOCATORS = ["run-code-btn", "console-run-button"] as const
 
 const SUBMIT_BUTTON_LOCATORS = ["submit-code-btn", "console-submit-button"] as const
 
+const LANGUAGE_BUTTON_SELECTORS = [
+  'button[data-e2e-locator*="lang"]',
+  '[class*="lang-select"] button',
+  '[class*="LanguageSelector"] button',
+  '[class*="language-select"] button'
+] as const
+
+const LANGUAGE_LABEL_MAP: Record<string, string> = {
+  bash: "bash",
+  c: "c",
+  "c#": "csharp",
+  "c++": "cpp",
+  cpp: "cpp",
+  dart: "dart",
+  elixir: "elixir",
+  erlang: "erlang",
+  go: "go",
+  golang: "go",
+  java: "java",
+  javascript: "javascript",
+  js: "javascript",
+  kotlin: "kotlin",
+  mysql: "mysql",
+  php: "php",
+  python: "python",
+  python3: "python",
+  python2: "python",
+  racket: "racket",
+  ruby: "ruby",
+  rust: "rust",
+  scala: "scala",
+  swift: "swift",
+  typescript: "typescript",
+  ts: "typescript"
+}
+
 type MonacoEditor = {
   getValue: () => string
   getModel?: () => { getLanguageId: () => string } | null
@@ -132,38 +168,40 @@ export function extractDifficulty(): Difficulty | null {
 }
 
 export function extractEditorState(): { code: string; language: string | null } {
-  const monaco = (window as Window & { monaco?: MonacoGlobal }).monaco
-  const editors = monaco?.editor?.getEditors?.()
+  const monacoState = extractMonacoEditorState()
+  const code = monacoState?.code ?? extractCodeFromDom()
+  const language =
+    monacoState?.language ?? extractSelectedLanguage() ?? inferLanguageFromCode(code)
 
-  if (editors?.length) {
-    const editor = editors[0]
-    const code = editor.getValue() ?? ""
-    const language = editor.getModel?.()?.getLanguageId() ?? null
+  return { code, language }
+}
 
-    return { code, language }
-  }
+export function waitForEditorState(
+  maxAttempts: number,
+  intervalMs: number
+): Promise<{ code: string; language: string | null }> {
+  return new Promise((resolve) => {
+    let attempts = 0
 
-  const codeMirror = document.querySelector(".CodeMirror") as
-    | (HTMLElement & { CodeMirror?: { getValue: () => string } })
-    | null
+    const poll = () => {
+      attempts += 1
+      const state = extractEditorState()
 
-  if (codeMirror?.CodeMirror) {
-    return {
-      code: codeMirror.CodeMirror.getValue() ?? "",
-      language: null
+      if (state.code.length > 0 || state.language) {
+        resolve(state)
+        return
+      }
+
+      if (attempts >= maxAttempts) {
+        resolve(state)
+        return
+      }
+
+      window.setTimeout(poll, intervalMs)
     }
-  }
 
-  const viewLines = document.querySelector(".view-lines")
-
-  if (viewLines?.textContent) {
-    return {
-      code: viewLines.textContent.replace(/\u00a0/g, " ").trim(),
-      language: null
-    }
-  }
-
-  return { code: "", language: null }
+    poll()
+  })
 }
 
 export function isRunCodeButton(element: Element | null): boolean {
@@ -217,7 +255,110 @@ export function waitForQuestionMetadata(
 }
 
 function cleanTitle(raw: string): string {
-  return raw.replace(/\s+/g, " ").trim()
+  return raw
+    .replace(/^\d+\.\s*/, "")
+    .replace(/\s+/g, " ")
+    .trim()
+}
+
+function extractMonacoEditorState(): { code: string; language: string | null } | null {
+  const monaco = (window as Window & { monaco?: MonacoGlobal }).monaco
+  const editors = monaco?.editor?.getEditors?.()
+
+  if (!editors?.length) {
+    return null
+  }
+
+  const editor = editors[0]
+  const code = editor.getValue() ?? ""
+  const language = normalizeLanguageLabel(editor.getModel?.()?.getLanguageId() ?? null)
+
+  return { code, language }
+}
+
+function extractCodeFromDom(): string {
+  const codeMirror = document.querySelector(".CodeMirror") as
+    | (HTMLElement & { CodeMirror?: { getValue: () => string } })
+    | null
+
+  if (codeMirror?.CodeMirror) {
+    return codeMirror.CodeMirror.getValue() ?? ""
+  }
+
+  const viewLines = document.querySelector(".view-lines")
+
+  if (viewLines?.textContent) {
+    return viewLines.textContent.replace(/\u00a0/g, " ").trim()
+  }
+
+  return ""
+}
+
+function extractSelectedLanguage(): string | null {
+  for (const selector of LANGUAGE_BUTTON_SELECTORS) {
+    for (const element of document.querySelectorAll(selector)) {
+      const language = normalizeLanguageLabel(element.textContent)
+
+      if (language) {
+        return language
+      }
+    }
+  }
+
+  const codePanel =
+    document.querySelector('[data-e2e-locator="code-editor"]') ??
+    document.querySelector('[class*="editor-container"]') ??
+    document.querySelector('[class*="CodeEditor"]')
+
+  if (codePanel) {
+    for (const button of codePanel.querySelectorAll("button")) {
+      const language = normalizeLanguageLabel(button.textContent)
+
+      if (language) {
+        return language
+      }
+    }
+  }
+
+  return null
+}
+
+function normalizeLanguageLabel(value: string | null | undefined): string | null {
+  if (!value) {
+    return null
+  }
+
+  const normalized = value.trim().toLowerCase()
+
+  if (!normalized) {
+    return null
+  }
+
+  return LANGUAGE_LABEL_MAP[normalized] ?? null
+}
+
+function inferLanguageFromCode(code: string): string | null {
+  if (!code.trim()) {
+    return null
+  }
+
+  if (/class Solution:\s*\n|def twoSum|List\[int\]|enumerate\(/.test(code)) {
+    return "python"
+  }
+
+  if (/vector<|class Solution\s*\{|public:\s*$|std::/.test(code)) {
+    return "cpp"
+  }
+
+  if (/public class Solution|int\[\] nums/.test(code)) {
+    return "java"
+  }
+
+  if (/function twoSum|const twoSum|=>/.test(code)) {
+    return "javascript"
+  }
+
+  return null
 }
 
 function matchesActionButton(

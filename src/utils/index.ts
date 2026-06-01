@@ -18,5 +18,6 @@ export {
   isSubmitButton,
   normalizeDifficulty,
   slugToTitle,
+  waitForEditorState,
   waitForQuestionMetadata
 } from "~/utils/leetcode-dom"

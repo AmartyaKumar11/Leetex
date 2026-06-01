@@ -1,4 +1,4 @@
-import { EVENT_TYPES } from "~/constants"
+import { EDITOR_POLL_INTERVAL_MS, EDITOR_POLL_MAX_ATTEMPTS, EVENT_TYPES } from "~/constants"
 import { StorageService } from "~/services/storage-service"
 import type { EventType, RegisterEventOptions, SessionEvent } from "~/types/events"
 import type { RegisterSnapshotOptions, Snapshot, SnapshotTrigger } from "~/types/snapshot"
@@ -8,7 +8,8 @@ import {
   generateEventId,
   generateSessionId,
   generateSnapshotId,
-  now
+  now,
+  waitForEditorState
 } from "~/utils"
 
 export type SessionChangeListener = (session: Session | null) => void
@@ -88,9 +89,20 @@ export class SessionManager {
       skipSnapshot: true
     })
 
-    await this.registerSnapshot({ trigger: "SESSION_START" })
-
     return session
+  }
+
+  async captureInitialSnapshot(): Promise<Snapshot | null> {
+    const editorState = await waitForEditorState(
+      EDITOR_POLL_MAX_ATTEMPTS,
+      EDITOR_POLL_INTERVAL_MS
+    )
+
+    return this.registerSnapshot({
+      trigger: "SESSION_START",
+      code: editorState.code,
+      language: editorState.language
+    })
   }
 
   async registerEvent(
