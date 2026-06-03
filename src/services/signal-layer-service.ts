@@ -7,6 +7,7 @@ import { resultExtractionService } from "~/services/result-extraction-service"
 import { sessionManager } from "~/services/session-manager"
 import { EVENT_TYPES } from "~/types/events"
 import { computeCodeSimilarity } from "~/utils/code-similarity"
+import { firstEditDebugLog, hashCode } from "~/utils/code-hash"
 import { extractEditorState } from "~/utils/leetcode-dom"
 
 export class SignalLayerService {
@@ -23,6 +24,12 @@ export class SignalLayerService {
     if (snapshot) {
       this.baselineCode = snapshot.code
       this.lastKnownLanguage = snapshot.language
+
+      firstEditDebugLog("Initial Snapshot Hash", {
+        hash: hashCode(snapshot.code),
+        codeLength: snapshot.code.length,
+        language: snapshot.language
+      })
     }
 
     idleDetectionService.start()
@@ -103,11 +110,24 @@ export class SignalLayerService {
 
     const similarity = computeCodeSimilarity(this.baselineCode, currentCode)
 
+    firstEditDebugLog("First Edit Check", {
+      initialHash: hashCode(this.baselineCode),
+      currentHash: hashCode(currentCode),
+      similarity,
+      currentLength: currentCode.length
+    })
+
     if (similarity >= 0.98) {
       return
     }
 
     this.firstEditFired = true
+
+    firstEditDebugLog("First Edit Detection Trigger", {
+      initialHash: hashCode(this.baselineCode),
+      currentHash: hashCode(currentCode),
+      similarity
+    })
 
     await sessionManager.registerEvent(EVENT_TYPES.FIRST_EDIT, {
       skipSnapshot: true

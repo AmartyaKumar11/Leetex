@@ -4,7 +4,7 @@ import { StorageService } from "~/services/storage-service"
 import type { AttemptRecord, AttemptType } from "~/types/attempt"
 import type { EventType, RegisterEventOptions, SessionEvent } from "~/types/events"
 import type { RegisterSnapshotOptions, Snapshot, SnapshotTrigger } from "~/types/snapshot"
-import type { ResultMetadata } from "~/types/results"
+import type { ResultData } from "~/types/results"
 import type { Difficulty, Session, SessionJSON, SessionSummary } from "~/types/session"
 import {
   extractEditorState,
@@ -182,16 +182,14 @@ export class SessionManager {
     return snapshot
   }
 
-  async recordAttempt(type: AttemptType, result: ResultMetadata): Promise<void> {
+  async recordAttempt(type: AttemptType, result: ResultData): Promise<void> {
     if (!this.currentSession || this.currentSession.status !== "active") {
       return
     }
 
     const record: AttemptRecord = {
+      ...result,
       type,
-      status: result.status,
-      passed: result.passed,
-      total: result.total,
       timestamp: now()
     }
 

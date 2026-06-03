@@ -1,11 +1,8 @@
-import type { ResultStatus } from "~/types/results"
+import type { ResultData } from "~/types/results"
 
 export type AttemptType = "RUN" | "SUBMIT"
 
-export interface AttemptRecord {
+export interface AttemptRecord extends ResultData {
   type: AttemptType
-  status: ResultStatus | string
-  passed: number | null
-  total: number | null
   timestamp: number
 }

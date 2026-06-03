@@ -8,7 +8,13 @@ export {
 } from "~/utils/session-export"
 export { computeCodeSimilarity, isMajorRewrite } from "~/utils/code-similarity"
 export { generateTimeline, formatTimelineLines } from "~/utils/timeline-generator"
-export { extractRunOrSubmitResult } from "~/utils/leetcode-results"
+export {
+  extractResultDataFromDom,
+  findResultContainers,
+  RESULT_CONTAINER_SELECTORS
+} from "~/utils/leetcode-result-extractor"
+export { isResultDebugEnabled, resultDebugLog } from "~/utils/result-extraction-debug"
+export { hashCode, firstEditDebugLog } from "~/utils/code-hash"
 export {
   extractDifficulty,
   extractEditorState,

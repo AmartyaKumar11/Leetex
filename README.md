@@ -49,7 +49,16 @@ src/
     └── leetcode-results.ts
 ```
 
-## Scripts
+## Debug modes
+
+```javascript
+// Result extraction logs (console)
+localStorage.setItem("LEETEX_DEBUG_RESULTS", "true")
+// or: window.LEETEX_DEBUG_RESULTS = true
+
+// First-edit detection logs
+localStorage.setItem("LEETEX_DEBUG_FIRST_EDIT", "true")
+```
 
 | Command | Description |
 |---------|-------------|

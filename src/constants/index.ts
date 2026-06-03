@@ -3,11 +3,14 @@ export {
   FIRST_EDIT_MIN_CODE_LENGTH,
   IDLE_TIMEOUT_MS,
   MAJOR_REWRITE_SIMILARITY_THRESHOLD,
-  RESULT_POLL_INTERVAL_MS,
-  RESULT_POLL_MAX_ATTEMPTS,
   SIGNAL_POLL_INTERVAL_MS
 } from "~/constants/signals"
-
+export {
+  RESULT_EXTRACTION_TIMEOUT_MS,
+  RESULT_RETRY_INTERVAL_MS,
+  RESULT_MAX_RETRIES,
+  RESULT_DEBUG_STORAGE_KEY
+} from "~/constants/result-extraction"
 export const LEETCODE_MATCHES = [
   "https://leetcode.com/problems/*",
   "https://leetcode.com/problems/*/*",

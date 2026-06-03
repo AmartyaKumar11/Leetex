@@ -279,6 +279,7 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-03 | Result extraction pipeline: MutationObserver + multi-strategy DOM parsing + debug mode |
 | 2026-06-01 | v0.2 Signal Layer: behavioral events, idle/rewrite/language, results, attemptHistory, timeline |
 | 2026-06-01 | v0.1 marked complete; polish: language detect, delayed start snapshot, title strip |
 | 2026-05-31 | v0.1 Observer extension built: session tracking, events, snapshots, storage, sidebar UI |
