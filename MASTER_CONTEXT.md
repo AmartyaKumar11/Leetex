@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
 > **Last updated:** 2026-06-01  
-> **Current phase:** v0.1 — The Observer  
-> **Status:** v0.1 complete — session reconstruction validated on LeetCode
+> **Current phase:** v0.2 — Signal Layer  
+> **Status:** v0.2 implemented — richer behavioral signals on LeetCode sessions
 
 ---
 
@@ -230,26 +230,28 @@ The entire product depends on collecting high-quality behavioral data first.
 
 | Field | Value |
 |-------|-------|
-| Version | v0.1 |
-| Codename | The Observer |
-| Goal | Build a reliable LeetCode session recorder |
+| Version | v0.2 |
+| Codename | Signal Layer |
+| Goal | Collect richer behavioral signals for future diagnosis |
 
-**In scope (v0.1):**
+**In scope (v0.2):**
 
-- Session tracking
-- Event collection
-- Snapshot collection
-- Local storage
-- Session JSON generation
+- FIRST_EDIT, FIRST_RUN, FIRST_SUBMIT (once per session)
+- IDLE_STARTED / IDLE_ENDED (120s threshold, multiple periods)
+- LANGUAGE_CHANGED
+- MAJOR_REWRITE (bigram similarity &lt; 40%)
+- RUN_RESULT / SUBMISSION_RESULT (DOM extraction)
+- attemptHistory on session
+- generateTimeline() utility
 
-**Out of scope (v0.1):**
+**Still out of scope:**
 
-- AI
-- Backend
-- Recommendations
+- AI / Gemini
+- Backend / Database
 - Skill graph
+- Recommendations
 
-This phase exists to prove that coding sessions can be reliably reconstructed.
+v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 ---
 
@@ -267,8 +269,9 @@ This phase exists to prove that coding sessions can be reliably reconstructed.
 | Snapshot collection | ✅ Done | 2026-05-31 | Monaco editor capture on triggers |
 | Local storage + session JSON export | ✅ Done | 2026-05-31 | chrome.storage.local + export btn |
 | v0.1 complete — session reconstruction proven | ✅ Done | 2026-06-01 | Live Two Sum session: OPEN/RUN/SUBMIT + export validated |
+| v0.2 Signal Layer | ✅ Done | 2026-06-01 | 10 signal features + attemptHistory + timeline util |
 
-**Next up:** v0.2 planning — analysis layer or session history UI
+**Next up:** Live validation of v0.2 signals on LeetCode; then v0.3 analysis layer
 
 ---
 
@@ -276,6 +279,7 @@ This phase exists to prove that coding sessions can be reliably reconstructed.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.2 Signal Layer: behavioral events, idle/rewrite/language, results, attemptHistory, timeline |
 | 2026-06-01 | v0.1 marked complete; polish: language detect, delayed start snapshot, title strip |
 | 2026-05-31 | v0.1 Observer extension built: session tracking, events, snapshots, storage, sidebar UI |
 | 2026-05-31 | Initial master context created. v0.1 milestone tracker seeded. |

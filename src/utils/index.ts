@@ -6,6 +6,9 @@ export {
   serializeSession,
   serializeSessionToJson
 } from "~/utils/session-export"
+export { computeCodeSimilarity, isMajorRewrite } from "~/utils/code-similarity"
+export { generateTimeline, formatTimelineLines } from "~/utils/timeline-generator"
+export { extractRunOrSubmitResult } from "~/utils/leetcode-results"
 export {
   extractDifficulty,
   extractEditorState,

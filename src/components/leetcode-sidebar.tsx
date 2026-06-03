@@ -57,7 +57,7 @@ export function LeetCodeSidebar() {
           <p className="leetex-stat-value">{eventCount}</p>
           <p className="leetex-stat-caption">
             {session
-              ? `${session.snapshots.length} snapshot${session.snapshots.length === 1 ? "" : "s"} stored`
+              ? `${session.snapshots.length} snapshot${session.snapshots.length === 1 ? "" : "s"} · ${session.attemptHistory?.length ?? 0} attempt${(session.attemptHistory?.length ?? 0) === 1 ? "" : "s"}`
               : "No active session"}
           </p>
         </section>

@@ -1,4 +1,5 @@
 import { EVENT_TYPES, TITLE_POLL_INTERVAL_MS, TITLE_POLL_MAX_ATTEMPTS } from "~/constants"
+import { signalLayerService } from "~/services/signal-layer-service"
 import { sessionManager } from "~/services/session-manager"
 import {
   extractQuestionSlug,
@@ -36,6 +37,7 @@ export class LeetCodeSessionObserver {
 
   stop(): void {
     this.started = false
+    signalLayerService.stop()
     this.urlObserver?.disconnect()
     this.urlObserver = null
     document.removeEventListener("click", this.onDocumentClick, true)
@@ -72,17 +74,15 @@ export class LeetCodeSessionObserver {
       return
     }
 
+    signalLayerService.recordUserActivity()
+
     if (isRunCodeButton(target)) {
-      void sessionManager.registerEvent(EVENT_TYPES.RUN_CODE, {
-        metadata: { source: "click" }
-      })
+      void this.handleRunCode()
       return
     }
 
     if (isSubmitButton(target)) {
-      void sessionManager.registerEvent(EVENT_TYPES.SUBMIT, {
-        metadata: { source: "click" }
-      })
+      void this.handleSubmitCode()
       return
     }
 
@@ -93,9 +93,24 @@ export class LeetCodeSessionObserver {
     }
   }
 
+  private async handleRunCode(): Promise<void> {
+    await sessionManager.registerEvent(EVENT_TYPES.RUN_CODE, {
+      metadata: { source: "click" }
+    })
+    await signalLayerService.onRunCode()
+  }
+
+  private async handleSubmitCode(): Promise<void> {
+    await sessionManager.registerEvent(EVENT_TYPES.SUBMIT, {
+      metadata: { source: "click" }
+    })
+    await signalLayerService.onSubmitCode()
+  }
+
   private async handleNavigation(): Promise<void> {
     if (!isLeetCodeProblemUrl()) {
       if (this.currentSlug) {
+        signalLayerService.stop()
         await sessionManager.endSession()
         this.currentSlug = null
         this.editorialTracked = false
@@ -105,6 +120,7 @@ export class LeetCodeSessionObserver {
     }
 
     if (isEditorialUrl()) {
+      signalLayerService.recordUserActivity()
       await this.trackEditorialOpened("navigation")
       return
     }
@@ -116,6 +132,7 @@ export class LeetCodeSessionObserver {
     }
 
     if (slug !== this.currentSlug) {
+      signalLayerService.stop()
       this.editorialTracked = false
       await this.handleProblemPage()
     }
@@ -142,7 +159,7 @@ export class LeetCodeSessionObserver {
         difficulty: metadata.difficulty
       })
 
-      await sessionManager.captureInitialSnapshot()
+      await signalLayerService.onSessionReady()
     } catch (error) {
       console.warn("[LeetEx] Failed to initialize session:", error)
     }
@@ -160,6 +177,7 @@ export class LeetCodeSessionObserver {
     }
 
     this.editorialTracked = true
+    signalLayerService.recordUserActivity()
 
     await sessionManager.registerEvent(EVENT_TYPES.EDITORIAL_OPENED, {
       metadata: { source, url: location.href }

@@ -2,7 +2,7 @@
 
 AI-powered coding learning OS — Chrome extension. Tracks *how* you solve, not just *what* you solved.
 
-**Phase:** v0.1 — The Observer (session recorder, no AI yet)
+**Phase:** v0.2 — Signal Layer (behavioral signals, no AI yet)
 
 Full product context → [`MASTER_CONTEXT.md`](./MASTER_CONTEXT.md)
 
@@ -16,32 +16,37 @@ npm run build    # production build → build/chrome-mv3-prod
 
 Load unpacked extension from `build/chrome-mv3-dev` (dev) or `build/chrome-mv3-prod` (prod).
 
-## What It Does (v0.1)
+## What It Does (v0.2)
 
 On `leetcode.com/problems/*`:
 
-- Starts session when problem opens
-- Captures title + difficulty
-- Tracks events: `QUESTION_OPENED`, `RUN_CODE`, `SUBMIT`, `EDITORIAL_OPENED`
-- Snapshots editor code at key moments
-- Persists to `chrome.storage.local`
-- Sidebar shows status + event count
-- Export full session JSON
+- v0.1: sessions, snapshots, export, sidebar
+- **Signals:** `FIRST_EDIT`, `FIRST_RUN`, `FIRST_SUBMIT`, `IDLE_*`, `LANGUAGE_CHANGED`, `MAJOR_REWRITE`, `RUN_RESULT`, `SUBMISSION_RESULT`
+- **attemptHistory** auto-filled from run/submit results
+- **Timeline:** `generateTimeline(session)` in `src/utils/timeline-generator.ts`
 
 ## Project Structure
 
 ```
 src/
-├── background/          # Service worker
-├── contents/            # LeetCode CSUI + observer entry
-├── components/          # React UI
-├── constants/           # Storage keys, match patterns
-├── hooks/               # React hooks
-├── observers/           # DOM event wiring
-├── services/            # SessionManager, StorageService
-├── types/               # Session, Event, Snapshot interfaces
-└── utils/               # DOM extraction, IDs, export helpers
-assets/                  # Extension icon
+├── background/
+├── contents/
+├── components/
+├── constants/           # signals.ts (idle threshold, rewrite %, poll intervals)
+├── hooks/
+├── observers/           # LeetCodeSessionObserver
+├── services/
+│   ├── session-manager.ts
+│   ├── storage-service.ts
+│   ├── signal-layer-service.ts      # orchestrates v0.2 signals
+│   ├── idle-detection-service.ts
+│   ├── rewrite-detection-service.ts
+│   └── result-extraction-service.ts
+├── types/               # session, events, attempt, results, timeline
+└── utils/
+    ├── timeline-generator.ts
+    ├── code-similarity.ts
+    └── leetcode-results.ts
 ```
 
 ## Scripts

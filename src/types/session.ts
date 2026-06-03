@@ -1,3 +1,5 @@
+import type { AttemptRecord } from "~/types/attempt"
+
 export type Difficulty = "Easy" | "Medium" | "Hard"
 
 export type SessionStatus = "active" | "completed"
@@ -12,6 +14,7 @@ export interface Session {
   status: SessionStatus
   events: import("~/types/events").SessionEvent[]
   snapshots: import("~/types/snapshot").Snapshot[]
+  attemptHistory: AttemptRecord[]
 }
 
 export type SessionJSON = Session
@@ -26,4 +29,5 @@ export interface SessionSummary {
   status: SessionStatus
   eventCount: number
   snapshotCount: number
+  attemptCount: number
 }
