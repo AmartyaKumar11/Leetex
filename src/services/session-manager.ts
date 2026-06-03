@@ -1,11 +1,18 @@
 import { EDITOR_POLL_INTERVAL_MS, EDITOR_POLL_MAX_ATTEMPTS, EVENT_TYPES } from "~/constants"
 import { rewriteDetectionService } from "~/services/rewrite-detection-service"
+import {
+  createEmptySessionMetrics,
+  sessionMetricsService
+} from "~/services/session-metrics-service"
+import { snapshotHashService } from "~/services/snapshot-hash-service"
+import { snapshotSchedulerService } from "~/services/snapshot-scheduler-service"
 import { StorageService } from "~/services/storage-service"
 import type { AttemptRecord, AttemptType } from "~/types/attempt"
 import type { EventType, RegisterEventOptions, SessionEvent } from "~/types/events"
 import type { RegisterSnapshotOptions, Snapshot, SnapshotTrigger } from "~/types/snapshot"
 import type { ResultData } from "~/types/results"
 import type { Difficulty, Session, SessionJSON, SessionSummary } from "~/types/session"
+import { calculateSimilarityFromCode } from "~/utils/calculate-similarity"
 import {
   extractEditorState,
   generateEventId,
@@ -14,6 +21,7 @@ import {
   now,
   waitForEditorState
 } from "~/utils"
+import { observerDebugLog } from "~/utils/observer-debug"
 
 export type SessionChangeListener = (session: Session | null) => void
 
@@ -83,7 +91,8 @@ export class SessionManager {
       status: "active",
       events: [],
       snapshots: [],
-      attemptHistory: []
+      attemptHistory: [],
+      metrics: createEmptySessionMetrics()
     }
 
     this.currentSession = session
@@ -160,15 +169,50 @@ export class SessionManager {
     }
 
     const editorState = extractEditorState()
+    const code = options.code ?? editorState.code
+    const language = options.language ?? editorState.language
+    const snapshotHash = await snapshotHashService.hashCode(code)
+
+    const previous = this.currentSession.snapshots.at(-1)
+
+    if (previous && previous.snapshotHash === snapshotHash) {
+      observerDebugLog("Snapshot Skipped (duplicate hash)", {
+        trigger: options.trigger,
+        snapshotHash
+      })
+      return null
+    }
+
+    const similarityToPrevious = previous
+      ? calculateSimilarityFromCode(previous.code, code)
+      : null
+
+    observerDebugLog("Hash Generated", { snapshotHash, trigger: options.trigger })
+
+    if (similarityToPrevious !== null) {
+      observerDebugLog("Similarity Calculated", {
+        similarityToPrevious,
+        trigger: options.trigger
+      })
+    }
 
     const snapshot: Snapshot = {
       snapshotId: generateSnapshotId(),
       timestamp: now(),
       trigger: options.trigger,
-      code: options.code ?? editorState.code,
-      language: options.language ?? editorState.language,
-      questionSlug: this.currentSession.questionSlug
+      code,
+      language,
+      questionSlug: this.currentSession.questionSlug,
+      snapshotHash,
+      similarityToPrevious
     }
+
+    observerDebugLog("Snapshot Created", {
+      snapshotId: snapshot.snapshotId,
+      trigger: snapshot.trigger,
+      snapshotHash,
+      similarityToPrevious
+    })
 
     this.currentSession = {
       ...this.currentSession,
@@ -206,11 +250,13 @@ export class SessionManager {
       return null
     }
 
-    const completedSession: Session = {
+    snapshotSchedulerService.stop()
+
+    const completedSession: Session = sessionMetricsService.attach({
       ...this.currentSession,
       endTime: now(),
       status: "completed"
-    }
+    })
 
     this.currentSession = completedSession
 
@@ -228,7 +274,7 @@ export class SessionManager {
       return null
     }
 
-    return structuredClone(normalizeSession(session))
+    return structuredClone(sessionMetricsService.attach(normalizeSession(session)))
   }
 
   exportSessionAsJson(session: Session | null = this.currentSession): string | null {
@@ -246,7 +292,7 @@ export class SessionManager {
       return null
     }
 
-    const normalized = normalizeSession(session)
+    const normalized = sessionMetricsService.attach(normalizeSession(session))
 
     return {
       sessionId: normalized.sessionId,
@@ -267,6 +313,7 @@ export class SessionManager {
       return
     }
 
+    this.currentSession = sessionMetricsService.attach(this.currentSession)
     await StorageService.saveActiveSession(this.currentSession)
     this.notifyListeners()
   }
@@ -281,7 +328,13 @@ export class SessionManager {
 function normalizeSession(session: Session): Session {
   return {
     ...session,
-    attemptHistory: session.attemptHistory ?? []
+    attemptHistory: session.attemptHistory ?? [],
+    metrics: session.metrics ?? createEmptySessionMetrics(),
+    snapshots: (session.snapshots ?? []).map((snapshot) => ({
+      ...snapshot,
+      snapshotHash: snapshot.snapshotHash ?? "",
+      similarityToPrevious: snapshot.similarityToPrevious ?? null
+    }))
   }
 }
 

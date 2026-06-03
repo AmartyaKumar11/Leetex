@@ -15,6 +15,8 @@ export {
 } from "~/utils/leetcode-result-extractor"
 export { isResultDebugEnabled, resultDebugLog } from "~/utils/result-extraction-debug"
 export { hashCode, firstEditDebugLog } from "~/utils/code-hash"
+export { calculateSimilarity, calculateSimilarityFromCode } from "~/utils/calculate-similarity"
+export { isObserverDebugEnabled, observerDebugLog } from "~/utils/observer-debug"
 export {
   extractDifficulty,
   extractEditorState,

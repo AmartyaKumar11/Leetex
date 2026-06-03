@@ -1,6 +1,6 @@
 import type { EventType } from "~/types/events"
 
-export type SnapshotTrigger = EventType | "SESSION_START"
+export type SnapshotTrigger = EventType | "SESSION_START" | "PERIODIC"
 
 export interface Snapshot {
   snapshotId: string
@@ -9,6 +9,8 @@ export interface Snapshot {
   code: string
   language: string | null
   questionSlug: string
+  snapshotHash: string
+  similarityToPrevious: number | null
 }
 
 export interface RegisterSnapshotOptions {

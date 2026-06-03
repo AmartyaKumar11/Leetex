@@ -17,8 +17,15 @@ export type {
 } from "~/types/events"
 export type { RegisterSnapshotOptions, Snapshot, SnapshotTrigger } from "~/types/snapshot"
 export type { AttemptRecord, AttemptType } from "~/types/attempt"
-export type { ResultData, ResultMetadata, ResultStatus } from "~/types/results"
-export { RESULT_STATUSES, resultDataToRecord, mergeResultData } from "~/types/results"
+export type {
+  ResultData,
+  ResultMetadata,
+  ResultSourcePanel,
+  ResultStatus
+} from "~/types/results"
 export type { TimelineEntry } from "~/types/timeline"
+export type { SessionMetrics } from "~/types/metrics"
 
 export { EVENT_TYPES } from "~/types/events"
+export { RESULT_STATUSES, mergeResultData, resultDataToRecord } from "~/types/results"
+export { createEmptySessionMetrics } from "~/types/metrics"

@@ -4,6 +4,7 @@ import {
 } from "~/constants/signals"
 import { idleDetectionService } from "~/services/idle-detection-service"
 import { resultExtractionService } from "~/services/result-extraction-service"
+import { snapshotSchedulerService } from "~/services/snapshot-scheduler-service"
 import { sessionManager } from "~/services/session-manager"
 import { EVENT_TYPES } from "~/types/events"
 import { computeCodeSimilarity } from "~/utils/code-similarity"
@@ -33,12 +34,14 @@ export class SignalLayerService {
     }
 
     idleDetectionService.start()
+    snapshotSchedulerService.start()
     this.startPolling()
   }
 
   stop(): void {
     this.stopPolling()
     idleDetectionService.stop()
+    snapshotSchedulerService.stop()
     this.resetSessionState()
   }
 

@@ -48,7 +48,7 @@ export class ResultExtractionService {
 
     resultDebugLog("Observer Started", { kind, selectors: RESULT_CONTAINER_SELECTORS })
 
-    const result = await this.waitForResultData(abortController.signal)
+    const result = await this.waitForResultData(abortController.signal, kind)
 
     if (abortController.signal.aborted) {
       resultDebugLog("Capture Aborted", { kind })
@@ -74,7 +74,10 @@ export class ResultExtractionService {
     }
   }
 
-  private waitForResultData(signal: AbortSignal): Promise<ResultData> {
+  private waitForResultData(
+    signal: AbortSignal,
+    expectedSource: CaptureKind
+  ): Promise<ResultData> {
     return new Promise((resolve) => {
       let best: ResultData | null = null
       let attempts = 0
@@ -99,7 +102,7 @@ export class ResultExtractionService {
         }
 
         attempts += 1
-        const extracted = extractResultDataFromDom()
+        const extracted = extractResultDataFromDom(expectedSource)
 
         resultDebugLog("Extraction Attempt", {
           attempt: attempts,

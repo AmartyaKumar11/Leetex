@@ -11,6 +11,10 @@ export {
   RESULT_MAX_RETRIES,
   RESULT_DEBUG_STORAGE_KEY
 } from "~/constants/result-extraction"
+export {
+  PERIODIC_SNAPSHOT_INTERVAL_MS,
+  OBSERVER_DEBUG_STORAGE_KEY
+} from "~/constants/observer"
 export const LEETCODE_MATCHES = [
   "https://leetcode.com/problems/*",
   "https://leetcode.com/problems/*/*",

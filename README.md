@@ -2,7 +2,7 @@
 
 AI-powered coding learning OS — Chrome extension. Tracks *how* you solve, not just *what* you solved.
 
-**Phase:** v0.2 — Signal Layer (behavioral signals, no AI yet)
+**Phase:** v0.2.1 — Observer Stabilization
 
 Full product context → [`MASTER_CONTEXT.md`](./MASTER_CONTEXT.md)
 
@@ -16,51 +16,42 @@ npm run build    # production build → build/chrome-mv3-prod
 
 Load unpacked extension from `build/chrome-mv3-dev` (dev) or `build/chrome-mv3-prod` (prod).
 
-## What It Does (v0.2)
+## What It Does (v0.2.1)
 
 On `leetcode.com/problems/*`:
 
-- v0.1: sessions, snapshots, export, sidebar
-- **Signals:** `FIRST_EDIT`, `FIRST_RUN`, `FIRST_SUBMIT`, `IDLE_*`, `LANGUAGE_CHANGED`, `MAJOR_REWRITE`, `RUN_RESULT`, `SUBMISSION_RESULT`
-- **attemptHistory** auto-filled from run/submit results
-- **Timeline:** `generateTimeline(session)` in `src/utils/timeline-generator.ts`
+- v0.2 signals + attemptHistory + timeline
+- **Periodic snapshots** every 30s (if code changed)
+- **Snapshot hashing** (SHA-256) + `similarityToPrevious`
+- **Result hardening:** `sourcePanel`, `confidence`, panel validation
+- **Session metrics:** `timeToFirstEdit`, `totalRuns`, `sessionDuration`, etc.
 
 ## Project Structure
 
 ```
 src/
-├── background/
-├── contents/
-├── components/
-├── constants/           # signals.ts (idle threshold, rewrite %, poll intervals)
-├── hooks/
-├── observers/           # LeetCodeSessionObserver
 ├── services/
-│   ├── session-manager.ts
-│   ├── storage-service.ts
-│   ├── signal-layer-service.ts      # orchestrates v0.2 signals
-│   ├── idle-detection-service.ts
-│   ├── rewrite-detection-service.ts
-│   └── result-extraction-service.ts
-├── types/               # session, events, attempt, results, timeline
-└── utils/
-    ├── timeline-generator.ts
-    ├── code-similarity.ts
-    └── leetcode-results.ts
+│   ├── snapshot-scheduler-service.ts
+│   ├── snapshot-hash-service.ts
+│   ├── session-metrics-service.ts
+│   ├── result-extraction-service.ts
+│   └── signal-layer-service.ts
+├── utils/
+│   ├── leetcode-result-extractor.ts
+│   ├── calculate-similarity.ts
+│   └── timeline-generator.ts
+└── types/               # session, snapshot, metrics, results
 ```
 
 ## Debug modes
 
 ```javascript
-// Result extraction logs (console)
-localStorage.setItem("LEETEX_DEBUG_RESULTS", "true")
-// or: window.LEETEX_DEBUG_RESULTS = true
-
-// First-edit detection logs
-localStorage.setItem("LEETEX_DEBUG_FIRST_EDIT", "true")
+localStorage.setItem("LEETEX_DEBUG_OBSERVER", "true")   // full pipeline
+localStorage.setItem("LEETEX_DEBUG_RESULTS", "true")    // result extraction
+localStorage.setItem("LEETEX_DEBUG_FIRST_EDIT", "true")   // first-edit checks
 ```
 
-| Command | Description |
+## Scripts
 |---------|-------------|
 | `npm run dev` | Dev build with HMR |
 | `npm run build` | Production build |

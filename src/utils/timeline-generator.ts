@@ -1,28 +1,45 @@
 import type { Session } from "~/types/session"
 import type { TimelineEntry } from "~/types/timeline"
 import type { SessionEvent } from "~/types/events"
+import type { Snapshot } from "~/types/snapshot"
 import { EVENT_TYPES } from "~/types/events"
+
+const TIMELINE_EVENT_TYPES = new Set<string>([
+  EVENT_TYPES.QUESTION_OPENED,
+  EVENT_TYPES.FIRST_EDIT,
+  EVENT_TYPES.FIRST_RUN,
+  EVENT_TYPES.FIRST_SUBMIT,
+  EVENT_TYPES.RUN_RESULT,
+  EVENT_TYPES.SUBMISSION_RESULT,
+  EVENT_TYPES.MAJOR_REWRITE,
+  EVENT_TYPES.LANGUAGE_CHANGED
+])
 
 const EVENT_LABELS: Partial<Record<string, string>> = {
   [EVENT_TYPES.QUESTION_OPENED]: "Question Opened",
   [EVENT_TYPES.FIRST_EDIT]: "First Edit",
   [EVENT_TYPES.FIRST_RUN]: "First Run",
   [EVENT_TYPES.FIRST_SUBMIT]: "First Submit",
-  [EVENT_TYPES.RUN_CODE]: "Run Code",
-  [EVENT_TYPES.SUBMIT]: "Submit",
   [EVENT_TYPES.EDITORIAL_OPENED]: "Editorial Opened",
-  [EVENT_TYPES.IDLE_STARTED]: "Idle Started",
-  [EVENT_TYPES.IDLE_ENDED]: "Idle Ended",
   [EVENT_TYPES.LANGUAGE_CHANGED]: "Language Changed",
   [EVENT_TYPES.MAJOR_REWRITE]: "Major Rewrite",
   [EVENT_TYPES.RUN_RESULT]: "Run Result",
-  [EVENT_TYPES.SUBMISSION_RESULT]: "Submission Result"
+  [EVENT_TYPES.SUBMISSION_RESULT]: "Submission Result",
+  PERIODIC: "Periodic Snapshot"
 }
 
 export function generateTimeline(session: Session): TimelineEntry[] {
-  const sorted = [...session.events].sort((a, b) => a.timestamp - b.timestamp)
+  const eventEntries = session.events
+    .filter((event) => TIMELINE_EVENT_TYPES.has(event.type))
+    .map((event) => toEventTimelineEntry(event, session.startTime))
 
-  return sorted.map((event) => toTimelineEntry(event, session.startTime))
+  const periodicEntries = session.snapshots
+    .filter((snapshot) => snapshot.trigger === "PERIODIC")
+    .map((snapshot) => toSnapshotTimelineEntry(snapshot, session.startTime))
+
+  return [...eventEntries, ...periodicEntries].sort(
+    (a, b) => a.timestamp - b.timestamp
+  )
 }
 
 export function formatTimelineLines(session: Session): string[] {
@@ -31,26 +48,36 @@ export function formatTimelineLines(session: Session): string[] {
   )
 }
 
-function toTimelineEntry(event: SessionEvent, sessionStart: number): TimelineEntry {
+function toEventTimelineEntry(event: SessionEvent, sessionStart: number): TimelineEntry {
   const elapsedMs = Math.max(0, event.timestamp - sessionStart)
 
   return {
     elapsedLabel: formatElapsed(elapsedMs),
     elapsedMs,
-    label: resolveLabel(event),
+    label: resolveEventLabel(event),
     eventType: event.type,
     timestamp: event.timestamp
   }
 }
 
-function resolveLabel(event: SessionEvent): string {
-  const base = EVENT_LABELS[event.type] ?? event.type
+function toSnapshotTimelineEntry(snapshot: Snapshot, sessionStart: number): TimelineEntry {
+  const elapsedMs = Math.max(0, snapshot.timestamp - sessionStart)
 
+  return {
+    elapsedLabel: formatElapsed(elapsedMs),
+    elapsedMs,
+    label: EVENT_LABELS.PERIODIC ?? "Periodic Snapshot",
+    eventType: "PERIODIC_SNAPSHOT",
+    timestamp: snapshot.timestamp
+  }
+}
+
+function resolveEventLabel(event: SessionEvent): string {
   if (event.type === EVENT_TYPES.RUN_RESULT || event.type === EVENT_TYPES.SUBMISSION_RESULT) {
     const status = event.metadata?.status
 
     if (typeof status === "string") {
-      return String(status)
+      return status
     }
   }
 
@@ -67,19 +94,11 @@ function resolveLabel(event: SessionEvent): string {
     const similarity = event.metadata?.similarity
 
     if (typeof similarity === "number") {
-      return `Major Rewrite (${Math.round(similarity * 100)}% similar)`
+      return "Major Rewrite"
     }
   }
 
-  if (event.type === EVENT_TYPES.IDLE_ENDED) {
-    const duration = event.metadata?.durationSeconds
-
-    if (typeof duration === "number") {
-      return `Idle Ended (${duration}s)`
-    }
-  }
-
-  return base
+  return EVENT_LABELS[event.type] ?? event.type
 }
 
 function formatElapsed(ms: number): string {
