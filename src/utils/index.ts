@@ -9,6 +9,10 @@ export {
 export { computeCodeSimilarity, isMajorRewrite } from "~/utils/code-similarity"
 export { generateTimeline, formatTimelineLines } from "~/utils/timeline-generator"
 export {
+  generateBehaviorReport,
+  formatBehaviorReport
+} from "~/utils/behavior-report-generator"
+export {
   extractResultDataFromDom,
   findResultContainers,
   RESULT_CONTAINER_SELECTORS

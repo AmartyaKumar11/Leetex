@@ -21,3 +21,7 @@ export {
   SessionMetricsService,
   createEmptySessionMetrics
 } from "~/services/session-metrics-service"
+export {
+  behavioralSignalEngine,
+  BehavioralSignalEngine
+} from "~/services/behavioral-signal-engine"

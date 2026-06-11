@@ -2,7 +2,7 @@
 
 AI-powered coding learning OS — Chrome extension. Tracks *how* you solve, not just *what* you solved.
 
-**Phase:** v0.2.1 — Observer Stabilization
+**Phase:** v0.3 — Behavioral Signal Engine
 
 Full product context → [`MASTER_CONTEXT.md`](./MASTER_CONTEXT.md)
 
@@ -16,31 +16,39 @@ npm run build    # production build → build/chrome-mv3-prod
 
 Load unpacked extension from `build/chrome-mv3-dev` (dev) or `build/chrome-mv3-prod` (prod).
 
-## What It Does (v0.2.1)
+## What It Does (v0.3)
 
 On `leetcode.com/problems/*`:
 
-- v0.2 signals + attemptHistory + timeline
-- **Periodic snapshots** every 30s (if code changed)
-- **Snapshot hashing** (SHA-256) + `similarityToPrevious`
-- **Result hardening:** `sourcePanel`, `confidence`, panel validation
-- **Session metrics:** `timeToFirstEdit`, `totalRuns`, `sessionDuration`, etc.
+- v0.2 observer: signals, attemptHistory, timeline, metrics, snapshots
+- **Behavioral Signal Engine** — 17 deterministic signals with confidence + evidence
+- **SessionAnalysis** — timeline + metrics + `behavioralSignals[]`
+- **`generateBehaviorReport()`** — human-readable behavior summary (no AI)
+
+```typescript
+import { behavioralSignalEngine } from "~/services/behavioral-signal-engine"
+import { generateBehaviorReport } from "~/utils/behavior-report-generator"
+
+const analysis = behavioralSignalEngine.analyze(session)
+const report = generateBehaviorReport(session)
+```
 
 ## Project Structure
 
 ```
 src/
+├── behavioral/
+│   ├── signal-rules.ts      # 17 rule evaluators
+│   ├── session-context.ts   # analysis context builder
+│   └── confidence.ts        # confidence helpers
 ├── services/
-│   ├── snapshot-scheduler-service.ts
-│   ├── snapshot-hash-service.ts
+│   ├── behavioral-signal-engine.ts
 │   ├── session-metrics-service.ts
-│   ├── result-extraction-service.ts
 │   └── signal-layer-service.ts
 ├── utils/
-│   ├── leetcode-result-extractor.ts
-│   ├── calculate-similarity.ts
+│   ├── behavior-report-generator.ts
 │   └── timeline-generator.ts
-└── types/               # session, snapshot, metrics, results
+└── types/                   # behavioral-signal, session-analysis, session, metrics
 ```
 
 ## Debug modes

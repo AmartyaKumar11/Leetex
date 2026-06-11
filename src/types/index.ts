@@ -25,7 +25,10 @@ export type {
 } from "~/types/results"
 export type { TimelineEntry } from "~/types/timeline"
 export type { SessionMetrics } from "~/types/metrics"
+export type { BehavioralSignal, BehavioralSignalType } from "~/types/behavioral-signal"
+export type { SessionAnalysis } from "~/types/session-analysis"
 
+export { BEHAVIORAL_SIGNALS } from "~/types/behavioral-signal"
 export { EVENT_TYPES } from "~/types/events"
 export { RESULT_STATUSES, mergeResultData, resultDataToRecord } from "~/types/results"
 export { createEmptySessionMetrics } from "~/types/metrics"

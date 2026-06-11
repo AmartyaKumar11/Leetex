@@ -1,4 +1,5 @@
 import { EDITOR_POLL_INTERVAL_MS, EDITOR_POLL_MAX_ATTEMPTS, EVENT_TYPES } from "~/constants"
+import { behavioralSignalEngine } from "~/services/behavioral-signal-engine"
 import { rewriteDetectionService } from "~/services/rewrite-detection-service"
 import {
   createEmptySessionMetrics,
@@ -11,6 +12,7 @@ import type { AttemptRecord, AttemptType } from "~/types/attempt"
 import type { EventType, RegisterEventOptions, SessionEvent } from "~/types/events"
 import type { RegisterSnapshotOptions, Snapshot, SnapshotTrigger } from "~/types/snapshot"
 import type { ResultData } from "~/types/results"
+import type { SessionAnalysis } from "~/types/session-analysis"
 import type { Difficulty, Session, SessionJSON, SessionSummary } from "~/types/session"
 import { calculateSimilarityFromCode } from "~/utils/calculate-similarity"
 import {
@@ -267,6 +269,14 @@ export class SessionManager {
     this.notifyListeners()
 
     return completedSession
+  }
+
+  analyzeSession(session: Session | null = this.currentSession): SessionAnalysis | null {
+    if (!session) {
+      return null
+    }
+
+    return behavioralSignalEngine.analyze(normalizeSession(session))
   }
 
   exportSession(session: Session | null = this.currentSession): SessionJSON | null {

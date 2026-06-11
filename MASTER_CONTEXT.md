@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
-> **Last updated:** 2026-06-03  
-> **Current phase:** v0.2.1 — Observer Stabilization  
-> **Status:** Periodic snapshots, hashing, metrics, hardened result extraction
+> **Last updated:** 2026-06-01  
+> **Current phase:** v0.3 — Behavioral Signal Engine  
+> **Status:** Deterministic behavioral signals from session data (no AI)
 
 ---
 
@@ -230,9 +230,17 @@ The entire product depends on collecting high-quality behavioral data first.
 
 | Field | Value |
 |-------|-------|
-| Version | v0.2.1 |
-| Codename | Observer Stabilization |
-| Goal | Higher-quality captured data before Behavioral Signal Engine (v0.3) |
+| Version | v0.3 |
+| Codename | Behavioral Signal Engine |
+| Goal | Convert raw session data into explainable behavioral signals |
+
+**In scope (v0.3):**
+
+- `BehavioralSignalEngine` — 17 deterministic signal rules across 7 categories
+- Confidence scoring + evidence arrays per signal
+- `SessionAnalysis` (timeline + metrics + behavioralSignals)
+- `generateBehaviorReport()` — human-readable deterministic summary
+- `sessionManager.analyzeSession()` API
 
 **In scope (v0.2.1):**
 
@@ -280,8 +288,9 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | v0.1 complete — session reconstruction proven | ✅ Done | 2026-06-01 | Live Two Sum session: OPEN/RUN/SUBMIT + export validated |
 | v0.2 Signal Layer | ✅ Done | 2026-06-01 | 10 signal features + attemptHistory + timeline util |
 | v0.2.1 Observer Stabilization | ✅ Done | 2026-06-03 | Periodic snapshots, hashing, metrics, result hardening |
+| v0.3 Behavioral Signal Engine | ✅ Done | 2026-06-01 | 17 signals, confidence/evidence, SessionAnalysis, behavior report |
 
-**Next up:** v0.3 Behavioral Signal Engine planning
+**Next up:** v0.4 (TBD — skill graph or AI diagnosis planning)
 
 ---
 
@@ -289,6 +298,7 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.3: BehavioralSignalEngine, 17 signal rules, SessionAnalysis, generateBehaviorReport |
 | 2026-06-03 | v0.2.1: periodic snapshots, SHA-256 hash, similarity, metrics, result confidence/sourcePanel |
 | 2026-06-03 | Result extraction pipeline: MutationObserver + multi-strategy DOM parsing + debug mode |
 | 2026-06-01 | v0.2 Signal Layer: behavioral events, idle/rewrite/language, results, attemptHistory, timeline |
