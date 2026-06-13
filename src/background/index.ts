@@ -1,9 +1,21 @@
 import { userIdentityService } from "~/services/user-identity-service"
 import { versionService } from "~/services/version-service"
 
-export const onInstalled = async () => {
-  await userIdentityService.initialize()
-  console.info(
-    `[LeetEx] Extension installed — ${versionService.currentVersion}`
-  )
+function initializeIdentity(): void {
+  void userIdentityService
+    .initialize()
+    .then(() => {
+      console.info(`[LeetEx] Ready — ${versionService.currentVersion}`)
+    })
+    .catch((error: unknown) => {
+      console.error("[LeetEx] User identity initialization failed", error)
+    })
 }
+
+chrome.runtime.onInstalled.addListener(() => {
+  initializeIdentity()
+})
+
+chrome.runtime.onStartup.addListener(() => {
+  initializeIdentity()
+})

@@ -37,6 +37,9 @@ npm run build
 
 Output: `build/chrome-mv3-prod/`
 
+> **Important:** Alpha testers must load **`chrome-mv3-prod`**, not `chrome-mv3-dev`.  
+> The dev build requires `npm run dev` to stay running and may show harmless WebSocket errors in `chrome://extensions` when the dev server is stopped.
+
 **Development build (for contributors):**
 
 ```bash
@@ -112,6 +115,8 @@ Your User ID persists across updates.
 | Export fails | Reload extension; check About → User ID exists |
 | Session not starting | Confirm URL matches `leetcode.com/problems/*` |
 | Build errors | Run `npm install` again; use Node 18+ |
+| `background/index.js` WebSocket error | You loaded the **dev** build without `npm run dev`. Use `npm run build` and load `chrome-mv3-prod` instead |
+| `version is missing or invalid` | Rebuild after pulling latest — Chrome requires `0.3.0` style versions in the manifest (exports still use `0.3.0-alpha`) |
 
 ---
 
