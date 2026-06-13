@@ -8,6 +8,7 @@ export {
 } from "~/utils/session-export"
 export { computeCodeSimilarity, isMajorRewrite } from "~/utils/code-similarity"
 export { generateTimeline, formatTimelineLines } from "~/utils/timeline-generator"
+export { formatTimelineForDisplay } from "~/utils/timeline-display"
 export {
   generateBehaviorReport,
   formatBehaviorReport

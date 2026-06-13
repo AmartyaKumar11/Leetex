@@ -1,9 +1,9 @@
-import cssText from "data-text:./leetcode-sidebar.css"
+import cssText from "data-text:../style.css"
 
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect } from "react"
 
-import { LeetCodeSidebar } from "~/components/leetcode-sidebar"
+import { CollapsibleSidebar } from "~/components/sidebar/collapsible-sidebar"
 import { leetcodeSessionObserver } from "~/observers/leetcode-session-observer"
 
 export const config: PlasmoCSConfig = {
@@ -31,5 +31,5 @@ export default function LeetCodeObserverUI() {
     }
   }, [])
 
-  return <LeetCodeSidebar />
+  return <CollapsibleSidebar />
 }
