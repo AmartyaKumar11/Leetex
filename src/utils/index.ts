@@ -1,11 +1,13 @@
-export { generateEventId, generateId, generateSessionId, generateSnapshotId } from "~/utils/id"
-export { formatDuration, now, toISOString } from "~/utils/time"
+export { generateEventId, generateId, generateSessionId, generateSnapshotId, generateUuidV4 } from "~/utils/id"
+export { formatDuration, formatElapsedSeconds, now, toISOString } from "~/utils/time"
 export {
   buildSessionFilename,
   downloadJsonFile,
   serializeSession,
-  serializeSessionToJson
+  serializeExportPayload,
+  serializeExportToJson
 } from "~/utils/session-export"
+export { getBrowserLabel } from "~/utils/browser-info"
 export { computeCodeSimilarity, isMajorRewrite } from "~/utils/code-similarity"
 export { generateTimeline, formatTimelineLines } from "~/utils/timeline-generator"
 export { formatTimelineForDisplay } from "~/utils/timeline-display"

@@ -25,3 +25,10 @@ export {
   behavioralSignalEngine,
   BehavioralSignalEngine
 } from "~/services/behavioral-signal-engine"
+export {
+  userIdentityService,
+  UserIdentityService
+} from "~/services/user-identity-service"
+export { versionService, VersionService } from "~/services/version-service"
+export { consentService, ConsentService } from "~/services/consent-service"
+export { exportService, ExportService } from "~/services/export-service"

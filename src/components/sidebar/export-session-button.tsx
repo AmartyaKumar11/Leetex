@@ -4,7 +4,7 @@ import { Button } from "~/components/ui/button"
 
 interface ExportSessionButtonProps {
   disabled: boolean
-  onExport: () => void
+  onExport: () => void | Promise<void>
 }
 
 export function ExportSessionButton({ disabled, onExport }: ExportSessionButtonProps) {

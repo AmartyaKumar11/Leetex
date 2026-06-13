@@ -1,4 +1,5 @@
 import { EDITOR_POLL_INTERVAL_MS, EDITOR_POLL_MAX_ATTEMPTS, EVENT_TYPES } from "~/constants"
+import { exportService } from "~/services/export-service"
 import { behavioralSignalEngine } from "~/services/behavioral-signal-engine"
 import { rewriteDetectionService } from "~/services/rewrite-detection-service"
 import {
@@ -12,6 +13,7 @@ import type { AttemptRecord, AttemptType } from "~/types/attempt"
 import type { EventType, RegisterEventOptions, SessionEvent } from "~/types/events"
 import type { RegisterSnapshotOptions, Snapshot, SnapshotTrigger } from "~/types/snapshot"
 import type { ResultData } from "~/types/results"
+import type { SessionExportPayload } from "~/types/export"
 import type { SessionAnalysis } from "~/types/session-analysis"
 import type { Difficulty, Session, SessionJSON, SessionSummary } from "~/types/session"
 import { calculateSimilarityFromCode } from "~/utils/calculate-similarity"
@@ -287,14 +289,26 @@ export class SessionManager {
     return structuredClone(sessionMetricsService.attach(normalizeSession(session)))
   }
 
-  exportSessionAsJson(session: Session | null = this.currentSession): string | null {
-    const payload = this.exportSession(session)
-
-    if (!payload) {
+  async exportSessionPayload(
+    session: Session | null = this.currentSession
+  ): Promise<SessionExportPayload | null> {
+    if (!session) {
       return null
     }
 
-    return JSON.stringify(payload, null, 2)
+    return exportService.buildExportPayload(normalizeSession(session))
+  }
+
+  async exportSessionAsJson(
+    session: Session | null = this.currentSession
+  ): Promise<string | null> {
+    const outcome = await exportService.exportSession(session)
+
+    if (!outcome.success) {
+      return null
+    }
+
+    return outcome.json
   }
 
   getSessionSummary(session: Session | null = this.currentSession): SessionSummary | null {

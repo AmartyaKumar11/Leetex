@@ -1,14 +1,18 @@
-import type { Session, SessionJSON } from "~/types/session"
+import type { Session } from "~/types/session"
+import type { SessionExportPayload } from "~/types/export"
 
-export function serializeSession(session: Session): SessionJSON {
+export function serializeSession(session: Session): Session {
   return structuredClone(session)
 }
 
-export function serializeSessionToJson(
-  session: Session,
+export function serializeExportPayload(payload: SessionExportPayload): SessionExportPayload {
+  return structuredClone(payload)
+}
+
+export function serializeExportToJson(
+  payload: SessionExportPayload,
   pretty = true
 ): string {
-  const payload = serializeSession(session)
   return JSON.stringify(payload, null, pretty ? 2 : undefined)
 }
 

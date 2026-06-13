@@ -1,21 +1,24 @@
 import { AnimatePresence, motion } from "framer-motion"
 import { X } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
-
+import { ConsentModal } from "~/components/sidebar/consent-modal"
 import { CurrentQuestionCard } from "~/components/sidebar/current-question-card"
 import { ExportSessionButton } from "~/components/sidebar/export-session-button"
 import { LearningInsightsCard } from "~/components/sidebar/learning-insights-card"
 import { SessionOverviewCard } from "~/components/sidebar/session-overview-card"
 import { StatusIndicator } from "~/components/sidebar/status-indicator"
 import { TimelineCard } from "~/components/sidebar/timeline-card"
+import { acceptConsent, useAlphaBootstrap } from "~/hooks/use-alpha-bootstrap"
 import { useSessionAnalysis } from "~/hooks/use-session-analysis"
 import { useSessionState } from "~/hooks/use-session-state"
 import { useToast } from "~/hooks/use-toast"
 import { cn } from "~/lib/utils"
-import { sessionManager } from "~/services/session-manager"
+import { exportService } from "~/services/export-service"
 import { buildSessionFilename, downloadJsonFile } from "~/utils/session-export"
 import { formatTimelineForDisplay } from "~/utils/timeline-display"
 import { now } from "~/utils/time"
+
+import { AboutLeetExCard } from "~/components/sidebar/about-leetex-card"
 
 const COLLAPSED_STORAGE_KEY = "leetex-sidebar-collapsed"
 const SIDEBAR_WIDTH = 340
@@ -51,11 +54,14 @@ function LeetExMark({ active }: { active: boolean }) {
 export function CollapsibleSidebar() {
   const session = useSessionState()
   const analysis = useSessionAnalysis(session)
+  const alpha = useAlphaBootstrap()
   const { toast, showToast } = useToast()
   const [collapsed, setCollapsed] = useState(readCollapsedPreference)
+  const [consentAccepted, setConsentAccepted] = useState(false)
   const [, setTick] = useState(0)
 
   const isActive = session?.status === "active"
+  const showConsent = !alpha.loading && !alpha.consentAccepted && !consentAccepted
 
   useEffect(() => {
     if (!session || session.endTime) {
@@ -80,14 +86,20 @@ export function CollapsibleSidebar() {
     })
   }, [])
 
-  const handleExport = () => {
-    const json = sessionManager.exportSessionAsJson()
+  const handleAcceptConsent = async () => {
+    await acceptConsent()
+    setConsentAccepted(true)
+  }
 
-    if (!json || !session) {
+  const handleExport = async () => {
+    const outcome = await exportService.exportSession(session)
+
+    if (!outcome.success) {
+      showToast(outcome.message)
       return
     }
 
-    downloadJsonFile(buildSessionFilename(session), json)
+    downloadJsonFile(buildSessionFilename(outcome.payload.session), outcome.json)
     showToast("Session exported successfully")
   }
 
@@ -105,6 +117,8 @@ export function CollapsibleSidebar() {
 
   return (
     <div className="leetex-root dark">
+      {showConsent ? <ConsentModal onAccept={handleAcceptConsent} /> : null}
+
       <AnimatePresence mode="wait" initial={false}>
         {collapsed ? (
           <motion.button
@@ -167,6 +181,11 @@ export function CollapsibleSidebar() {
                 />
                 <LearningInsightsCard insights={insights} />
                 <TimelineCard entries={timeline} />
+                <AboutLeetExCard
+                  userId={alpha.userId}
+                  version={alpha.version}
+                  extensionActive={Boolean(isActive)}
+                />
               </div>
             </div>
 

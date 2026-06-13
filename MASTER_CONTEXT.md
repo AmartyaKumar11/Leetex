@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
 > **Last updated:** 2026-06-01  
-> **Current phase:** v0.3.1 — Premium UI  
-> **Status:** Behavioral Signal Engine + floating collapsible learning companion UI
+> **Current phase:** v0.3.0-alpha — Alpha Distribution Infrastructure  
+> **Status:** Ready for 5–20 tester installs; traced exports, consent, documentation
 
 ---
 
@@ -230,9 +230,18 @@ The entire product depends on collecting high-quality behavioral data first.
 
 | Field | Value |
 |-------|-------|
-| Version | v0.3 |
-| Codename | Behavioral Signal Engine |
-| Goal | Convert raw session data into explainable behavioral signals |
+| Version | v0.3.0-alpha |
+| Codename | Alpha Distribution Infrastructure |
+| Goal | Distributable to trusted testers; traced session exports |
+
+**In scope (Alpha):**
+
+- `UserIdentityService` — UUID v4 per installation
+- `VersionService` — version on all exports
+- Export format `{ metadata, session }` with validation
+- First-launch consent modal
+- About LeetEx (User ID, version, copy)
+- README, INSTALLATION, PRIVACY, CHANGELOG
 
 **In scope (v0.3):**
 
@@ -289,9 +298,10 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | v0.2 Signal Layer | ✅ Done | 2026-06-01 | 10 signal features + attemptHistory + timeline util |
 | v0.2.1 Observer Stabilization | ✅ Done | 2026-06-03 | Periodic snapshots, hashing, metrics, result hardening |
 | v0.3 Behavioral Signal Engine | ✅ Done | 2026-06-01 | 17 signals, confidence/evidence, SessionAnalysis, behavior report |
-| v0.3.1 Premium UI | ✅ Done | 2026-06-01 | Floating pill sidebar, shadcn amber-minimal, Learning Insights, Framer Motion |
+| v0.3.1 Premium UI | ✅ Done | 2026-06-01 | Floating pill sidebar, shadcn amber-minimal, Learning Insights |
+| Alpha Distribution Infrastructure | ✅ Done | 2026-06-01 | User ID, export metadata, consent, docs |
 
-**Next up:** v0.4 (TBD — skill graph or AI diagnosis planning)
+**Next up:** Collect real-world Alpha session data from testers
 
 ---
 
@@ -299,7 +309,8 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
-| 2026-06-01 | v0.3.1: Premium floating sidebar UI — shadcn amber-minimal, Learning Insights, Framer Motion |
+| 2026-06-01 | Alpha: UserIdentityService, export metadata, consent flow, INSTALLATION/PRIVACY/CHANGELOG |
+| 2026-06-01 | v0.3.1: Premium floating sidebar UI — shadcn amber-minimal, Learning Insights |
 | 2026-06-01 | v0.3: BehavioralSignalEngine, 17 signal rules, SessionAnalysis, generateBehaviorReport |
 | 2026-06-03 | v0.2.1: periodic snapshots, SHA-256 hash, similarity, metrics, result confidence/sourcePanel |
 | 2026-06-03 | Result extraction pipeline: MutationObserver + multi-strategy DOM parsing + debug mode |

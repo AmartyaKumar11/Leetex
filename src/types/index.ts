@@ -25,6 +25,7 @@ export type {
 } from "~/types/results"
 export type { TimelineEntry } from "~/types/timeline"
 export type { SessionMetrics } from "~/types/metrics"
+export type { SessionExportPayload, ExportMetadata } from "~/types/export"
 export type { BehavioralSignal, BehavioralSignalType } from "~/types/behavioral-signal"
 export type { SessionAnalysis } from "~/types/session-analysis"
 
