@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
 > **Last updated:** 2026-06-01  
-> **Current phase:** v0.3.0-alpha — Alpha Distribution Infrastructure  
-> **Status:** Ready for 5–20 tester installs; traced exports, consent, documentation
+> **Current phase:** v0.3.1-alpha — Reliability & Result Extraction  
+> **Status:** Full run/submit outcome capture — status, testcase details, errors, runtime/memory
 
 ---
 
@@ -230,9 +230,17 @@ The entire product depends on collecting high-quality behavioral data first.
 
 | Field | Value |
 |-------|-------|
-| Version | v0.3.0-alpha |
-| Codename | Alpha Distribution Infrastructure |
-| Goal | Distributable to trusted testers; traced session exports |
+| Version | v0.3.1-alpha |
+| Codename | Reliability & Result Extraction |
+| Goal | Complete run/submit debugging context in attemptHistory |
+
+**In scope (v0.3.1):**
+
+- `errorText` for compile/runtime errors
+- Failed testcase: input, actual/expected output
+- Semantic DOM extraction (label anchors, not class names)
+- Extraction completeness gate + improved confidence
+- `[LeetEx Result Extractor]` debug logging
 
 **In scope (Alpha):**
 
@@ -300,8 +308,10 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | v0.3 Behavioral Signal Engine | ✅ Done | 2026-06-01 | 17 signals, confidence/evidence, SessionAnalysis, behavior report |
 | v0.3.1 Premium UI | ✅ Done | 2026-06-01 | Floating pill sidebar, shadcn amber-minimal, Learning Insights |
 | Alpha Distribution Infrastructure | ✅ Done | 2026-06-01 | User ID, export metadata, consent, docs |
+| v0.3.1 Result Extraction | ✅ Done | 2026-06-01 | errorText, failed testcase, semantic DOM, confidence v2 |
+| v0.3.1.2 Panel-Scoped Extraction | ✅ Done | 2026-06-01 | `.flexlayout__tab` + console-result locator; no global DOM scan |
 
-**Next up:** Collect real-world Alpha session data from testers
+**Next up:** Alpha session data collection from testers
 
 ---
 
@@ -309,6 +319,9 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.3.1.2: panel-scoped extraction — flexlayout tab + console-result; Last Executed Input |
+| 2026-06-01 | v0.3.1.1: result extraction hardening — errorCategory, panel root discovery, no early finish |
+| 2026-06-01 | v0.3.1: result extraction — errorText, failed testcase fields, semantic DOM, confidence v2 |
 | 2026-06-01 | Alpha: UserIdentityService, export metadata, consent flow, INSTALLATION/PRIVACY/CHANGELOG |
 | 2026-06-01 | v0.3.1: Premium floating sidebar UI — shadcn amber-minimal, Learning Insights |
 | 2026-06-01 | v0.3: BehavioralSignalEngine, 17 signal rules, SessionAnalysis, generateBehaviorReport |

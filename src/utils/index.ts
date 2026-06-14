@@ -20,7 +20,20 @@ export {
   findResultContainers,
   RESULT_CONTAINER_SELECTORS
 } from "~/utils/leetcode-result-extractor"
-export { isResultDebugEnabled, resultDebugLog } from "~/utils/result-extraction-debug"
+export {
+  beginResultDiagnostics,
+  endResultDiagnostics,
+  evaluateAndLogRuleFailures,
+  scanDiagnosticCandidates,
+  setDiagnosticAttempt
+} from "~/utils/result-extraction-diagnostics"
+export type { DiagnosticCandidate, DiagnosticCategory } from "~/utils/result-extraction-diagnostics"
+export {
+  isResultDebugEnabled,
+  resultDebugField,
+  resultDebugLog,
+  resultDebugWarn
+} from "~/utils/result-extraction-debug"
 export { hashCode, firstEditDebugLog } from "~/utils/code-hash"
 export { calculateSimilarity, calculateSimilarityFromCode } from "~/utils/calculate-similarity"
 export { isObserverDebugEnabled, observerDebugLog } from "~/utils/observer-debug"

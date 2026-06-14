@@ -1,13 +1,13 @@
 import {
   RESULT_EXTRACTION_TIMEOUT_MS,
-  RESULT_MAX_RETRIES,
   RESULT_RETRY_INTERVAL_MS
 } from "~/constants/result-extraction"
 import { sessionManager } from "~/services/session-manager"
 import { EVENT_TYPES } from "~/types/events"
 import {
   createEmptyResultData,
-  isResultDataEnriched,
+  isExtractionComplete,
+  isErrorResultStatus,
   mergeResultData,
   resultDataToRecord,
   type ResultData
@@ -17,7 +17,13 @@ import {
   findResultContainers,
   RESULT_CONTAINER_SELECTORS
 } from "~/utils/leetcode-result-extractor"
-import { resultDebugLog, resultDebugWarn } from "~/utils/result-extraction-debug"
+import { resultDebugField, resultDebugLog, resultDebugWarn } from "~/utils/result-extraction-debug"
+import {
+  beginResultDiagnostics,
+  endResultDiagnostics,
+  evaluateAndLogRuleFailures,
+  setDiagnosticAttempt
+} from "~/utils/result-extraction-diagnostics"
 
 type CaptureKind = "run" | "submit"
 
@@ -28,6 +34,8 @@ interface PendingCapture {
 
 export class ResultExtractionService {
   private pending: PendingCapture | null = null
+  private lastCaptureKey: string | null = null
+  private lastCaptureAt = 0
 
   async captureRunResult(): Promise<void> {
     await this.capture("run", EVENT_TYPES.RUN_RESULT)
@@ -46,18 +54,28 @@ export class ResultExtractionService {
     const abortController = new AbortController()
     this.pending = { kind, abortController }
 
-    resultDebugLog("Observer Started", { kind, selectors: RESULT_CONTAINER_SELECTORS })
+    resultDebugLog("Observer started", { kind, selectors: RESULT_CONTAINER_SELECTORS })
+
+    beginResultDiagnostics(`${kind}-${Date.now()}`, kind)
 
     const result = await this.waitForResultData(abortController.signal, kind)
 
     if (abortController.signal.aborted) {
-      resultDebugLog("Capture Aborted", { kind })
+      resultDebugLog("Capture aborted", { kind })
+      endResultDiagnostics(createEmptyResultData("Unknown"), "Capture aborted")
       return
     }
 
     this.pending = null
 
-    resultDebugLog("Extraction Success", { kind, result })
+    if (this.isDuplicateCapture(result)) {
+      resultDebugLog("Duplicate capture skipped", { kind, status: result.status })
+      return
+    }
+
+    this.rememberCapture(result)
+
+    resultDebugLog("Extraction success", { kind, result })
 
     await sessionManager.registerEvent(eventType, {
       metadata: resultDataToRecord(result),
@@ -72,6 +90,37 @@ export class ResultExtractionService {
       this.pending.abortController.abort()
       this.pending = null
     }
+  }
+
+  private isDuplicateCapture(result: ResultData): boolean {
+    const key = this.buildCaptureKey(result)
+    const now = Date.now()
+
+    if (this.lastCaptureKey === key && now - this.lastCaptureAt < 1500) {
+      return true
+    }
+
+    return false
+  }
+
+  private rememberCapture(result: ResultData): void {
+    this.lastCaptureKey = this.buildCaptureKey(result)
+    this.lastCaptureAt = Date.now()
+  }
+
+  private buildCaptureKey(result: ResultData): string {
+    return [
+      result.status,
+      result.passed ?? "",
+      result.total ?? "",
+      result.failedInput ?? "",
+      result.actualOutput ?? "",
+      result.expectedOutput ?? "",
+      result.errorText ?? "",
+      result.errorCategory ?? "",
+      result.runtime ?? "",
+      result.memory ?? ""
+    ].join("|")
   }
 
   private waitForResultData(
@@ -92,6 +141,17 @@ export class ResultExtractionService {
         finished = true
         cleanup()
 
+        if (isExtractionComplete(result)) {
+          resultDebugField("Extraction Complete", {
+            status: result.status,
+            complete: true,
+            reason
+          })
+        } else if (isErrorResultStatus(result.status)) {
+          resultDebugWarn("Extraction incomplete — missing errorText", result)
+        }
+
+        endResultDiagnostics(result, reason)
         resultDebugLog(reason, result)
         resolve(result)
       }
@@ -102,9 +162,11 @@ export class ResultExtractionService {
         }
 
         attempts += 1
+        setDiagnosticAttempt(attempts)
+
         const extracted = extractResultDataFromDom(expectedSource)
 
-        resultDebugLog("Extraction Attempt", {
+        resultDebugLog("Extraction attempt", {
           attempt: attempts,
           extracted
         })
@@ -113,25 +175,26 @@ export class ResultExtractionService {
           best = mergeResultData(best, extracted)
         }
 
-        const elapsed = Date.now() - startedAt
-        const hasStatus = best !== null && best.status !== "Unknown"
+        const current = best ?? createEmptyResultData("Unknown")
+        const hasStatus = current.status !== "Unknown"
 
-        if (hasStatus && best && isResultDataEnriched(best)) {
-          finish(best, "Extraction Complete (enriched)")
-          return
+        if (hasStatus && !isExtractionComplete(current)) {
+          evaluateAndLogRuleFailures(current)
         }
 
-        if (hasStatus && best && attempts >= RESULT_MAX_RETRIES) {
-          finish(best, "Extraction Complete (status + max retries)")
+        const elapsed = Date.now() - startedAt
+
+        if (hasStatus && isExtractionComplete(current)) {
+          finish(current, "Extraction complete")
           return
         }
 
         if (elapsed >= RESULT_EXTRACTION_TIMEOUT_MS) {
-          if (best && hasStatus) {
-            finish(best, "Timeout (status found)")
+          if (hasStatus) {
+            finish(current, "Timeout")
           } else {
-            resultDebugWarn("Timeout", { attempts, best })
-            finish(best ?? createEmptyResultData("Unknown"), "Timeout (no status)")
+            resultDebugWarn("Timeout with no status", { attempts, best })
+            finish(current, "Timeout (no status)")
           }
         }
       }
@@ -150,7 +213,7 @@ export class ResultExtractionService {
           observed.add(container)
 
           const observer = new MutationObserver(() => {
-            resultDebugLog("DOM Updated", { container: container.tagName })
+            resultDebugLog("DOM updated", { container: container.tagName })
             tryExtract()
           })
 
@@ -166,7 +229,7 @@ export class ResultExtractionService {
 
         if (observed.size === 0) {
           const fallbackObserver = new MutationObserver(() => {
-            resultDebugLog("DOM Updated", { container: "document.body" })
+            resultDebugLog("DOM updated", { container: "document.body" })
             tryExtract()
           })
 
@@ -181,6 +244,7 @@ export class ResultExtractionService {
       }
 
       const retryTimer = window.setInterval(() => {
+        attachObservers()
         tryExtract()
       }, RESULT_RETRY_INTERVAL_MS)
 

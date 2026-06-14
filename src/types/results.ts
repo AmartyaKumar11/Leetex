@@ -21,6 +21,8 @@ export interface ResultData {
   failedInput?: string | null
   actualOutput?: string | null
   expectedOutput?: string | null
+  errorText?: string | null
+  errorCategory?: string | null
   sourcePanel?: ResultSourcePanel
   confidence?: number
 }
@@ -38,6 +40,8 @@ export function createEmptyResultData(status: ResultStatus = "Unknown"): ResultD
     failedInput: null,
     actualOutput: null,
     expectedOutput: null,
+    errorText: null,
+    errorCategory: null,
     sourcePanel: "unknown",
     confidence: 0
   }
@@ -57,6 +61,8 @@ export function resultDataToRecord(result: ResultData): Record<string, unknown> 
   if (result.failedInput != null) record.failedInput = result.failedInput
   if (result.actualOutput != null) record.actualOutput = result.actualOutput
   if (result.expectedOutput != null) record.expectedOutput = result.expectedOutput
+  if (result.errorText != null) record.errorText = result.errorText
+  if (result.errorCategory != null) record.errorCategory = result.errorCategory
 
   return record
 }
@@ -76,6 +82,8 @@ export function mergeResultData(
     failedInput: incoming.failedInput ?? base.failedInput ?? null,
     actualOutput: incoming.actualOutput ?? base.actualOutput ?? null,
     expectedOutput: incoming.expectedOutput ?? base.expectedOutput ?? null,
+    errorText: incoming.errorText ?? base.errorText ?? null,
+    errorCategory: incoming.errorCategory ?? base.errorCategory ?? null,
     sourcePanel: incoming.sourcePanel ?? base.sourcePanel ?? "unknown",
     confidence: Math.max(incoming.confidence ?? 0, base.confidence ?? 0)
   }
@@ -89,28 +97,86 @@ export function isResultDataEnriched(result: ResultData): boolean {
     result.actualOutput != null ||
     result.expectedOutput != null ||
     result.runtime != null ||
-    result.memory != null
+    result.memory != null ||
+    result.errorText != null ||
+    result.errorCategory != null
   )
+}
+
+export function isErrorResultStatus(status: ResultStatus): boolean {
+  return status === "Compilation Error" || status === "Runtime Error"
+}
+
+export function isExtractionComplete(result: ResultData): boolean {
+  if (result.status === "Unknown") {
+    return false
+  }
+
+  if (result.status === "Accepted") {
+    return Boolean(result.runtime) || Boolean(result.memory)
+  }
+
+  if (result.status === "Wrong Answer") {
+    return (
+      Boolean(result.failedInput) ||
+      Boolean(result.actualOutput) ||
+      Boolean(result.expectedOutput) ||
+      (result.passed != null && result.total != null)
+    )
+  }
+
+  if (isErrorResultStatus(result.status)) {
+    return Boolean(result.errorText)
+  }
+
+  if (
+    result.status === "Time Limit Exceeded" ||
+    result.status === "Memory Limit Exceeded"
+  ) {
+    return true
+  }
+
+  return isResultDataEnriched(result)
 }
 
 export function calculateResultConfidence(result: Partial<ResultData>): number {
   let score = 0
 
   if (result.status && result.status !== "Unknown") {
-    score += 0.4
+    score += 0.12
   }
 
   if (result.passed != null && result.total != null) {
-    score += 0.2
+    score += 0.12
+  }
+
+  if (result.failedInput) {
+    score += 0.1
   }
 
   if (result.actualOutput) {
-    score += 0.2
+    score += 0.1
   }
 
   if (result.expectedOutput) {
-    score += 0.2
+    score += 0.1
   }
 
-  return Math.round(score * 100) / 100
+  if (result.runtime) {
+    score += 0.1
+  }
+
+  if (result.memory) {
+    score += 0.1
+  }
+
+  if (result.errorText) {
+    score += 0.16
+  }
+
+  if (result.errorCategory) {
+    score += 0.1
+  }
+
+  return Math.round(Math.min(1, score) * 100) / 100
 }

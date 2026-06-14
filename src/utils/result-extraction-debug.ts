@@ -23,7 +23,7 @@ export function resultDebugLog(phase: string, payload?: unknown): void {
     return
   }
 
-  const prefix = "[LeetEx:Results]"
+  const prefix = "[LeetEx Result Extractor]"
 
   if (payload !== undefined) {
     console.info(prefix, phase, payload)
@@ -33,10 +33,18 @@ export function resultDebugLog(phase: string, payload?: unknown): void {
   console.info(prefix, phase)
 }
 
+export function resultDebugField(field: string, value: unknown): void {
+  if (!isResultDebugEnabled()) {
+    return
+  }
+
+  console.info(`[LeetEx Result Extractor] ${field}`, value)
+}
+
 export function resultDebugWarn(phase: string, payload?: unknown): void {
   if (!isResultDebugEnabled()) {
     return
   }
 
-  console.warn("[LeetEx:Results]", phase, payload)
+  console.warn("[LeetEx Result Extractor]", phase, payload)
 }

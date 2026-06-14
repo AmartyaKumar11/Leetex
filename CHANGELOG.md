@@ -6,6 +6,35 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ---
 
+## [0.3.1.1-alpha] — 2026-06-01
+
+### Fixed — Result Extraction Hardening
+
+- **`errorCategory`** — SyntaxError, TypeError, CompileError, etc.
+- **Panel root discovery** — climbs DOM to full result subtree (fixes wrong-subtree extraction)
+- **Status anchor discovery** — finds panels by visible "Runtime Error", "Accepted", etc.
+- **Multiline error blocks** — SyntaxError + caret + Line N (Solution.py)
+- **No early finish** — waits until `isExtractionComplete` or timeout (removed max-retry shortcut)
+- **Accepted runtime/memory** — label chips + standalone `2 ms` / `43.8 MB` values
+- Debug: `Error Block Found`, `Extraction Complete`
+
+---
+
+## [0.3.1-alpha] — 2026-06-01
+
+### Added — Reliability & Result Extraction
+
+- **`errorText`** on attempt history for compile/runtime errors
+- Semantic label-based extraction (Input, Output, Expected, Runtime, Memory)
+- Failed testcase section detection via case row markers
+- Extraction waits until status-specific fields are complete
+- Improved confidence scoring (10 fields weighted)
+- Duplicate capture prevention (1.5s window)
+- Debug logs: `[LeetEx Result Extractor]` field-level output
+- Retries increased to 30 / 12s timeout
+
+---
+
 ## [0.3.0-alpha] — 2026-06-01
 
 ### Added — Alpha Distribution Infrastructure

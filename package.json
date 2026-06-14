@@ -1,7 +1,7 @@
 {
   "name": "leetex",
   "displayName": "LeetEx",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "AI-powered coding learning OS — LeetCode session observer",
   "author": "LeetEx",
   "scripts": {
