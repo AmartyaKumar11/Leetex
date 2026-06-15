@@ -2,7 +2,7 @@
 
 > **Last updated:** 2026-06-01  
 > **Current phase:** v0.3.1-alpha — Reliability & Result Extraction  
-> **Status:** Full run/submit outcome capture — status, testcase details, errors, runtime/memory
+> **Status:** Wrong Answer extraction verified; observer layer frozen pending Accepted runtime/memory verification
 
 ---
 
@@ -310,8 +310,11 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | Alpha Distribution Infrastructure | ✅ Done | 2026-06-01 | User ID, export metadata, consent, docs |
 | v0.3.1 Result Extraction | ✅ Done | 2026-06-01 | errorText, failed testcase, semantic DOM, confidence v2 |
 | v0.3.1.2 Panel-Scoped Extraction | ✅ Done | 2026-06-01 | `.flexlayout__tab` + console-result locator; no global DOM scan |
+| v0.3.2 Panel Model Architecture | ✅ Done | 2026-06-01 | PanelModel → normalizePanelModel; 3-layer extraction |
+| v0.3.1 Wrong Answer Extraction | ✅ Done | 2026-06-01 | failedInput/actualOutput/expectedOutput verified; Input uses `.font-menlo` selector |
+| v0.3.1 Extraction Layer Freeze | 🔄 In progress | 2026-06-01 | Pending Accepted runtime/memory verification; then tag v0.3.1-alpha |
 
-**Next up:** Alpha session data collection from testers
+**Next up:** Accepted runtime/memory verification → remove debug logs → alpha data collection
 
 ---
 
@@ -319,6 +322,8 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.3.1: Wrong Answer extraction closed — Input `.font-menlo` fix; passed/total optional in diagnostics |
+| 2026-06-01 | v0.3.2: 3-layer result extraction — panel discovery, PanelModel, normalizePanelModel |
 | 2026-06-01 | v0.3.1.2: panel-scoped extraction — flexlayout tab + console-result; Last Executed Input |
 | 2026-06-01 | v0.3.1.1: result extraction hardening — errorCategory, panel root discovery, no early finish |
 | 2026-06-01 | v0.3.1: result extraction — errorText, failed testcase fields, semantic DOM, confidence v2 |

@@ -18,8 +18,12 @@ export {
 export {
   extractResultDataFromDom,
   findResultContainers,
+  extractPanelModel,
+  normalizePanelModel,
+  findResultPanels,
   RESULT_CONTAINER_SELECTORS
 } from "~/utils/leetcode-result-extractor"
+export type { ExtractionSource, PanelModel } from "~/utils/leetcode-result-extractor"
 export {
   beginResultDiagnostics,
   endResultDiagnostics,

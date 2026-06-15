@@ -6,20 +6,6 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ---
 
-## [0.3.1.1-alpha] — 2026-06-01
-
-### Fixed — Result Extraction Hardening
-
-- **`errorCategory`** — SyntaxError, TypeError, CompileError, etc.
-- **Panel root discovery** — climbs DOM to full result subtree (fixes wrong-subtree extraction)
-- **Status anchor discovery** — finds panels by visible "Runtime Error", "Accepted", etc.
-- **Multiline error blocks** — SyntaxError + caret + Line N (Solution.py)
-- **No early finish** — waits until `isExtractionComplete` or timeout (removed max-retry shortcut)
-- **Accepted runtime/memory** — label chips + standalone `2 ms` / `43.8 MB` values
-- Debug: `Error Block Found`, `Extraction Complete`
-
----
-
 ## [0.3.1-alpha] — 2026-06-01
 
 ### Added — Reliability & Result Extraction
@@ -32,6 +18,32 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 - Duplicate capture prevention (1.5s window)
 - Debug logs: `[LeetEx Result Extractor]` field-level output
 - Retries increased to 30 / 12s timeout
+
+### Fixed — Wrong Answer Extraction (phase closed)
+
+- **Input parameter cards** — use `.font-menlo.mx-3.whitespace-pre-wrap` (not `.relative` used by Output/Expected)
+- **`failedInput` reconstruction** — `nums=[3,2,4]\ntarget=6` label/value pairs verified
+- **`passed`/`total`** — marked optional in diagnostics; LeetCode UI shows Case ✓/✗ only, not explicit counts
+- **`isExtractionComplete`** — Wrong Answer no longer requires passed/total
+- Investigation debug logs removed; `LEETEX_DEBUG_RESULTS` gated logging retained
+
+### Pending before extraction freeze
+
+- Accepted `runtime` + `memory` verification on live LeetCode panels
+
+---
+
+## [0.3.1.1-alpha] — 2026-06-01
+
+### Fixed — Result Extraction Hardening
+
+- **`errorCategory`** — SyntaxError, TypeError, CompileError, etc.
+- **Panel root discovery** — climbs DOM to full result subtree (fixes wrong-subtree extraction)
+- **Status anchor discovery** — finds panels by visible "Runtime Error", "Accepted", etc.
+- **Multiline error blocks** — SyntaxError + caret + Line N (Solution.py)
+- **No early finish** — waits until `isExtractionComplete` or timeout (removed max-retry shortcut)
+- **Accepted runtime/memory** — label chips + standalone `2 ms` / `43.8 MB` values
+- Debug: `Error Block Found`, `Extraction Complete`
 
 ---
 

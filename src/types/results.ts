@@ -120,8 +120,7 @@ export function isExtractionComplete(result: ResultData): boolean {
     return (
       Boolean(result.failedInput) ||
       Boolean(result.actualOutput) ||
-      Boolean(result.expectedOutput) ||
-      (result.passed != null && result.total != null)
+      Boolean(result.expectedOutput)
     )
   }
 
