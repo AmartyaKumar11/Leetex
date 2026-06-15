@@ -32,6 +32,7 @@ export function extractResultDataFromDom(
 
   let merged = createEmptyResultData("Unknown")
   let detectedPanel: ResultSourcePanel = "unknown"
+  let classificationReason = "no panels matched expected source"
 
   for (const { panel, source } of panels) {
     scanDiagnosticCandidates(panel)
@@ -50,8 +51,10 @@ export function extractResultDataFromDom(
 
     if (source === expectedSource) {
       detectedPanel = source
+      classificationReason = `panel matched expected source (${expectedSource})`
     } else if (detectedPanel === "unknown") {
       detectedPanel = source
+      classificationReason = `fallback to first panel (${source}); expected ${expectedSource}`
     }
   }
 
@@ -59,8 +62,21 @@ export function extractResultDataFromDom(
     return null
   }
 
-  merged.sourcePanel = validateSourcePanel(detectedPanel, expectedSource)
+  const validatedPanel = validateSourcePanel(detectedPanel, expectedSource, classificationReason)
+  merged.sourcePanel = validatedPanel
   merged.confidence = calculateResultConfidence(merged)
+
+  console.log("[RUNTIME SOURCE]", merged.runtime)
+  console.log("[SOURCE PANEL]", merged.sourcePanel)
+
+  if (merged.status === "Accepted") {
+    console.log(
+      "[EXTRACTION COMPLETE TRIGGER]",
+      Boolean(merged.runtime) || Boolean(merged.memory)
+        ? `early-complete: runtime=${merged.runtime ?? "null"}, memory=${merged.memory ?? "null"}`
+        : "not complete yet"
+    )
+  }
 
   logExtractionSummary(merged, expectedSource, merged.sourcePanel ?? "unknown")
 
@@ -69,13 +85,29 @@ export function extractResultDataFromDom(
 
 function validateSourcePanel(
   detected: ResultSourcePanel,
-  expected: ExtractionSource
+  expected: ExtractionSource,
+  reason: string
 ): ResultSourcePanel {
+  console.log("[PANEL CLASSIFICATION]")
+  console.log("[EXPECTED SOURCE]", expected)
+  console.log("[DETECTED PANEL]", detected)
+  console.log("[CLASSIFICATION REASON]", reason)
+
   if (detected === "unknown") {
+    console.log("[CLASSIFICATION REASON]", "final: detected panel is unknown")
     return "unknown"
   }
 
-  return detected === expected ? expected : "unknown"
+  if (detected !== expected) {
+    console.log(
+      "[CLASSIFICATION REASON]",
+      `final: detected (${detected}) !== expected (${expected}) → unknown`
+    )
+    return "unknown"
+  }
+
+  console.log("[CLASSIFICATION REASON]", `final: detected matches expected (${expected})`)
+  return expected
 }
 
 function hasAnyExtractedField(result: ResultData): boolean {

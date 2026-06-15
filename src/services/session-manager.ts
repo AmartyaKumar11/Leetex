@@ -175,6 +175,16 @@ export class SessionManager {
     const editorState = extractEditorState()
     const code = options.code ?? editorState.code
     const language = options.language ?? editorState.language
+
+    console.log("[SNAPSHOT CAPTURE]")
+    console.log("[CODE LENGTH]", code.length)
+    console.log("[LANGUAGE]", language)
+    console.log("[SNAPSHOT TRIGGER]", options.trigger)
+    console.log("[FIRST 200 CHARS]", code.slice(0, 200))
+    console.log("[EDITOR SOURCE]", editorState.source)
+    console.log("[MONACO AVAILABLE]", editorState.monacoAvailable)
+    console.log("[MONACO EDITOR COUNT]", editorState.monacoEditorCount)
+
     const snapshotHash = await snapshotHashService.hashCode(code)
 
     const previous = this.currentSession.snapshots.at(-1)

@@ -17,6 +17,9 @@ export function findResultPanels(expectedSource: ExtractionSource): ResultPanelM
   const panels: ResultPanelMatch[] = []
   const seen = new Set<Element>()
 
+  console.log("[PANEL CLASSIFICATION]")
+  console.log("[EXPECTED SOURCE]", expectedSource)
+
   const addPanel = (panel: Element, source: ResultSourcePanel) => {
     if (seen.has(panel) || source === "unknown") {
       return
@@ -27,20 +30,27 @@ export function findResultPanels(expectedSource: ExtractionSource): ResultPanelM
   }
 
   for (const tab of document.querySelectorAll(FLEXLAYOUT_TAB_SELECTOR)) {
-    if (tab.querySelector(CONSOLE_RESULT_LOCATOR) || tab.querySelector(TESTCASE_RESULT_LOCATOR)) {
-      addPanel(tab, "run")
-      continue
-    }
+    const classification = classifyResultPanel(tab)
 
-    if (tab.querySelector(SUBMISSION_RESULT_LOCATOR)) {
-      addPanel(tab, "submit")
+    console.log("[PANEL CLASSIFICATION]")
+    console.log("[DETECTED PANEL]", classification.panelType)
+    console.log("[CLASSIFICATION REASON]", classification.reason)
+
+    if (classification.panelType !== "unknown") {
+      addPanel(tab, classification.panelType)
     }
   }
 
   if (panels.length === 0) {
-    addPanelFromLocator(CONSOLE_RESULT_LOCATOR, "run", seen, panels)
-    addPanelFromLocator(TESTCASE_RESULT_LOCATOR, "run", seen, panels)
-    addPanelFromLocator(SUBMISSION_RESULT_LOCATOR, "submit", seen, panels)
+    addPanelFromLocator(CONSOLE_RESULT_LOCATOR, "run", seen, panels, "fallback: console-result locator")
+    addPanelFromLocator(TESTCASE_RESULT_LOCATOR, "run", seen, panels, "fallback: testcase-result locator")
+    addPanelFromLocator(
+      SUBMISSION_RESULT_LOCATOR,
+      "submit",
+      seen,
+      panels,
+      "fallback: submission-result locator"
+    )
   }
 
   panels.sort((a, b) => {
@@ -85,23 +95,62 @@ export function findResultContainers(): Element[] {
   return containers
 }
 
+function classifyResultPanel(tab: Element): {
+  panelType: ResultSourcePanel
+  reason: string
+} {
+  const hasConsole = Boolean(tab.querySelector(CONSOLE_RESULT_LOCATOR))
+  const hasTestcase = Boolean(tab.querySelector(TESTCASE_RESULT_LOCATOR))
+  const hasSubmission = Boolean(tab.querySelector(SUBMISSION_RESULT_LOCATOR))
+
+  if (hasConsole || hasTestcase) {
+    return {
+      panelType: "run",
+      reason: `console-result=${hasConsole}, testcase-result=${hasTestcase}, submission-result=${hasSubmission}`
+    }
+  }
+
+  if (hasSubmission) {
+    return {
+      panelType: "submit",
+      reason: `submission-result=${hasSubmission}, console-result=${hasConsole}, testcase-result=${hasTestcase}`
+    }
+  }
+
+  return {
+    panelType: "unknown",
+    reason: `no locators in tab (console=${hasConsole}, testcase=${hasTestcase}, submission=${hasSubmission})`
+  }
+}
+
 function addPanelFromLocator(
   locator: string,
   source: ResultSourcePanel,
   seen: Set<Element>,
-  panels: ResultPanelMatch[]
+  panels: ResultPanelMatch[],
+  reason: string
 ): void {
   const anchor = document.querySelector(locator)
 
   if (!anchor) {
+    console.log("[PANEL CLASSIFICATION]")
+    console.log("[DETECTED PANEL]", "unknown")
+    console.log("[CLASSIFICATION REASON]", `${reason}: locator not found (${locator})`)
     return
   }
 
   const tab = anchor.closest(FLEXLAYOUT_TAB_SELECTOR)
 
   if (!tab || seen.has(tab)) {
+    console.log("[PANEL CLASSIFICATION]")
+    console.log("[DETECTED PANEL]", "unknown")
+    console.log("[CLASSIFICATION REASON]", `${reason}: tab missing or duplicate (${locator})`)
     return
   }
+
+  console.log("[PANEL CLASSIFICATION]")
+  console.log("[DETECTED PANEL]", source)
+  console.log("[CLASSIFICATION REASON]", reason)
 
   seen.add(tab)
   panels.push({ panel: tab, source })

@@ -113,7 +113,7 @@ export function isExtractionComplete(result: ResultData): boolean {
   }
 
   if (result.status === "Accepted") {
-    return Boolean(result.runtime) || Boolean(result.memory)
+    return Boolean(result.runtime) && Boolean(result.memory)
   }
 
   if (result.status === "Wrong Answer") {

@@ -167,13 +167,68 @@ export function extractDifficulty(): Difficulty | null {
   return null
 }
 
-export function extractEditorState(): { code: string; language: string | null } {
+export function extractEditorState(): {
+  code: string
+  language: string | null
+  source: "monaco" | "codemirror" | "view-lines" | "empty"
+  monacoAvailable: boolean
+  monacoEditorCount: number
+} {
   const monacoState = extractMonacoEditorState()
-  const code = monacoState?.code ?? extractCodeFromDom()
-  const language =
-    monacoState?.language ?? extractSelectedLanguage() ?? inferLanguageFromCode(code)
+  const monaco = (window as Window & { monaco?: MonacoGlobal }).monaco
+  const monacoEditors = monaco?.editor?.getEditors?.() ?? []
+  const monacoAvailable = Boolean(monaco?.editor?.getEditors)
 
-  return { code, language }
+  if (monacoState) {
+    return {
+      code: monacoState.code,
+      language:
+        monacoState.language ??
+        extractSelectedLanguage() ??
+        inferLanguageFromCode(monacoState.code),
+      source: "monaco",
+      monacoAvailable,
+      monacoEditorCount: monacoEditors.length
+    }
+  }
+
+  const codeMirror = document.querySelector(".CodeMirror") as
+    | (HTMLElement & { CodeMirror?: { getValue: () => string } })
+    | null
+
+  if (codeMirror?.CodeMirror) {
+    const code = codeMirror.CodeMirror.getValue() ?? ""
+
+    return {
+      code,
+      language: extractSelectedLanguage() ?? inferLanguageFromCode(code),
+      source: "codemirror",
+      monacoAvailable,
+      monacoEditorCount: monacoEditors.length
+    }
+  }
+
+  const viewLines = document.querySelector(".view-lines")
+
+  if (viewLines?.textContent) {
+    const code = viewLines.textContent.replace(/\u00a0/g, " ").trim()
+
+    return {
+      code,
+      language: extractSelectedLanguage() ?? inferLanguageFromCode(code),
+      source: "view-lines",
+      monacoAvailable,
+      monacoEditorCount: monacoEditors.length
+    }
+  }
+
+  return {
+    code: "",
+    language: extractSelectedLanguage() ?? null,
+    source: "empty",
+    monacoAvailable,
+    monacoEditorCount: monacoEditors.length
+  }
 }
 
 export function waitForEditorState(
