@@ -2,7 +2,7 @@
 
 > **Last updated:** 2026-06-01  
 > **Current phase:** v0.4.0-alpha — Session Analytics & Replay Engine  
-> **Status:** Phase 4.2 replay + feature extraction implemented
+> **Status:** Session timeout + effective end time reliability fixes; v0.4.2 analytics in progress
 
 ---
 
@@ -326,6 +326,7 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | Reliability: 30min session inactivity timeout + getEffectiveEndTime for analytics duration |
 | 2026-06-01 | v0.4.2: ReplayGenerator + FeatureExtractor — pure event/attempt derivation |
 | 2026-06-01 | v0.4.1: analytics layer scaffold — types, thresholds, empty engines (BehavioralSignalEngine untouched) |
 | 2026-06-01 | v0.3.2: learningSourceVisits — per open→close windows on session export |

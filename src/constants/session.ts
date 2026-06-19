@@ -1,0 +1,2 @@
+/** End active session after this much inactivity (ms). */
+export const SESSION_TIMEOUT_MS = 30 * 60 * 1000

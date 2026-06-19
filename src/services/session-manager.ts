@@ -1,4 +1,4 @@
-import { EDITOR_POLL_INTERVAL_MS, EDITOR_POLL_MAX_ATTEMPTS, EVENT_TYPES } from "~/constants"
+import { EDITOR_POLL_INTERVAL_MS, EDITOR_POLL_MAX_ATTEMPTS, EVENT_TYPES, SESSION_TIMEOUT_MS } from "~/constants"
 import { exportService } from "~/services/export-service"
 import { behavioralSignalEngine } from "~/services/behavioral-signal-engine"
 import { learningSourceTrackingService } from "~/services/learning-source-tracking-service"
@@ -29,6 +29,7 @@ import {
   waitForEditorState
 } from "~/utils"
 import { observerDebugLog } from "~/utils/observer-debug"
+import { isSessionTimedOut, resolveLastActivityTimestamp } from "~/utils/session-time"
 
 export type SessionChangeListener = (session: Session | null) => void
 
@@ -80,21 +81,32 @@ export class SessionManager {
     questionSlug: string
     difficulty: Difficulty | null
   }): Promise<Session> {
+    const activityTimestamp = now()
+
     if (this.currentSession?.status === "active") {
       if (this.currentSession.questionSlug === input.questionSlug) {
-        return this.currentSession
-      }
+        const lastActivity = resolveLastActivityTimestamp(this.currentSession)
 
-      await this.endSession()
+        if (!isSessionTimedOut(lastActivity, activityTimestamp, SESSION_TIMEOUT_MS)) {
+          return this.currentSession
+        }
+
+        await this.endSession(lastActivity)
+      } else {
+        await this.endSession()
+      }
     }
+
+    const sessionStart = now()
 
     const session: Session = {
       sessionId: generateSessionId(),
       questionTitle: input.questionTitle,
       questionSlug: input.questionSlug,
       difficulty: input.difficulty,
-      startTime: now(),
+      startTime: sessionStart,
       endTime: null,
+      lastActivityTimestamp: sessionStart,
       status: "active",
       events: [],
       snapshots: [],
@@ -147,20 +159,23 @@ export class SessionManager {
     type: EventType,
     options: RegisterEventOptions = {}
   ): Promise<SessionEvent | null> {
-    if (!this.currentSession || this.currentSession.status !== "active") {
+    const activityTimestamp = now()
+
+    if (!(await this.ensureActiveSessionForActivity(activityTimestamp))) {
       return null
     }
 
     const event: SessionEvent = {
       eventId: generateEventId(),
       type,
-      timestamp: now(),
+      timestamp: activityTimestamp,
       metadata: options.metadata
     }
 
     this.currentSession = {
-      ...this.currentSession,
-      events: [...this.currentSession.events, event]
+      ...this.currentSession!,
+      events: [...this.currentSession!.events, event],
+      lastActivityTimestamp: activityTimestamp
     }
 
     await this.persistActiveSession()
@@ -173,16 +188,20 @@ export class SessionManager {
   }
 
   async registerSnapshot(options: RegisterSnapshotOptions): Promise<Snapshot | null> {
-    if (!this.currentSession || this.currentSession.status !== "active") {
+    const activityTimestamp = now()
+
+    if (!(await this.ensureActiveSessionForActivity(activityTimestamp))) {
       return null
     }
+
+    const session = this.currentSession!
 
     const editorState = extractEditorState()
     const code = options.code ?? editorState.code
     const language = options.language ?? editorState.language
     const snapshotHash = await snapshotHashService.hashCode(code)
 
-    const previous = this.currentSession.snapshots.at(-1)
+    const previous = session.snapshots.at(-1)
 
     if (previous && previous.snapshotHash === snapshotHash) {
       observerDebugLog("Snapshot Skipped (duplicate hash)", {
@@ -207,11 +226,11 @@ export class SessionManager {
 
     const snapshot: Snapshot = {
       snapshotId: generateSnapshotId(),
-      timestamp: now(),
+      timestamp: activityTimestamp,
       trigger: options.trigger,
       code,
       language,
-      questionSlug: this.currentSession.questionSlug,
+      questionSlug: session.questionSlug,
       snapshotHash,
       similarityToPrevious
     }
@@ -224,8 +243,9 @@ export class SessionManager {
     })
 
     this.currentSession = {
-      ...this.currentSession,
-      snapshots: [...this.currentSession.snapshots, snapshot]
+      ...this.currentSession!,
+      snapshots: [...this.currentSession!.snapshots, snapshot],
+      lastActivityTimestamp: activityTimestamp
     }
 
     await this.persistActiveSession()
@@ -236,25 +256,28 @@ export class SessionManager {
   }
 
   async recordAttempt(type: AttemptType, result: ResultData): Promise<void> {
-    if (!this.currentSession || this.currentSession.status !== "active") {
+    const activityTimestamp = now()
+
+    if (!(await this.ensureActiveSessionForActivity(activityTimestamp))) {
       return
     }
 
     const record: AttemptRecord = {
       ...result,
       type,
-      timestamp: now()
+      timestamp: activityTimestamp
     }
 
     this.currentSession = {
-      ...this.currentSession,
-      attemptHistory: [...this.currentSession.attemptHistory, record]
+      ...this.currentSession!,
+      attemptHistory: [...this.currentSession!.attemptHistory, record],
+      lastActivityTimestamp: activityTimestamp
     }
 
     await this.persistActiveSession()
   }
 
-  async endSession(): Promise<Session | null> {
+  async endSession(endTime?: number): Promise<Session | null> {
     if (!this.currentSession) {
       return null
     }
@@ -262,9 +285,15 @@ export class SessionManager {
     await learningSourceTrackingService.closeOnSessionEnd()
     snapshotSchedulerService.stop()
 
+    const resolvedEndTime = endTime ?? now()
+
     const completedSession: Session = sessionMetricsService.attach({
       ...this.currentSession,
-      endTime: now(),
+      endTime: resolvedEndTime,
+      lastActivityTimestamp: Math.max(
+        resolveLastActivityTimestamp(this.currentSession),
+        resolvedEndTime
+      ),
       status: "completed"
     })
 
@@ -338,6 +367,35 @@ export class SessionManager {
     }
   }
 
+  private async ensureActiveSessionForActivity(activityTimestamp: number): Promise<boolean> {
+    const session = this.currentSession
+
+    if (!session || session.status !== "active") {
+      return false
+    }
+
+    const lastActivity = resolveLastActivityTimestamp(session)
+
+    if (!isSessionTimedOut(lastActivity, activityTimestamp, SESSION_TIMEOUT_MS)) {
+      return true
+    }
+
+    const { questionTitle, questionSlug, difficulty } = session
+
+    observerDebugLog("Session timed out — starting new session", {
+      sessionId: session.sessionId,
+      questionSlug,
+      lastActivity,
+      activityTimestamp,
+      gapMs: activityTimestamp - lastActivity
+    })
+
+    await this.endSession(lastActivity)
+    await this.createSession({ questionTitle, questionSlug, difficulty })
+
+    return this.currentSession?.status === "active"
+  }
+
   private async persistActiveSession(): Promise<void> {
     if (!this.currentSession) {
       return
@@ -358,8 +416,11 @@ export class SessionManager {
 }
 
 function normalizeSession(session: Session): Session {
+  const lastActivityTimestamp = resolveLastActivityTimestamp(session)
+
   return withAggregatedLearningSources({
     ...session,
+    lastActivityTimestamp,
     attemptHistory: session.attemptHistory ?? [],
     metrics: session.metrics ?? createEmptySessionMetrics(),
     snapshots: (session.snapshots ?? []).map((snapshot) => ({

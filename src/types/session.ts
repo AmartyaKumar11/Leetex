@@ -13,6 +13,7 @@ export interface Session {
   difficulty: Difficulty | null
   startTime: number
   endTime: number | null
+  lastActivityTimestamp: number
   status: SessionStatus
   events: import("~/types/events").SessionEvent[]
   snapshots: import("~/types/snapshot").Snapshot[]

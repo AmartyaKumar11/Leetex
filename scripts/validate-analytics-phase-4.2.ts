@@ -32,6 +32,7 @@ const exampleSession: Session = {
   difficulty: "Medium",
   startTime,
   endTime: startTime + 1_092_000,
+  lastActivityTimestamp: startTime + 692_000,
   status: "completed",
   events: [
     event(EVENT_TYPES.QUESTION_OPENED, startTime),

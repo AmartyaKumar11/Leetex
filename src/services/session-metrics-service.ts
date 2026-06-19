@@ -1,12 +1,12 @@
 import { EVENT_TYPES } from "~/types/events"
 import { createEmptySessionMetrics, type SessionMetrics } from "~/types/metrics"
 import type { Session } from "~/types/session"
-import { now } from "~/utils/time"
+import { getEffectiveEndTime } from "~/utils/session-time"
 import { observerDebugLog } from "~/utils/observer-debug"
 
 export class SessionMetricsService {
   compute(session: Session): SessionMetrics {
-    const endTime = session.endTime ?? now()
+    const endTime = getEffectiveEndTime(session)
     const sessionDuration = Math.max(0, endTime - session.startTime)
 
     const metrics: SessionMetrics = {

@@ -5,6 +5,7 @@ export {
   MAJOR_REWRITE_SIMILARITY_THRESHOLD,
   SIGNAL_POLL_INTERVAL_MS
 } from "~/constants/signals"
+export { SESSION_TIMEOUT_MS } from "~/constants/session"
 export {
   RESULT_EXTRACTION_TIMEOUT_MS,
   RESULT_RETRY_INTERVAL_MS,
