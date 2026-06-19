@@ -35,7 +35,16 @@ export type {
 export { createEmptyLearningSources } from "~/types/learning-source"
 export type { SessionExportPayload, ExportMetadata } from "~/types/export"
 export type { BehavioralSignal, BehavioralSignalType } from "~/types/behavioral-signal"
-export type { SessionAnalysis } from "~/types/session-analysis"
+export type { SessionAnalysis as BehavioralSessionAnalysis } from "~/types/session-analysis"
+export type {
+  BehavioralFeatures,
+  ReplayEntry,
+  ReplayEntryCategory,
+  SessionAnalysis,
+  SessionClassification,
+  SessionSummary as AnalyticsSessionSummary
+} from "~/types/session-analysis-export"
+export { SESSION_ANALYSIS_VERSION, createPlaceholderBehavioralFeatures } from "~/types/session-analysis-export"
 
 export { BEHAVIORAL_SIGNALS } from "~/types/behavioral-signal"
 export { EVENT_TYPES } from "~/types/events"

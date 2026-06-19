@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
 > **Last updated:** 2026-06-01  
-> **Current phase:** v0.3.2-alpha — Learning Source Tracking  
-> **Status:** Learning source tracking + visit-level records; aggregation validated
+> **Current phase:** v0.4.0-alpha — Session Analytics & Replay Engine  
+> **Status:** Phase 4.1 analytics architecture scaffold (types + empty engines)
 
 ---
 
@@ -315,8 +315,9 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | v0.3.1 Extraction Layer Freeze | ✅ Done | 2026-06-01 | Accepted metrics + submit panel validated; temp debug logs removed |
 | v0.3.1-alpha Validation | ✅ Done | 2026-06-01 | Multi-session/device/user organic validation complete |
 | v0.3.2 Learning Source Tracking | ✅ Done | 2026-06-01 | OPEN/CLOSE events, learningSources aggregation, learningSourceVisits export |
+| v0.4.1 Analytics Architecture | ✅ Done | 2026-06-01 | `src/analytics/` scaffolds, session-analysis-export types, thresholds |
 
-**Next up:** Organic validation of learning source tracking (3+ sessions) → alpha data collection
+**Next up:** Phase 4.2 — replay generator + feature extractor implementation
 
 ---
 
@@ -324,6 +325,7 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.4.1: analytics layer scaffold — types, thresholds, empty engines (BehavioralSignalEngine untouched) |
 | 2026-06-01 | v0.3.2: learningSourceVisits — per open→close windows on session export |
 | 2026-06-01 | v0.3.2: learning source tracking — Editorial/Solutions/Discussion OPEN/CLOSE + learningSources |
 | 2026-06-01 | v0.3.1-alpha: extraction validated; investigation console.log removed; observer frozen |
