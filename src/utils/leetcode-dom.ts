@@ -1,4 +1,5 @@
 import type { Difficulty } from "~/types/session"
+import type { LearningSourceId, LearningSourceView } from "~/types/learning-source"
 
 const PROBLEM_PATH_PATTERN = /\/problems\/([^/]+)/
 
@@ -86,12 +87,113 @@ export function isLeetCodeProblemUrl(url = location.href): boolean {
 }
 
 export function isEditorialUrl(url = location.href): boolean {
-  try {
-    const parsed = new URL(url)
-    return parsed.pathname.includes("/editorial")
-  } catch {
-    return false
+  return detectLearningSourceFromUrl(url) === "editorial"
+}
+
+const TAB_LABEL_TO_VIEW: Record<string, LearningSourceView> = {
+  editorial: "editorial",
+  solutions: "solutions",
+  solution: "solutions",
+  discussion: "discussion",
+  discuss: "discussion",
+  description: "editor",
+  code: "editor"
+}
+
+export function detectLearningSourceFromUrl(url = location.href): LearningSourceView | null {
+  if (!isLeetCodeProblemUrl(url)) {
+    return null
   }
+
+  try {
+    const path = new URL(url).pathname
+
+    if (path.includes("/editorial")) {
+      return "editorial"
+    }
+
+    if (path.includes("/solution")) {
+      return "solutions"
+    }
+
+    if (path.includes("/discuss")) {
+      return "discussion"
+    }
+
+    if (PROBLEM_PATH_PATTERN.test(path)) {
+      return "editor"
+    }
+  } catch {
+    return null
+  }
+
+  return null
+}
+
+export function detectLearningSourceFromTab(element: Element | null): LearningSourceView | null {
+  if (!element) {
+    return null
+  }
+
+  const tab = element.closest("a, button, [role='tab']") ?? element
+  const text = tab.textContent?.trim().toLowerCase() ?? ""
+  const href = tab.getAttribute("href")?.toLowerCase() ?? ""
+
+  if (href.includes("/editorial")) {
+    return "editorial"
+  }
+
+  if (href.includes("/solution")) {
+    return "solutions"
+  }
+
+  if (href.includes("/discuss")) {
+    return "discussion"
+  }
+
+  const firstWord = text.split(/\s+/)[0] ?? ""
+
+  return TAB_LABEL_TO_VIEW[firstWord] ?? TAB_LABEL_TO_VIEW[text] ?? null
+}
+
+export function detectActiveLearningSourceTab(): LearningSourceView | null {
+  const selected =
+    document.querySelector('[role="tab"][aria-selected="true"]') ??
+    document.querySelector('[role="tab"][data-state="active"]')
+
+  if (!selected) {
+    return null
+  }
+
+  return detectLearningSourceFromTab(selected)
+}
+
+export function detectLearningSourceView(url = location.href): LearningSourceView | null {
+  const fromUrl = detectLearningSourceFromUrl(url)
+
+  if (fromUrl && fromUrl !== "editor") {
+    return fromUrl
+  }
+
+  const fromTab = detectActiveLearningSourceTab()
+
+  if (fromTab) {
+    return fromTab
+  }
+
+  return fromUrl
+}
+
+export function isEditorialTrigger(element: Element | null): boolean {
+  return detectLearningSourceFromTab(element) === "editorial"
+}
+
+export function isLearningSourceTab(element: Element | null): LearningSourceView | null {
+  return detectLearningSourceFromTab(element)
+}
+
+export function isLearningSourceId(view: LearningSourceView): view is LearningSourceId {
+  return view === "editorial" || view === "solutions" || view === "discussion"
 }
 
 export function slugToTitle(slug: string): string {
@@ -167,68 +269,13 @@ export function extractDifficulty(): Difficulty | null {
   return null
 }
 
-export function extractEditorState(): {
-  code: string
-  language: string | null
-  source: "monaco" | "codemirror" | "view-lines" | "empty"
-  monacoAvailable: boolean
-  monacoEditorCount: number
-} {
+export function extractEditorState(): { code: string; language: string | null } {
   const monacoState = extractMonacoEditorState()
-  const monaco = (window as Window & { monaco?: MonacoGlobal }).monaco
-  const monacoEditors = monaco?.editor?.getEditors?.() ?? []
-  const monacoAvailable = Boolean(monaco?.editor?.getEditors)
+  const code = monacoState?.code ?? extractCodeFromDom()
+  const language =
+    monacoState?.language ?? extractSelectedLanguage() ?? inferLanguageFromCode(code)
 
-  if (monacoState) {
-    return {
-      code: monacoState.code,
-      language:
-        monacoState.language ??
-        extractSelectedLanguage() ??
-        inferLanguageFromCode(monacoState.code),
-      source: "monaco",
-      monacoAvailable,
-      monacoEditorCount: monacoEditors.length
-    }
-  }
-
-  const codeMirror = document.querySelector(".CodeMirror") as
-    | (HTMLElement & { CodeMirror?: { getValue: () => string } })
-    | null
-
-  if (codeMirror?.CodeMirror) {
-    const code = codeMirror.CodeMirror.getValue() ?? ""
-
-    return {
-      code,
-      language: extractSelectedLanguage() ?? inferLanguageFromCode(code),
-      source: "codemirror",
-      monacoAvailable,
-      monacoEditorCount: monacoEditors.length
-    }
-  }
-
-  const viewLines = document.querySelector(".view-lines")
-
-  if (viewLines?.textContent) {
-    const code = viewLines.textContent.replace(/\u00a0/g, " ").trim()
-
-    return {
-      code,
-      language: extractSelectedLanguage() ?? inferLanguageFromCode(code),
-      source: "view-lines",
-      monacoAvailable,
-      monacoEditorCount: monacoEditors.length
-    }
-  }
-
-  return {
-    code: "",
-    language: extractSelectedLanguage() ?? null,
-    source: "empty",
-    monacoAvailable,
-    monacoEditorCount: monacoEditors.length
-  }
+  return { code, language }
 }
 
 export function waitForEditorState(
@@ -265,17 +312,6 @@ export function isRunCodeButton(element: Element | null): boolean {
 
 export function isSubmitButton(element: Element | null): boolean {
   return matchesActionButton(element, SUBMIT_BUTTON_LOCATORS, ["submit"])
-}
-
-export function isEditorialTrigger(element: Element | null): boolean {
-  if (!element) {
-    return false
-  }
-
-  const text = element.textContent?.trim().toLowerCase() ?? ""
-  const href = element.getAttribute("href")?.toLowerCase() ?? ""
-
-  return text === "editorial" || href.includes("/editorial")
 }
 
 export function waitForQuestionMetadata(

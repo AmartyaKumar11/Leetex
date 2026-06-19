@@ -11,6 +11,7 @@ import type {
 } from "~/types/export"
 import type { Session } from "~/types/session"
 import { getBrowserLabel } from "~/utils/browser-info"
+import { withAggregatedLearningSources } from "~/utils/learning-source-aggregation"
 import { toISOString } from "~/utils/time"
 
 const EXPORT_ERROR_MESSAGES: Record<ExportValidationError, string> = {
@@ -61,7 +62,9 @@ export class ExportService {
 
     return {
       metadata,
-      session: structuredClone(sessionMetricsService.attach(session))
+      session: structuredClone(
+        sessionMetricsService.attach(withAggregatedLearningSources(session))
+      )
     }
   }
 

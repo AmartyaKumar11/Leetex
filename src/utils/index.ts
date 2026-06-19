@@ -42,12 +42,18 @@ export { hashCode, firstEditDebugLog } from "~/utils/code-hash"
 export { calculateSimilarity, calculateSimilarityFromCode } from "~/utils/calculate-similarity"
 export { isObserverDebugEnabled, observerDebugLog } from "~/utils/observer-debug"
 export {
+  detectActiveLearningSourceTab,
+  detectLearningSourceFromTab,
+  detectLearningSourceFromUrl,
+  detectLearningSourceView,
   extractDifficulty,
   extractEditorState,
   extractQuestionSlug,
   extractQuestionTitle,
   isEditorialTrigger,
   isEditorialUrl,
+  isLearningSourceId,
+  isLearningSourceTab,
   isLeetCodeProblemUrl,
   isRunCodeButton,
   isSubmitButton,

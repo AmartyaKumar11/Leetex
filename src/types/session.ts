@@ -1,4 +1,5 @@
 import type { AttemptRecord } from "~/types/attempt"
+import type { LearningSources, LearningSourceVisit } from "~/types/learning-source"
 import type { SessionMetrics } from "~/types/metrics"
 
 export type Difficulty = "Easy" | "Medium" | "Hard"
@@ -17,6 +18,8 @@ export interface Session {
   snapshots: import("~/types/snapshot").Snapshot[]
   attemptHistory: AttemptRecord[]
   metrics: SessionMetrics
+  learningSources: LearningSources
+  learningSourceVisits: LearningSourceVisit[]
 }
 
 export type SessionJSON = Session

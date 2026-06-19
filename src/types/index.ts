@@ -25,6 +25,14 @@ export type {
 } from "~/types/results"
 export type { TimelineEntry } from "~/types/timeline"
 export type { SessionMetrics } from "~/types/metrics"
+export type {
+  LearningSourceId,
+  LearningSourceStats,
+  LearningSourceView,
+  LearningSourceVisit,
+  LearningSources
+} from "~/types/learning-source"
+export { createEmptyLearningSources } from "~/types/learning-source"
 export type { SessionExportPayload, ExportMetadata } from "~/types/export"
 export type { BehavioralSignal, BehavioralSignalType } from "~/types/behavioral-signal"
 export type { SessionAnalysis } from "~/types/session-analysis"

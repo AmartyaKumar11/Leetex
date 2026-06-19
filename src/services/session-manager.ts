@@ -1,6 +1,7 @@
 import { EDITOR_POLL_INTERVAL_MS, EDITOR_POLL_MAX_ATTEMPTS, EVENT_TYPES } from "~/constants"
 import { exportService } from "~/services/export-service"
 import { behavioralSignalEngine } from "~/services/behavioral-signal-engine"
+import { learningSourceTrackingService } from "~/services/learning-source-tracking-service"
 import { rewriteDetectionService } from "~/services/rewrite-detection-service"
 import {
   createEmptySessionMetrics,
@@ -16,6 +17,8 @@ import type { ResultData } from "~/types/results"
 import type { SessionExportPayload } from "~/types/export"
 import type { SessionAnalysis } from "~/types/session-analysis"
 import type { Difficulty, Session, SessionJSON, SessionSummary } from "~/types/session"
+import { createEmptyLearningSources } from "~/types/learning-source"
+import { withAggregatedLearningSources } from "~/utils/learning-source-aggregation"
 import { calculateSimilarityFromCode } from "~/utils/calculate-similarity"
 import {
   extractEditorState,
@@ -96,7 +99,9 @@ export class SessionManager {
       events: [],
       snapshots: [],
       attemptHistory: [],
-      metrics: createEmptySessionMetrics()
+      metrics: createEmptySessionMetrics(),
+      learningSources: createEmptyLearningSources(),
+      learningSourceVisits: []
     }
 
     this.currentSession = session
@@ -175,16 +180,6 @@ export class SessionManager {
     const editorState = extractEditorState()
     const code = options.code ?? editorState.code
     const language = options.language ?? editorState.language
-
-    console.log("[SNAPSHOT CAPTURE]")
-    console.log("[CODE LENGTH]", code.length)
-    console.log("[LANGUAGE]", language)
-    console.log("[SNAPSHOT TRIGGER]", options.trigger)
-    console.log("[FIRST 200 CHARS]", code.slice(0, 200))
-    console.log("[EDITOR SOURCE]", editorState.source)
-    console.log("[MONACO AVAILABLE]", editorState.monacoAvailable)
-    console.log("[MONACO EDITOR COUNT]", editorState.monacoEditorCount)
-
     const snapshotHash = await snapshotHashService.hashCode(code)
 
     const previous = this.currentSession.snapshots.at(-1)
@@ -264,6 +259,7 @@ export class SessionManager {
       return null
     }
 
+    await learningSourceTrackingService.closeOnSessionEnd()
     snapshotSchedulerService.stop()
 
     const completedSession: Session = sessionMetricsService.attach({
@@ -347,7 +343,9 @@ export class SessionManager {
       return
     }
 
-    this.currentSession = sessionMetricsService.attach(this.currentSession)
+    this.currentSession = withAggregatedLearningSources(
+      sessionMetricsService.attach(this.currentSession)
+    )
     await StorageService.saveActiveSession(this.currentSession)
     this.notifyListeners()
   }
@@ -360,7 +358,7 @@ export class SessionManager {
 }
 
 function normalizeSession(session: Session): Session {
-  return {
+  return withAggregatedLearningSources({
     ...session,
     attemptHistory: session.attemptHistory ?? [],
     metrics: session.metrics ?? createEmptySessionMetrics(),
@@ -369,7 +367,7 @@ function normalizeSession(session: Session): Session {
       snapshotHash: snapshot.snapshotHash ?? "",
       similarityToPrevious: snapshot.similarityToPrevious ?? null
     }))
-  }
+  })
 }
 
 export const sessionManager = SessionManager.getInstance()

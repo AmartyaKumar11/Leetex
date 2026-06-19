@@ -32,3 +32,7 @@ export {
 export { versionService, VersionService } from "~/services/version-service"
 export { consentService, ConsentService } from "~/services/consent-service"
 export { exportService, ExportService } from "~/services/export-service"
+export {
+  learningSourceTrackingService,
+  LearningSourceTrackingService
+} from "~/services/learning-source-tracking-service"

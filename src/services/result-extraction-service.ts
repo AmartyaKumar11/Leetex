@@ -185,12 +185,6 @@ export class ResultExtractionService {
         const elapsed = Date.now() - startedAt
 
         if (hasStatus && isExtractionComplete(current)) {
-          console.log("[EXTRACTION EARLY FINISH]", {
-            status: current.status,
-            runtime: current.runtime,
-            memory: current.memory,
-            reason: "isExtractionComplete returned true"
-          })
           finish(current, "Extraction complete")
           return
         }

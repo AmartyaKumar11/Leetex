@@ -6,6 +6,19 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ---
 
+## [0.3.2-alpha] — 2026-06-01
+
+### Added — Learning Source Tracking
+
+- **Events:** `EDITORIAL_OPENED/CLOSED`, `SOLUTION_OPENED/CLOSED`, `DISCUSSION_OPENED/CLOSED`
+- **Session field:** `learningSources` with `visits` + `timeMs` per source
+- **Session field:** `learningSourceVisits` — one record per open→close cycle (`openedAt`, `closedAt`, `durationMs`)
+- **Detection:** URL paths (`/editorial`, `/solution`, `/discuss`) + tab labels + `aria-selected`
+- **Rules:** open/close on tab transitions; session-end auto-close with `durationMs`
+- **Docs:** `docs/learning-source-dom.md`, `docs/learning-source-testing.md`
+
+---
+
 ## [0.3.1-alpha] — 2026-06-01
 
 ### Added — Reliability & Result Extraction

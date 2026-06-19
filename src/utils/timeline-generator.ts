@@ -12,7 +12,13 @@ const TIMELINE_EVENT_TYPES = new Set<string>([
   EVENT_TYPES.RUN_RESULT,
   EVENT_TYPES.SUBMISSION_RESULT,
   EVENT_TYPES.MAJOR_REWRITE,
-  EVENT_TYPES.LANGUAGE_CHANGED
+  EVENT_TYPES.LANGUAGE_CHANGED,
+  EVENT_TYPES.EDITORIAL_OPENED,
+  EVENT_TYPES.EDITORIAL_CLOSED,
+  EVENT_TYPES.SOLUTION_OPENED,
+  EVENT_TYPES.SOLUTION_CLOSED,
+  EVENT_TYPES.DISCUSSION_OPENED,
+  EVENT_TYPES.DISCUSSION_CLOSED
 ])
 
 const EVENT_LABELS: Partial<Record<string, string>> = {
@@ -21,6 +27,11 @@ const EVENT_LABELS: Partial<Record<string, string>> = {
   [EVENT_TYPES.FIRST_RUN]: "First Run",
   [EVENT_TYPES.FIRST_SUBMIT]: "First Submit",
   [EVENT_TYPES.EDITORIAL_OPENED]: "Editorial Opened",
+  [EVENT_TYPES.EDITORIAL_CLOSED]: "Editorial Closed",
+  [EVENT_TYPES.SOLUTION_OPENED]: "Solutions Opened",
+  [EVENT_TYPES.SOLUTION_CLOSED]: "Solutions Closed",
+  [EVENT_TYPES.DISCUSSION_OPENED]: "Discussion Opened",
+  [EVENT_TYPES.DISCUSSION_CLOSED]: "Discussion Closed",
   [EVENT_TYPES.LANGUAGE_CHANGED]: "Language Changed",
   [EVENT_TYPES.MAJOR_REWRITE]: "Major Rewrite",
   [EVENT_TYPES.RUN_RESULT]: "Run Result",
@@ -95,6 +106,21 @@ function resolveEventLabel(event: SessionEvent): string {
 
     if (typeof similarity === "number") {
       return "Major Rewrite"
+    }
+  }
+
+  if (
+    event.type === EVENT_TYPES.EDITORIAL_CLOSED ||
+    event.type === EVENT_TYPES.SOLUTION_CLOSED ||
+    event.type === EVENT_TYPES.DISCUSSION_CLOSED
+  ) {
+    const durationMs = event.metadata?.durationMs
+
+    if (typeof durationMs === "number") {
+      const label = EVENT_LABELS[event.type] ?? event.type
+      const seconds = Math.round(durationMs / 1000)
+
+      return `${label} (${seconds}s)`
     }
   }
 

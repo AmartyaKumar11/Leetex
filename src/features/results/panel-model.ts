@@ -72,27 +72,13 @@ const EXACT_SECTION_HEADERS = {
 
 export function extractPanelModel(panel: Element): PanelModel {
   const rawText = panel.textContent ?? ""
-  const runtime = extractRuntimeFromPanel(panel)
-  const memory = extractMemoryFromPanel(panel)
-
-  console.log("[RUNTIME BEFORE PANEL MODEL]", runtime)
-  console.log("[MEMORY BEFORE PANEL MODEL]", memory)
 
   const model: PanelModel = {
     status: extractStatusFromPanel(panel),
-    runtime,
-    memory,
+    runtime: extractRuntimeFromPanel(panel),
+    memory: extractMemoryFromPanel(panel),
     sections: discoverSections(panel),
     rawText
-  }
-
-  console.log("[PANEL MODEL BUILD]", {
-    runtime: model.runtime,
-    memory: model.memory
-  })
-
-  if (parseResultStatus(model.status) === "Accepted") {
-    logAcceptedMetricDiagnostics(panel, model)
   }
 
   if (!model.sections.Error) {
@@ -116,8 +102,6 @@ export function extractPanelModel(panel: Element): PanelModel {
 }
 
 export function normalizePanelModel(model: PanelModel): ResultData {
-  console.log("[NORMALIZATION INPUT]", model)
-
   const status = parseResultStatus(model.status)
   const result = createEmptyResultData(status)
 
@@ -187,8 +171,6 @@ function extractRuntimeFromPanel(panel: Element): string | null {
   const fromCard = extractMetricFromCard(panel, "Runtime")
 
   if (fromCard) {
-    console.log("[RUNTIME CARD]", fromCard.card)
-    console.log("[RUNTIME VALUE]", fromCard.value)
     return fromCard.value
   }
 
@@ -199,8 +181,6 @@ function extractMemoryFromPanel(panel: Element): string | null {
   const fromCard = extractMetricFromCard(panel, "Memory")
 
   if (fromCard) {
-    console.log("[MEMORY CARD]", fromCard.card)
-    console.log("[MEMORY VALUE]", fromCard.value)
     return fromCard.value
   }
 
@@ -224,14 +204,6 @@ function extractMetricFromCard(
 
     const siblingValue = composeMetricFromSiblings(card, labelNode)
     const cardValue = composeMetricFromCard(card, labelText)
-
-    console.log("[METRIC CARD EXTRACTION]", {
-      label: labelText,
-      card,
-      siblingValue,
-      cardValue
-    })
-
     const value = cardValue ?? siblingValue
 
     if (value) {
@@ -281,128 +253,6 @@ function composeMetricFromSiblings(card: Element, labelNode: Element): string | 
   return `${numericValue} ${unitValue}`
 }
 
-function logAcceptedMetricDiagnostics(panel: Element, model: PanelModel): void {
-  const runtimeProbe = probeMetricNodes(panel, "runtime", RUNTIME_VALUE_PATTERN)
-  const memoryProbe = probeMetricNodes(panel, "memory", MEMORY_VALUE_PATTERN)
-  const runtimeTrace = traceMetricExtraction(panel, "runtime", RUNTIME_VALUE_PATTERN)
-
-  console.log("[ACCEPTED PANEL FOUND]")
-  console.log(
-    "[ANALYTICS PANEL FOUND]",
-    document.body.innerText.includes("Beats")
-  )
-  console.log("[ANALYTICS IN RESULT TAB]", panel.textContent?.includes("Beats") ?? false)
-  console.log(
-    "[RUNTIME DISTRIBUTION IN TAB]",
-    panel.textContent?.includes("Runtime Distribution") ?? false
-  )
-  console.log(
-    "[MEMORY DISTRIBUTION IN TAB]",
-    panel.textContent?.includes("Memory Distribution") ?? false
-  )
-  console.log(
-    "[MEMORY LABELS document]",
-    [...document.querySelectorAll("*")].filter((el) => el.textContent?.trim() === "Memory")
-  )
-  console.log("[RUNTIME SOURCE]", runtimeTrace.source)
-  console.log("[RUNTIME NODE]", runtimeTrace.node)
-  console.log("[RUNTIME VALUE]", runtimeTrace.value)
-  console.log("[RUNTIME EXTRACTED]", model.runtime)
-  console.log("[RUNTIME CANDIDATES]", collectMetricRegexCandidates(panel, RUNTIME_VALUE_PATTERN))
-  console.log("[MEMORY CANDIDATES]", collectMetricRegexCandidates(panel, MEMORY_VALUE_PATTERN))
-  console.log("[ACCEPTED SELECTORS]", {
-    statusLocators: STATUS_LOCATORS,
-    sectionContainer: SECTION_CONTAINER_SELECTOR,
-    valueNode: VALUE_NODE_SELECTOR,
-    runtimePattern: RUNTIME_VALUE_PATTERN.source,
-    memoryPattern: MEMORY_VALUE_PATTERN.source
-  })
-  console.log("[RUNTIME NODE]", runtimeProbe.valueNode)
-  console.log("[RUNTIME TEXT]", runtimeProbe.valueNode?.textContent ?? runtimeProbe.fallbackText)
-  console.log("[RUNTIME EXTRACTED]", model.runtime)
-  console.log("[MEMORY NODE]", memoryProbe.valueNode)
-  console.log("[MEMORY TEXT]", memoryProbe.valueNode?.textContent ?? memoryProbe.fallbackText)
-  console.log("[MEMORY EXTRACTED]", model.memory)
-  console.log("[MEMORY LABEL NODE]", memoryProbe.labelNode)
-  console.log("[MEMORY LABEL TEXT]", memoryProbe.labelNode?.textContent ?? null)
-
-  logMetricLabelCandidates(panel)
-  logMetricCardTraversal(panel, "Memory")
-  logMetricCardTraversal(panel, "Runtime")
-}
-
-function logMetricLabelCandidates(panel: Element): void {
-  const memoryByTextContent = [...panel.querySelectorAll("*")].filter(
-    (el) => el.textContent?.trim() === "Memory"
-  )
-  const runtimeByTextContent = [...panel.querySelectorAll("*")].filter(
-    (el) => el.textContent?.trim() === "Runtime"
-  )
-  const memoryByDirectText = [...panel.querySelectorAll("*")].filter(
-    (el) => getDirectText(el).trim() === "Memory"
-  )
-  const runtimeByDirectText = [...panel.querySelectorAll("*")].filter(
-    (el) => getDirectText(el).trim() === "Runtime"
-  )
-
-  console.log("[METRIC LABELS]", memoryByTextContent)
-  console.log("[METRIC LABELS]", runtimeByTextContent)
-  console.log("[METRIC LABELS direct-text Memory]", memoryByDirectText)
-  console.log("[METRIC LABELS direct-text Runtime]", runtimeByDirectText)
-}
-
-function logMetricCardTraversal(panel: Element, labelText: string): void {
-  const labelNodes = [...panel.querySelectorAll("*")].filter(
-    (el) => getDirectText(el).trim() === labelText
-  )
-
-  console.log(`[METRIC CARD TRAVERSAL] ${labelText}`, { labelNodeCount: labelNodes.length })
-
-  for (const labelNode of labelNodes) {
-    const parent = labelNode.parentElement
-    const siblings = parent ? Array.from(parent.children) : []
-    const labelIndex = parent ? siblings.indexOf(labelNode) : -1
-    const followingSiblings = labelIndex >= 0 ? siblings.slice(labelIndex + 1) : []
-    const descendantSpans = parent ? [...parent.querySelectorAll("span")] : []
-    const card = findMetricCardContainer(labelNode)
-
-    console.log(`[${labelText.toUpperCase()} LABEL NODE]`, labelNode)
-    console.log(`[${labelText.toUpperCase()} LABEL PARENT]`, parent)
-    console.log(`[${labelText.toUpperCase()} LABEL SIBLINGS]`, siblings)
-    console.log(`[${labelText.toUpperCase()} FOLLOWING SIBLINGS]`, followingSiblings)
-    console.log(`[${labelText.toUpperCase()} DESCENDANT SPANS]`, descendantSpans)
-
-    for (const sibling of followingSiblings) {
-      console.log(`[${labelText.toUpperCase()} SIBLING]`, {
-        node: sibling,
-        directText: getDirectText(sibling).trim(),
-        textContent: sibling.textContent?.trim() ?? null,
-        hasLegacyValueNode: Boolean(sibling.querySelector(VALUE_NODE_SELECTOR))
-      })
-    }
-
-    if (labelText === "Memory") {
-      console.log("[MEMORY CARD]", card)
-      console.log("[MEMORY CARD TEXT]", card?.textContent?.trim() ?? null)
-    }
-
-    if (labelText === "Runtime") {
-      console.log("[RUNTIME CARD]", card)
-      console.log("[RUNTIME CARD TEXT]", card?.textContent?.trim() ?? null)
-    }
-
-    if (card) {
-      const composed = composeMetricFromCard(card, labelText)
-
-      console.log(`[${labelText.toUpperCase()} CARD COMPOSED]`, composed)
-      console.log(
-        `[${labelText.toUpperCase()} CARD INNER TEXT]`,
-        card.textContent?.replace(/\s+/g, " ").trim() ?? null
-      )
-    }
-  }
-}
-
 function findMetricCardContainer(labelNode: Element): Element | null {
   let current: Element | null = labelNode.parentElement
 
@@ -440,66 +290,6 @@ function composeMetricFromCard(card: Element, labelText: string): string | null 
   return `${getDirectText(numericSpan).trim()} ${getDirectText(unitSpan).trim()}`
 }
 
-function probeMetricNodes(
-  panel: Element,
-  label: string,
-  valuePattern: RegExp
-): {
-  labelNode: Element | null
-  valueNode: Element | null
-  fallbackText: string | null
-} {
-  const normalizedLabel = label.toLowerCase()
-  let labelNode: Element | null = null
-  let valueNode: Element | null = null
-  let fallbackText: string | null = null
-
-  for (const element of panel.querySelectorAll("*")) {
-    const direct = getDirectText(element).trim().toLowerCase()
-
-    if (direct !== normalizedLabel && !direct.startsWith(`${normalizedLabel}:`)) {
-      continue
-    }
-
-    labelNode = element
-
-    const parent = element.parentElement
-
-    if (parent) {
-      const siblings = Array.from(parent.children)
-      const index = siblings.indexOf(element)
-
-      for (let i = index + 1; i < siblings.length; i += 1) {
-        const candidate = siblings[i]!.querySelector(VALUE_NODE_SELECTOR) ?? siblings[i]
-        const text = normalizeMultiline(candidate.textContent ?? "")
-
-        if (text && valuePattern.test(text)) {
-          valueNode = candidate
-          break
-        }
-      }
-    }
-
-    if (valueNode) {
-      break
-    }
-  }
-
-  if (!valueNode) {
-    for (const element of panel.querySelectorAll("span, div, p")) {
-      const text = getDirectText(element).trim()
-
-      if (valuePattern.test(text)) {
-        valueNode = element
-        fallbackText = text.match(valuePattern)?.[0] ?? text
-        break
-      }
-    }
-  }
-
-  return { labelNode, valueNode, fallbackText }
-}
-
 function extractMetricFromPanel(
   panel: Element,
   label: string,
@@ -517,12 +307,6 @@ function extractMetricFromPanel(
     const fromSibling = readValueNearLabel(element, valuePattern)
 
     if (fromSibling) {
-      logMetricExtractionHit(label, {
-        source: "label-sibling",
-        value: fromSibling,
-        node: element,
-        labelNode: element
-      })
       return fromSibling
     }
   }
@@ -531,113 +315,11 @@ function extractMetricFromPanel(
     const text = getDirectText(element).trim()
 
     if (valuePattern.test(text)) {
-      const value = text.match(valuePattern)?.[0] ?? text
-
-      logMetricExtractionHit(label, {
-        source: "fallback-regex-scan",
-        value,
-        node: element,
-        labelNode: null
-      })
-      return value
+      return text.match(valuePattern)?.[0] ?? text
     }
   }
 
   return null
-}
-
-function logMetricExtractionHit(
-  label: string,
-  hit: {
-    source: string
-    value: string
-    node: Element
-    labelNode: Element | null
-  }
-): void {
-  if (label !== "runtime" && label !== "memory") {
-    return
-  }
-
-  const prefix = label.toUpperCase()
-
-  console.log(`[${prefix} SOURCE]`, hit.source)
-  console.log(`[${prefix} NODE]`, hit.node)
-  console.log(`[${prefix} VALUE]`, hit.value)
-
-  if (hit.labelNode) {
-    console.log(`[${prefix} LABEL NODE]`, hit.labelNode)
-  }
-}
-
-function traceMetricExtraction(
-  panel: Element,
-  label: string,
-  valuePattern: RegExp
-): { source: string | null; value: string | null; node: Element | null } {
-  const normalizedLabel = label.toLowerCase()
-
-  for (const element of panel.querySelectorAll("*")) {
-    const direct = getDirectText(element).trim().toLowerCase()
-
-    if (direct !== normalizedLabel && !direct.startsWith(`${normalizedLabel}:`)) {
-      continue
-    }
-
-    const fromSibling = readValueNearLabel(element, valuePattern)
-
-    if (fromSibling) {
-      return { source: "label-sibling", value: fromSibling, node: element }
-    }
-  }
-
-  for (const element of panel.querySelectorAll("span, div, p")) {
-    const text = getDirectText(element).trim()
-
-    if (valuePattern.test(text)) {
-      return {
-        source: "fallback-regex-scan",
-        value: text.match(valuePattern)?.[0] ?? text,
-        node: element
-      }
-    }
-  }
-
-  return { source: null, value: null, node: null }
-}
-
-function collectMetricRegexCandidates(
-  panel: Element,
-  valuePattern: RegExp
-): { index: number; directText: string; textContent: string | null; inAnalyticsSection: boolean }[] {
-  const candidates: {
-    index: number
-    directText: string
-    textContent: string | null
-    inAnalyticsSection: boolean
-  }[] = []
-
-  let index = 0
-
-  for (const element of panel.querySelectorAll("span, div, p")) {
-    const directText = getDirectText(element).trim()
-
-    if (!valuePattern.test(directText)) {
-      continue
-    }
-
-    const containerText = element.closest("div")?.textContent ?? ""
-
-    candidates.push({
-      index,
-      directText: directText.match(valuePattern)?.[0] ?? directText,
-      textContent: element.textContent?.trim() ?? null,
-      inAnalyticsSection: containerText.includes("Beats")
-    })
-    index += 1
-  }
-
-  return candidates
 }
 
 function discoverSections(panel: Element): Record<string, string> {

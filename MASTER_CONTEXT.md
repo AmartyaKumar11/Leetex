@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
 > **Last updated:** 2026-06-01  
-> **Current phase:** v0.3.1-alpha — Reliability & Result Extraction  
-> **Status:** Wrong Answer extraction verified; observer layer frozen pending Accepted runtime/memory verification
+> **Current phase:** v0.3.2-alpha — Learning Source Tracking  
+> **Status:** Learning source tracking + visit-level records; aggregation validated
 
 ---
 
@@ -312,9 +312,11 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | v0.3.1.2 Panel-Scoped Extraction | ✅ Done | 2026-06-01 | `.flexlayout__tab` + console-result locator; no global DOM scan |
 | v0.3.2 Panel Model Architecture | ✅ Done | 2026-06-01 | PanelModel → normalizePanelModel; 3-layer extraction |
 | v0.3.1 Wrong Answer Extraction | ✅ Done | 2026-06-01 | failedInput/actualOutput/expectedOutput verified; Input uses `.font-menlo` selector |
-| v0.3.1 Extraction Layer Freeze | 🔄 In progress | 2026-06-01 | Pending Accepted runtime/memory verification; then tag v0.3.1-alpha |
+| v0.3.1 Extraction Layer Freeze | ✅ Done | 2026-06-01 | Accepted metrics + submit panel validated; temp debug logs removed |
+| v0.3.1-alpha Validation | ✅ Done | 2026-06-01 | Multi-session/device/user organic validation complete |
+| v0.3.2 Learning Source Tracking | ✅ Done | 2026-06-01 | OPEN/CLOSE events, learningSources aggregation, learningSourceVisits export |
 
-**Next up:** Accepted runtime/memory verification → remove debug logs → alpha data collection
+**Next up:** Organic validation of learning source tracking (3+ sessions) → alpha data collection
 
 ---
 
@@ -322,6 +324,9 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.3.2: learningSourceVisits — per open→close windows on session export |
+| 2026-06-01 | v0.3.2: learning source tracking — Editorial/Solutions/Discussion OPEN/CLOSE + learningSources |
+| 2026-06-01 | v0.3.1-alpha: extraction validated; investigation console.log removed; observer frozen |
 | 2026-06-01 | v0.3.1: Wrong Answer extraction closed — Input `.font-menlo` fix; passed/total optional in diagnostics |
 | 2026-06-01 | v0.3.2: 3-layer result extraction — panel discovery, PanelModel, normalizePanelModel |
 | 2026-06-01 | v0.3.1.2: panel-scoped extraction — flexlayout tab + console-result; Last Executed Input |

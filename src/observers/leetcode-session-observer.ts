@@ -1,10 +1,12 @@
 import { EVENT_TYPES, TITLE_POLL_INTERVAL_MS, TITLE_POLL_MAX_ATTEMPTS } from "~/constants"
+import { learningSourceTrackingService } from "~/services/learning-source-tracking-service"
 import { signalLayerService } from "~/services/signal-layer-service"
 import { sessionManager } from "~/services/session-manager"
+import type { LearningSourceView } from "~/types/learning-source"
 import {
+  detectLearningSourceView,
   extractQuestionSlug,
-  isEditorialTrigger,
-  isEditorialUrl,
+  isLearningSourceTab,
   isLeetCodeProblemUrl,
   isRunCodeButton,
   isSubmitButton,
@@ -15,8 +17,9 @@ export class LeetCodeSessionObserver {
   private started = false
   private currentSlug: string | null = null
   private lastUrl = location.href
+  private lastSyncedView: LearningSourceView | null = null
   private urlObserver: MutationObserver | null = null
-  private editorialTracked = false
+  private tabObserver: MutationObserver | null = null
 
   async start(): Promise<void> {
     if (this.started) {
@@ -29,6 +32,7 @@ export class LeetCodeSessionObserver {
 
     this.attachClickListener()
     this.attachUrlObserver()
+    this.attachTabObserver()
 
     if (isLeetCodeProblemUrl()) {
       await this.handleProblemPage()
@@ -40,6 +44,8 @@ export class LeetCodeSessionObserver {
     signalLayerService.stop()
     this.urlObserver?.disconnect()
     this.urlObserver = null
+    this.tabObserver?.disconnect()
+    this.tabObserver = null
     document.removeEventListener("click", this.onDocumentClick, true)
   }
 
@@ -67,6 +73,18 @@ export class LeetCodeSessionObserver {
     })
   }
 
+  private attachTabObserver(): void {
+    this.tabObserver = new MutationObserver(() => {
+      void this.syncLearningSourceView("navigation")
+    })
+
+    this.tabObserver.observe(document.body, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["aria-selected", "data-state"]
+    })
+  }
+
   private onDocumentClick = (event: MouseEvent): void => {
     const target = event.target
 
@@ -86,10 +104,11 @@ export class LeetCodeSessionObserver {
       return
     }
 
-    const editorialElement = target.closest("a, button, [role='tab']")
+    const tabElement = target.closest("a, button, [role='tab']")
+    const learningView = isLearningSourceTab(tabElement)
 
-    if (isEditorialTrigger(editorialElement)) {
-      void this.trackEditorialOpened("click")
+    if (learningView) {
+      void this.syncLearningSourceView("click", learningView)
     }
   }
 
@@ -113,15 +132,10 @@ export class LeetCodeSessionObserver {
         signalLayerService.stop()
         await sessionManager.endSession()
         this.currentSlug = null
-        this.editorialTracked = false
+        this.lastSyncedView = null
+        learningSourceTrackingService.reset()
       }
 
-      return
-    }
-
-    if (isEditorialUrl()) {
-      signalLayerService.recordUserActivity()
-      await this.trackEditorialOpened("navigation")
       return
     }
 
@@ -133,9 +147,13 @@ export class LeetCodeSessionObserver {
 
     if (slug !== this.currentSlug) {
       signalLayerService.stop()
-      this.editorialTracked = false
+      this.lastSyncedView = null
       await this.handleProblemPage()
+      return
     }
+
+    signalLayerService.recordUserActivity()
+    await this.syncLearningSourceView("navigation")
   }
 
   private async handleProblemPage(): Promise<void> {
@@ -160,28 +178,39 @@ export class LeetCodeSessionObserver {
       })
 
       await signalLayerService.onSessionReady()
+      await this.syncLearningSourceView("navigation")
     } catch (error) {
       console.warn("[LeetEx] Failed to initialize session:", error)
     }
   }
 
-  private async trackEditorialOpened(source: "click" | "navigation"): Promise<void> {
-    if (this.editorialTracked) {
+  private async syncLearningSourceView(
+    trigger: "navigation" | "click",
+    explicitView?: LearningSourceView
+  ): Promise<void> {
+    if (!sessionManager.getCurrentSession()) {
       return
     }
 
-    const session = sessionManager.getCurrentSession()
+    const view = explicitView ?? detectLearningSourceView()
 
-    if (!session) {
+    if (!view) {
       return
     }
 
-    this.editorialTracked = true
-    signalLayerService.recordUserActivity()
+    const activeSource = learningSourceTrackingService.getActiveSource()
 
-    await sessionManager.registerEvent(EVENT_TYPES.EDITORIAL_OPENED, {
-      metadata: { source, url: location.href }
-    })
+    if (view !== "editor" && activeSource === view) {
+      this.lastSyncedView = view
+      return
+    }
+
+    if (view === this.lastSyncedView && trigger === "navigation") {
+      return
+    }
+
+    this.lastSyncedView = view
+    await learningSourceTrackingService.syncView(view, trigger)
   }
 }
 
