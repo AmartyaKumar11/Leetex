@@ -4,13 +4,13 @@
  * Usage:
  *   npm run analytics:test fixtures/two-sum.json
  *   npm run analytics:test fixtures/
+ *   npm run analytics:test fixtures/ --write
  */
-import { readdirSync, readFileSync, statSync } from "node:fs"
-import { extname, join, relative, resolve } from "node:path"
+import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs"
+import { basename, dirname, extname, join, relative, resolve } from "node:path"
 
 import { SessionAnalyticsEngine } from "../src/analytics/session-analytics-engine"
 import { EVENT_TYPES } from "../src/types/events"
-import type { SessionExportPayload } from "../src/types/export"
 import { createEmptyLearningSources } from "../src/types/learning-source"
 import { createEmptySessionMetrics } from "../src/types/metrics"
 import type { ResultStatus } from "../src/types/results"
@@ -53,10 +53,12 @@ interface AggregateStats {
 }
 
 function main(): void {
-  const targetArg = process.argv[2]
+  const args = process.argv.slice(2)
+  const writeAnalysis = args.includes("--write")
+  const targetArg = args.find((arg) => !arg.startsWith("--"))
 
   if (!targetArg) {
-    console.error("Usage: npm run analytics:test <file.json | directory/>")
+    console.error("Usage: npm run analytics:test <file.json | directory/> [--write]")
     process.exit(1)
   }
 
@@ -73,7 +75,13 @@ function main(): void {
 
   for (const filePath of files) {
     try {
-      results.push(analyzeFile(engine, filePath))
+      const result = analyzeFile(engine, filePath)
+
+      if (writeAnalysis) {
+        writeAnalysisArtifact(filePath, result.analysis)
+      }
+
+      results.push(result)
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
       console.error(`\nFAILED: ${relative(process.cwd(), filePath)}`)
@@ -122,6 +130,10 @@ function findJsonFilesRecursive(directory: string): string[] {
     }
 
     if (entry.isFile() && extname(entry.name).toLowerCase() === ".json") {
+      if (entry.name.endsWith("-analysis.json")) {
+        continue
+      }
+
       files.push(fullPath)
     }
   }
@@ -131,8 +143,15 @@ function findJsonFilesRecursive(directory: string): string[] {
 
 function analyzeFile(engine: SessionAnalyticsEngine, filePath: string): FileAnalysisResult {
   const raw = readFileSync(filePath, "utf8")
-  const session = parseExportedSession(raw)
+  const parsed = parseExportedJson(raw)
+  const session = extractSession(parsed)
   const analysis = engine.analyze(session)
+  const embeddedAnalysis = extractEmbeddedAnalysis(parsed)
+
+  if (embeddedAnalysis) {
+    validateEmbeddedAnalysis(embeddedAnalysis, analysis, filePath)
+  }
+
   const finalStatus = analysis.summary.finalStatus
   const flags = detectSessionFlags(analysis, session)
   const detected = buildDetectedLabels(flags)
@@ -146,17 +165,19 @@ function analyzeFile(engine: SessionAnalyticsEngine, filePath: string): FileAnal
   }
 }
 
-function parseExportedSession(rawJson: string): Session {
+function parseExportedJson(rawJson: string): Record<string, unknown> {
   const parsed: unknown = JSON.parse(rawJson)
 
   if (!parsed || typeof parsed !== "object") {
     throw new Error("Invalid JSON root")
   }
 
-  const record = parsed as Record<string, unknown>
+  return parsed as Record<string, unknown>
+}
 
+function extractSession(record: Record<string, unknown>): Session {
   if (record.session && typeof record.session === "object") {
-    return normalizeExportSession((record as SessionExportPayload).session)
+    return normalizeExportSession(record.session as Session)
   }
 
   if (typeof record.sessionId === "string" && Array.isArray(record.events)) {
@@ -164,6 +185,50 @@ function parseExportedSession(rawJson: string): Session {
   }
 
   throw new Error("Unrecognized export format — expected { session } or raw Session JSON")
+}
+
+function extractEmbeddedAnalysis(record: Record<string, unknown>): SessionAnalysis | null {
+  if (!record.analysis || typeof record.analysis !== "object") {
+    return null
+  }
+
+  return record.analysis as SessionAnalysis
+}
+
+function validateEmbeddedAnalysis(
+  embedded: SessionAnalysis,
+  computed: SessionAnalysis,
+  filePath: string
+): void {
+  const embeddedComparable = normalizeAnalysisForComparison(embedded)
+  const computedComparable = normalizeAnalysisForComparison(computed)
+
+  if (JSON.stringify(embeddedComparable) !== JSON.stringify(computedComparable)) {
+    throw new Error(
+      `Embedded analysis does not match engine output in ${relative(process.cwd(), filePath)}`
+    )
+  }
+
+  console.log(`Embedded analysis matches engine: ${relative(process.cwd(), filePath)}`)
+}
+
+function normalizeAnalysisForComparison(analysis: SessionAnalysis): Omit<SessionAnalysis, "generatedAt"> {
+  const { generatedAt: _generatedAt, ...rest } = analysis
+  return rest
+}
+
+function writeAnalysisArtifact(fixturePath: string, analysis: SessionAnalysis): void {
+  const outputPath = resolveAnalysisOutputPath(fixturePath)
+
+  writeFileSync(outputPath, `${JSON.stringify(analysis, null, 2)}\n`, "utf8")
+  console.log(`Wrote analysis artifact: ${relative(process.cwd(), outputPath)}`)
+}
+
+function resolveAnalysisOutputPath(fixturePath: string): string {
+  const directory = dirname(fixturePath)
+  const filename = basename(fixturePath, extname(fixturePath))
+
+  return join(directory, `${filename}-analysis.json`)
 }
 
 function normalizeExportSession(raw: Session): Session {

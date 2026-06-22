@@ -2,7 +2,7 @@
 
 > **Last updated:** 2026-06-01  
 > **Current phase:** v0.4.0-alpha — Session Analytics & Replay Engine  
-> **Status:** Phase 4.3 classification + snapshot analytics complete
+> **Status:** Phase 4.4 analysis embedded in session exports
 
 ---
 
@@ -319,8 +319,9 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | v0.4.2 Replay + Features | ✅ Done | 2026-06-01 | ReplayGenerator + FeatureExtractor (solving/debugging/rewrites/learning) |
 | v0.4.2 Analytics Test Harness | ✅ Done | 2026-06-01 | `npm run analytics:test` on exported session JSON fixtures |
 | v0.4.3 Classification + Snapshots | ✅ Done | 2026-06-01 | Deterministic labels + snapshot similarity metrics |
+| v0.4.4 Analysis Export Layer | ✅ Done | 2026-06-01 | `{ metadata, session, analysis }` export payload |
 
-**Next up:** Phase 4.4 — session-analysis.json export + summary session features
+**Next up:** v0.5 Cross Session Aggregation
 
 ---
 
@@ -328,6 +329,7 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.4.4: analysis embedded in export payload — SessionAnalyticsEngine runs at export time |
 | 2026-06-01 | v0.4.3: ClassificationEngine + SnapshotAnalytics — deterministic session labels |
 | 2026-06-01 | v0.4.2: analytics test harness — `scripts/test-analytics.ts` + fixture folder mode |
 | 2026-06-01 | Reliability: 30min session inactivity timeout + getEffectiveEndTime for analytics duration |

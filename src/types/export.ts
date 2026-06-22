@@ -1,3 +1,4 @@
+import type { SessionAnalysis } from "~/types/session-analysis-export"
 import type { Session } from "~/types/session"
 
 export interface ExportMetadata {
@@ -11,6 +12,7 @@ export interface ExportMetadata {
 export interface SessionExportPayload {
   metadata: ExportMetadata
   session: Session
+  analysis: SessionAnalysis | null
 }
 
 export type ExportValidationError =

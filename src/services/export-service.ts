@@ -1,4 +1,5 @@
 import { LEETEX_PLATFORM } from "~/constants/version"
+import { sessionAnalyticsEngine } from "~/analytics/session-analytics-engine"
 import { sessionMetricsService } from "~/services/session-metrics-service"
 import { userIdentityService } from "~/services/user-identity-service"
 import { versionService } from "~/services/version-service"
@@ -9,6 +10,7 @@ import type {
   ExportValidationError,
   SessionExportPayload
 } from "~/types/export"
+import type { SessionAnalysis } from "~/types/session-analysis-export"
 import type { Session } from "~/types/session"
 import { getBrowserLabel } from "~/utils/browser-info"
 import { withAggregatedLearningSources } from "~/utils/learning-source-aggregation"
@@ -60,11 +62,22 @@ export class ExportService {
       platform: LEETEX_PLATFORM
     }
 
+    const exportedSession = structuredClone(
+      sessionMetricsService.attach(withAggregatedLearningSources(session))
+    )
+
+    let analysis: SessionAnalysis | null = null
+
+    try {
+      analysis = sessionAnalyticsEngine.analyze(exportedSession)
+    } catch (error) {
+      console.warn("[LeetEx Export] Session analysis failed:", error)
+    }
+
     return {
       metadata,
-      session: structuredClone(
-        sessionMetricsService.attach(withAggregatedLearningSources(session))
-      )
+      session: exportedSession,
+      analysis
     }
   }
 

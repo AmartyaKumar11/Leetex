@@ -17,3 +17,6 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+
+#files
+fixtures/
