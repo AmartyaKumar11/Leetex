@@ -1,0 +1,770 @@
+{
+  "metadata": {
+    "userId": "5105179b-fa48-4ad4-abf6-3303bfd1c529",
+    "leetexVersion": "0.3.1-alpha",
+    "exportedAt": "2026-06-19T07:20:13.424Z",
+    "browser": "Chrome",
+    "platform": "leetcode"
+  },
+  "session": {
+    "attemptHistory": [
+      {
+        "status": "Accepted",
+        "passed": null,
+        "total": null,
+        "runtime": "0 ms",
+        "memory": "0.00 MB",
+        "failedInput": "head=[-10,-3,0,5,9]",
+        "actualOutput": null,
+        "expectedOutput": null,
+        "errorText": null,
+        "errorCategory": null,
+        "sourcePanel": "submit",
+        "confidence": 0.42,
+        "type": "SUBMIT",
+        "timestamp": 1781851652484
+      }
+    ],
+    "difficulty": "Medium",
+    "endTime": null,
+    "events": [
+      {
+        "eventId": "evt_mqjqjsb1_edcl5vgh",
+        "metadata": {
+          "difficulty": "Medium",
+          "questionSlug": "convert-sorted-list-to-binary-search-tree",
+          "questionTitle": "Convert Sorted List to Binary Search Tree"
+        },
+        "timestamp": 1781801401357,
+        "type": "QUESTION_OPENED"
+      },
+      {
+        "eventId": "evt_mqjqnt1n_0vqf9xn1",
+        "timestamp": 1781801588939,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqjqtkl0_yzpnfy2j",
+        "metadata": {
+          "durationSeconds": 268
+        },
+        "timestamp": 1781801857908,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqjqwz9p_yfbmrco4",
+        "timestamp": 1781802016909,
+        "type": "FIRST_EDIT"
+      },
+      {
+        "eventId": "evt_mqjr0k4n_34dyg9s5",
+        "timestamp": 1781802183911,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqjrkq7f_jbiwpef5",
+        "metadata": {
+          "durationSeconds": 940
+        },
+        "timestamp": 1781803124907,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqjrnmdj_onyvw8e1",
+        "timestamp": 1781803259911,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqjsf80z_vcxa8paf",
+        "metadata": {
+          "durationSeconds": 1287
+        },
+        "timestamp": 1781804547683,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqjshuc7_2w6mylby",
+        "timestamp": 1781804669911,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqjsmyqz_zbctkhz6",
+        "metadata": {
+          "durationSeconds": 238
+        },
+        "timestamp": 1781804908907,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqjspk45_ihb8xct3",
+        "timestamp": 1781805029909,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqjsr57n_skfprcnu",
+        "metadata": {
+          "durationSeconds": 73
+        },
+        "timestamp": 1781805103907,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqjt28wl_hdxi8bny",
+        "timestamp": 1781805621909,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqjt4r6s_5fm3tpzw",
+        "metadata": {
+          "durationSeconds": 117
+        },
+        "timestamp": 1781805738916,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqjt7gmz_b1kgqni0",
+        "timestamp": 1781805865211,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqjul331_ow4tkpna",
+        "metadata": {
+          "durationSeconds": 2315
+        },
+        "timestamp": 1781808180445,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqjuno9o_5j119mqm",
+        "timestamp": 1781808301212,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqjuo78s_c2pzf4u6",
+        "metadata": {
+          "durationSeconds": 24
+        },
+        "timestamp": 1781808325804,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqjur61d_rw2yu6hf",
+        "timestamp": 1781808464209,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqkiiq3r_i10doi5s",
+        "type": "FIRST_EDIT",
+        "timestamp": 1781848381095
+      },
+      {
+        "eventId": "evt_mqkilbgt_fow1blnp",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781848502093
+      },
+      {
+        "eventId": "evt_mqkj2sci_7y10j75e",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781849317122,
+        "metadata": {
+          "durationSeconds": 815
+        }
+      },
+      {
+        "eventId": "evt_mqkj5vq1_p5mnrych",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781849461465
+      },
+      {
+        "eventId": "evt_mqkjtz5v_1xx05y4f",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781850585667,
+        "metadata": {
+          "durationSeconds": 1124
+        }
+      },
+      {
+        "eventId": "evt_mqkkdzeb_mo3j9a2a",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781851519091
+      },
+      {
+        "eventId": "evt_mqkkebx6_6lkcuas4",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781851535322,
+        "metadata": {
+          "durationSeconds": 16
+        }
+      },
+      {
+        "eventId": "evt_mqkkgjyy_re6uhj7w",
+        "type": "RUN_CODE",
+        "timestamp": 1781851639066,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqkkgjzq_xra7wnxv",
+        "type": "FIRST_RUN",
+        "timestamp": 1781851639094
+      },
+      {
+        "eventId": "evt_mqkkgps0_bg22f4ad",
+        "type": "SUBMIT",
+        "timestamp": 1781851646592,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqkkgpx6_jbwxwp2g",
+        "type": "FIRST_SUBMIT",
+        "timestamp": 1781851646778
+      },
+      {
+        "eventId": "evt_mqkkgubg_8ninxvfi",
+        "type": "SUBMISSION_RESULT",
+        "timestamp": 1781851652476,
+        "metadata": {
+          "status": "Accepted",
+          "sourcePanel": "submit",
+          "confidence": 0.42,
+          "runtime": "0 ms",
+          "memory": "0.00 MB",
+          "failedInput": "head=[-10,-3,0,5,9]"
+        }
+      },
+      {
+        "eventId": "evt_mqkkjard_31ixitxl",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781851767097
+      },
+      {
+        "eventId": "evt_mqklmfpi_4bax5w9x",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781853593094,
+        "metadata": {
+          "durationSeconds": 1825
+        }
+      }
+    ],
+    "metrics": {
+      "timeToFirstEdit": 615,
+      "timeToFirstRun": 50237,
+      "timeToFirstSubmit": 50245,
+      "totalRuns": 1,
+      "totalSubmissions": 1,
+      "totalSnapshots": 50,
+      "totalActiveDuration": 43170,
+      "sessionDuration": 52212
+    },
+    "questionSlug": "convert-sorted-list-to-binary-search-tree",
+    "questionTitle": "Convert Sorted List to Binary Search Tree",
+    "sessionId": "sess_mqjqjs9z_hog09427",
+    "snapshots": [
+      {
+        "code": "/** * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": null,
+        "snapshotHash": "f9c68ac2e3ed321e5df64f0c3faa9abba83b39c21dfb89ef9208471030e76a56",
+        "snapshotId": "snap_mqjqjsq6_qahvicc7",
+        "timestamp": 1781801401902,
+        "trigger": "SESSION_START"
+      },
+      {
+        "code": "* Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};/**",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "0bb48f8ad75d80e9cc1074bdb9a51611ff282bca97806a9ca7eeecd02d0993ce",
+        "snapshotId": "snap_mqjqu33q_91ttxq3g",
+        "timestamp": 1781801881910,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "* Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "f80394ad283e2df326007d1c23c4e176db1ef344213c9427ff5bc427350bec3c",
+        "snapshotId": "snap_mqjquq8z_lnymxe3m",
+        "timestamp": 1781801911907,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "* Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {                }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 1,
+        "snapshotHash": "5bb951121c0e425bf393c81b3ab7cda135f8fc2772c4002abd3c8e1f0e596814",
+        "snapshotId": "snap_mqjqwnp1_kgpevs2t",
+        "timestamp": 1781802001909,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "* Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            7h jj     }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.96,
+        "snapshotHash": "bffa542bab10344a44c59b268e68a090206a53de31b0e2437a2c21c0b7852b17",
+        "snapshotId": "snap_mqjqxauh_vezf36ke",
+        "timestamp": 1781802031913,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "* Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {                }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.96,
+        "snapshotHash": "5bb951121c0e425bf393c81b3ab7cda135f8fc2772c4002abd3c8e1f0e596814",
+        "snapshotId": "snap_mqjqxxzo_llnctmmw",
+        "timestamp": 1781802061908,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "* Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {                }};/**",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "041fb7b1ed30f18efe95c74f7f0fe4cd5bfe5dfd087df0d6fec77eb6d344078a",
+        "snapshotId": "snap_mqjrl3bp_m6t1omli",
+        "timestamp": 1781803141909,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "* Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};/**",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 1,
+        "snapshotHash": "0bb48f8ad75d80e9cc1074bdb9a51611ff282bca97806a9ca7eeecd02d0993ce",
+        "snapshotId": "snap_mqjsfbae_27su807z",
+        "timestamp": 1781804551910,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "/** * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "f9c68ac2e3ed321e5df64f0c3faa9abba83b39c21dfb89ef9208471030e76a56",
+        "snapshotId": "snap_mqjsn12c_e8irgs94",
+        "timestamp": 1781804911908,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "/** * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {             }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 1,
+        "snapshotHash": "474068bf4a9c8157b0663be124e4b8fe34f2c26dae26e2dcc61f9bdadea9ac15",
+        "snapshotId": "snap_mqjsrj3n_jqk42s7m",
+        "timestamp": 1781805121907,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "*//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {             }}; * }; *     ListNode(int x, ListNode *next) : val(x), next(next) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode() : val(0), next(nullptr) {} *     ListNode *next; *     int val; * struct ListNode { * Definition for singly-linked list./**",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "aa24f2e304267bdfff3c6126020afad1ff4918cabc7d41ef43613992570b0f57",
+        "snapshotId": "snap_mqjstgjq_kr2z1odf",
+        "timestamp": 1781805211910,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "/** * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),  right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {             }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "144759fdf53b1838184520dcfba3eba36d09565871225fb571c842329d5c85bc",
+        "snapshotId": "snap_mqjsw14y_cn18of74",
+        "timestamp": 1781805331906,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "/** * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {             }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "fb422fcd4b2822e5d73f219a75bd0f54d34e1c0b8da4c2bfadb32663054bf6c9",
+        "snapshotId": "snap_mqjsxbfq_kac7p2rm",
+        "timestamp": 1781805391910,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "/** * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {             }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "474068bf4a9c8157b0663be124e4b8fe34f2c26dae26e2dcc61f9bdadea9ac15",
+        "snapshotId": "snap_mqjsylqc_yvkmjyrx",
+        "timestamp": 1781805451908,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "/** * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 1,
+        "snapshotHash": "f9c68ac2e3ed321e5df64f0c3faa9abba83b39c21dfb89ef9208471030e76a56",
+        "snapshotId": "snap_mqjszw15_wll6kffc",
+        "timestamp": 1781805511913,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "/** * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "e689aba89c6a40ae87047e9349363826b56b99114c36ec57e1c1d82f13df1f18",
+        "snapshotId": "snap_mqjt517n_i3zoej0a",
+        "timestamp": 1781805751907,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "/* * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//** * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 1,
+        "snapshotHash": "7d5850c8e127a7e79ce92fc19ecbf49c16142fba198f27458b224c0fb4224417",
+        "snapshotId": "snap_mqjuo8bw_638d1rv2",
+        "timestamp": 1781808327212,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "/* * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }}; */ * }; *     ListNode(int x, ListNode *next) : val(x), next(next) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode() : val(0), next(nullptr) {} *     ListNode *next; * struct ListNode { *     int val; * Definition for singly-linked list./*",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "similarityToPrevious": 0.97,
+        "snapshotHash": "c941d42e6f10991617eed7bd69c27dc1e2ca0a8d0f69fb2be44cae561d292504",
+        "snapshotId": "snap_mqjuovhc_gwiq7w4x",
+        "timestamp": 1781808357216,
+        "trigger": "PERIODIC"
+      },
+      {
+        "snapshotId": "snap_mqkiim53_vs040t4i",
+        "timestamp": 1781848375959,
+        "trigger": "SESSION_START",
+        "code": "/* * Definition for singly-linked list. * struct ListNode { *     int val; *     ListNode *next; *     ListNode() : val(0), next(nullptr) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode(int x, ListNode *next) : val(x), next(next) {} * }; *//* * Definition for a binary tree node. * struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "fcc6e3f21b2a5bd0da1ecabede6992399b367b0243317f4932e2b19b0d4df981",
+        "similarityToPrevious": 0.98
+      },
+      {
+        "snapshotId": "snap_mqkij9e6_w8unlcda",
+        "timestamp": 1781848406094,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {            }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "9ea3ae2952636903e9d747e68bd37d0f39deb8b2157c52dd8b15e95ec9ebefc9",
+        "similarityToPrevious": 0.76
+      },
+      {
+        "snapshotId": "snap_mqkju77i_8lata767",
+        "timestamp": 1781850596094,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr)    }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "cfcf3b33aaf8a225a85cc38a9f974e1fc22be4bb9a7d9f9c6f866402be6788ea",
+        "similarityToPrevious": 0.94
+      },
+      {
+        "snapshotId": "snap_mqkjuucw_onsm0j1q",
+        "timestamp": 1781850626096,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == null) return null;    }};",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "662a981e4f54ffdbe458b4103bdd28ca2b6bd52b0e8ae59a6209c03e6de795d9",
+        "similarityToPrevious": 0.96
+      },
+      {
+        "snapshotId": "snap_mqkjvhi4_2hp4xtwb",
+        "timestamp": 1781850656092,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;    }};        if(head->next == nullptr)",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "23b571a06a09497a10e58109f8b60bae42cc5886886f59e10e76c298bf7c7a18",
+        "similarityToPrevious": 0.94
+      },
+      {
+        "snapshotId": "snap_mqkjw4nk_skpy89t7",
+        "timestamp": 1781850686096,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;    }};        if(head->next == nullptr) return new TreeNode(head->val);",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "176a9d0163cd0fc4133502acbc4ce9877cebb8c99e0d557440f6b516ae123fd2",
+        "similarityToPrevious": 0.96
+      },
+      {
+        "snapshotId": "snap_mqkjwrsu_r36tucof",
+        "timestamp": 1781850716094,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;    }};        ListNode*         if(head->next == nullptr) return new TreeNode(head->val); * Definition for a binary tree node./* */ * }; *     ListNode(int x, ListNode *next) : val(x), next(next) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode() : val(0), next(nullptr) {} *     ListNode *next;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "903c2495be7c4eea27ff7bb4414d9b2eee2ca53dd89f781cbcdcfec19fa05f8d",
+        "similarityToPrevious": 0.86
+      },
+      {
+        "snapshotId": "snap_mqkjxeyb_o8ijjbxg",
+        "timestamp": 1781850746099,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;    }};        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val); * Definition for a binary tree node./* */ * }; *     ListNode(int x, ListNode *next) : val(x), next(next) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode() : val(0), next(nullptr) {} *     ListNode *next;        ListNode* fast = head;        while",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "0f80937469b197a682cc1e2693d8d7aa918a2a6767794cc85278a5a23e7757c3",
+        "similarityToPrevious": 0.95
+      },
+      {
+        "snapshotId": "snap_mqkjy23k_wu24msmr",
+        "timestamp": 1781850776096,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val); * Definition for a binary tree node./* */ * }; *     ListNode(int x, ListNode *next) : val(x), next(next) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode() : val(0), next(nullptr) {}        ListNode* fast = head;        while(fast!= nullptr){            slow = slow->next;        }            fast = fast->next-",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "98c1ac7fe339af4a70d880fa54a37437e716e0831fbc74642d4122f6d82d617e",
+        "similarityToPrevious": 0.96
+      },
+      {
+        "snapshotId": "snap_mqkjyp8t_t8opk9g3",
+        "timestamp": 1781850806093,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val); * Definition for a binary tree node./* */ * }; *     ListNode(int x, ListNode *next) : val(x), next(next) {} *     ListNode(int x) : val(x), next(nullptr) {} *     ListNode() : val(0), next(nullptr) {}        ListNode* fast = head;        while(fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "c5fc4b8e4129bbe6cc611648511209c8accb46627c18dc64745dedb8dcc703e9",
+        "similarityToPrevious": 1
+      },
+      {
+        "snapshotId": "snap_mqkjzce4_wr8x4yw7",
+        "timestamp": 1781850836092,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val); * Definition for a binary tree node./* */ * };        ListNode* fast = head;        while(fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;    }};        ListNode* middle = slow;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "d5f78ca21fc7878e683b9b253863da9f7a589016b3a813ac4ea59dc72756e75f",
+        "similarityToPrevious": 0.96
+      },
+      {
+        "snapshotId": "snap_mqkjzzjk_vhc6vxxf",
+        "timestamp": 1781850866096,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val); * Definition for a binary tree node./* */ * };        ListNode* fast = head;        while(fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;    }};        ListNode* middle = slow;        slow = head;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "24655b4fdaa34ff9d22d02afacb8025d64b4c60468b03be4806657e13df85806",
+        "similarityToPrevious": 1
+      },
+      {
+        "snapshotId": "snap_mqkk0mos_t3p2mn35",
+        "timestamp": 1781850896092,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val); * Definition for a binary tree node./* */ * };        ListNode* fast = head;        while(fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        slow->next = nullptr;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "27df56640c3267c8f4bea291f7be91b78ad60da600ef1339ea32a0b85a343b23",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqkk19u5_jk6vm3y2",
+        "timestamp": 1781850926093,
+        "trigger": "PERIODIC",
+        "code": "* struct TreeNode { *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val); * Definition for a binary tree node./* */        ListNode* fast = head;        while(fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        slow->next = nullptr;        root->left = sortedListBST()        slow = head;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "d0566a8c1e281d12535f7c7e7afe8c792489c4c2665f9a6692312537f3fdc31e",
+        "similarityToPrevious": 0.97
+      },
+      {
+        "snapshotId": "snap_mqkk1wzh_ijadg5xz",
+        "timestamp": 1781850956093,
+        "trigger": "PERIODIC",
+        "code": "*     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        ListNode* fast = head;        while(fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        slow->next = nullptr;        root->left = sortedListBST(slow);        slow = head;        root->right = sortedListBST(middle);    }};        return root;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "4b00df77ff336e316aece534908cc1f3211118800b997ab26e12f9288e8d49fc",
+        "similarityToPrevious": 0.84
+      },
+      {
+        "snapshotId": "snap_mqkk2k4s_qds0rt0x",
+        "timestamp": 1781850986092,
+        "trigger": "PERIODIC",
+        "code": "*     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        ListNode* fast = head;        while(fasfast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        slow->next = nullptr;        root->left = sortedListBST(slow);        slow = head;        root->right = sortedListBST(middle);    }};        return root;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "55a299ebc9ab5c75dfc0cdcaeec9277a3bc6e5262d3d6e5e44e3173272cc0d7b",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqkk37a4_n6h1lwxb",
+        "timestamp": 1781851016092,
+        "trigger": "PERIODIC",
+        "code": "*     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        ListNode* fast = head;        while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        slow->next = nullptr;        root->left = sortedListBST(slow);        slow = head;        root->right = sortedListBST(middle);    }};        return root;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "87e7c06576afe5546c7404d5fcd24ae91049ef8c55e2ba615a68aa3689727df3",
+        "similarityToPrevious": 0.97
+      },
+      {
+        "snapshotId": "snap_mqkk3ufj_eibmsvul",
+        "timestamp": 1781851046095,
+        "trigger": "PERIODIC",
+        "code": "*     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        ListNode* fast = head;        while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        slow->next = nullptr;        root->left = sortedListBST(slow);        slow = head;        root->right = sortedListBST(middle);    }};        return root;        ListNode* temp = new ListNode(0);        temp",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "7f190b7bbe1ee11e1f219b2c9889c47964c20c937be13261bd38a9003de72cc1",
+        "similarityToPrevious": 0.98
+      },
+      {
+        "snapshotId": "snap_mqkk4hkt_417qci18",
+        "timestamp": 1781851076093,
+        "trigger": "PERIODIC",
+        "code": "while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(slow);        root->right = sortedListBST(middle);    }};        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;",
+        "language": null,
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "b8cb9d39d37b5cae2d622afd3c9ed2414f1bcf90e58e2e07c918f666067f228f",
+        "similarityToPrevious": 0.61
+      },
+      {
+        "snapshotId": "snap_mqkk54q4_y8xyz2cq",
+        "timestamp": 1781851106092,
+        "trigger": "PERIODIC",
+        "code": "while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(slow);        root->right = sortedListBST(middle);    }};        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * };",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "b71eeacfe06b03ef9a6e720eb9247fd7f8b1d51c43625cbdbfaa3852e057818c",
+        "similarityToPrevious": 0.71
+      },
+      {
+        "snapshotId": "snap_mqkk5rvi_b51y41rn",
+        "timestamp": 1781851136094,
+        "trigger": "PERIODIC",
+        "code": "while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(temp);        root->right = sortedListBST(middle);    }};        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * };        temp = head;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "e22effca08a7d198204c559e65a3e7d57b7dceacd4a0b523bcc33a5c2e62ba0c",
+        "similarityToPrevious": 0.97
+      },
+      {
+        "snapshotId": "snap_mqkk6f0t_q9419tt0",
+        "timestamp": 1781851166093,
+        "trigger": "PERIODIC",
+        "code": "while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(temp);        root->right = sortedListBST(middle);    }};        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * };        temp = head;        TreeNode* root = new TreeNode(head);",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "635032d6fb5e9c8676967d3cb559a7b5eee8f22ae1b273d6db82c6206d2d2c87",
+        "similarityToPrevious": 1
+      },
+      {
+        "snapshotId": "snap_mqkk726y_ohtpfvip",
+        "timestamp": 1781851196122,
+        "trigger": "PERIODIC",
+        "code": "while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(temp);        root->right = sortedListBST(middle);    }};        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * };        temp = head;        TreeNode* root = new TreeNode(head->val);",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "d28f3c03a720001ebc3718fa189e7dd49db7f437cbee4caaf44d2c50057fb6b6",
+        "similarityToPrevious": 1
+      },
+      {
+        "snapshotId": "snap_mqkk8cgx_x71blkml",
+        "timestamp": 1781851256097,
+        "trigger": "PERIODIC",
+        "code": "while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(temp);        root->right = sortedListBST(middle->next);    }};        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * };        temp = head;        TreeNode* root = new TreeNode(head->val);",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "ae41ee61cfe577f5a07fb6f6b4326b987b0bd2deee1a4913e0638272f4c20a65",
+        "similarityToPrevious": 0.98
+      },
+      {
+        "snapshotId": "snap_mqkk8zm4_3hpu4ymm",
+        "timestamp": 1781851286092,
+        "trigger": "PERIODIC",
+        "code": "while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(temp);        root->right = sortedListBST(middle->next);    }};        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * };        temp = head;        reeNode* root = new TreeNode(->val);",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "597c013a80510ad73924e9aec06dde13e6d4ba92283bca5316dccd50e9c6ec9e",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqkk9mrh_wd2zkr5f",
+        "timestamp": 1781851316093,
+        "trigger": "PERIODIC",
+        "code": "while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(temp);        root->right = sortedListBST(middle->next);    }};        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * };        temp = head;        reeNode* root = new TreeNode(middle->val);",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "f03f2917c9879ab96848851b0af6de3631553acdff2e49a9e4403ed06cb301f9",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqkkax27_ebyd4n2y",
+        "timestamp": 1781851376095,
+        "trigger": "PERIODIC",
+        "code": "while(fast->next!= nullptr && fast!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(temp);        root->right = sortedListBST(middle->next);        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        temp = head;        reeNode* root = new TreeNode(middle->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * }; *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode *right; *     TreeNode *left;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "c6520d0dc06bfb8fec327e4b9025c06725ff7146e4f5ecb43670e34c8c5db3f9",
+        "similarityToPrevious": 0.86
+      },
+      {
+        "snapshotId": "snap_mqkkbk7h_8yrhjj7w",
+        "timestamp": 1781851406093,
+        "trigger": "PERIODIC",
+        "code": "while(fast!= nullptr && fast->next!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(temp);        root->right = sortedListBST(middle->next);        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        temp = head;        reeNode* root = new TreeNode(middle->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * }; *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode *right; *     TreeNode *left;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "46b559a1c8d30cd9f9a767db50cd9ecfc8484e98a125b165913864660a83c39a",
+        "similarityToPrevious": 1
+      },
+      {
+        "snapshotId": "snap_mqkkff3l_jvcf1e9r",
+        "timestamp": 1781851586097,
+        "trigger": "PERIODIC",
+        "code": "while(fast!= nullptr && fast->next!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListBST(temp);        root->right = sortedListBST(middle->next);        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        temp = head;        TreeNode* root = new TreeNode(middle->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * }; *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode *right; *     TreeNode *left;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "ee88cd98db366755b59137cf9cdf59c07b5759a544713b25cb0f6c94f8519fcc",
+        "similarityToPrevious": 1
+      },
+      {
+        "snapshotId": "snap_mqkkg28u_22g1203e",
+        "timestamp": 1781851616094,
+        "trigger": "PERIODIC",
+        "code": "while(fast!= nullptr && fast->next!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListToBST(temp);        root->right = sortedListToBST(middle->next);        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        temp = head;        TreeNode* root = new TreeNode(middle->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * }; *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode *right; *     TreeNode *left;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "2dca934a72e0f8e1a7bcf8be68c5d20a2f2662a1ca433b5a7b80815839c73f77",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqkkgjzk_83t1u0bx",
+        "timestamp": 1781851639088,
+        "trigger": "RUN_CODE",
+        "code": "while(fast!= nullptr && fast->next!= nullptr){            slow = slow->next;        }            fast = fast->next->next;        ListNode* middle = slow;        temp->next = nullptr;        root->left = sortedListToBST(head);        root->right = sortedListToBST(middle->next);        return root;        ListNode* temp = new ListNode(0);        temp->next = head;            temp = temp->next;        ListNode* fast = head;        ListNode* slow = head;        if(head->next == nullptr) return new TreeNode(head->val);        TreeNode* root = new TreeNode(middle->val);        if(head == nullptr) return nullptr;    TreeNode* sortedListToBST(ListNode* head) {public:class Solution { */ * }; *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right (right) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode *right; *     TreeNode *left;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "fc88960f97ead715d46d902270287da63109c99472a960c736fd95dbe6977b90",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqklmi0v_5zgndfek",
+        "timestamp": 1781853596095,
+        "trigger": "PERIODIC",
+        "code": "*     TreeNode *left; *     TreeNode *right; *     TreeNode() : val(0), left(nullptr), right(nullptr) {} *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {} *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {} * }; */class Solution {public:    TreeNode* sortedListToBST(ListNode* head) {        if(head == nullptr) return nullptr;        if(head->next == nullptr) return new TreeNode(head->val);        ListNode* slow = head;        ListNode* fast = head;        ListNode* temp = new ListNode(0);        temp->next = head;        while(fast!= nullptr && fast->next!= nullptr){            temp = temp->next;            slow = slow->next;            fast = fast->next->next;        }        ListNode* middle = slow;",
+        "language": "cpp",
+        "questionSlug": "convert-sorted-list-to-binary-search-tree",
+        "snapshotHash": "9927a34f2e821a222aac31f7db115da0052bf5cf89b83b97fd2fb4eac34c7537",
+        "similarityToPrevious": 0.93
+      }
+    ],
+    "startTime": 1781801401319,
+    "status": "active"
+  }
+}

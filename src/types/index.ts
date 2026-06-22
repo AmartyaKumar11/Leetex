@@ -42,7 +42,8 @@ export type {
   ReplayEntryCategory,
   SessionAnalysis,
   SessionClassification,
-  SessionSummary as AnalyticsSessionSummary
+  SessionSummary as AnalyticsSessionSummary,
+  SnapshotAnalytics
 } from "~/types/session-analysis-export"
 export { SESSION_ANALYSIS_VERSION, createPlaceholderBehavioralFeatures } from "~/types/session-analysis-export"
 

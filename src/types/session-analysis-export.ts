@@ -72,6 +72,15 @@ export enum SessionClassification {
   REWRITE_HEAVY = "REWRITE_HEAVY"
 }
 
+export interface SnapshotAnalytics {
+  snapshotCount: number
+  averageSimilarity: number
+  minimumSimilarity: number
+  maximumSimilarity: number
+  majorRewriteCount: number
+  averageCodeLength: number
+}
+
 export interface SessionAnalysis {
   sessionId: string
   generatedAt: number
@@ -79,6 +88,7 @@ export interface SessionAnalysis {
   summary: SessionSummary
   timeline: ReplayEntry[]
   behavioralFeatures: BehavioralFeatures
+  snapshotAnalytics: SnapshotAnalytics
   classifications: SessionClassification[]
 }
 

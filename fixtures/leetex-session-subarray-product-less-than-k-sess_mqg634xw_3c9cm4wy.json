@@ -1,0 +1,445 @@
+{
+  "metadata": {
+    "userId": "5105179b-fa48-4ad4-abf6-3303bfd1c529",
+    "leetexVersion": "0.3.1-alpha",
+    "exportedAt": "2026-06-16T05:31:47.287Z",
+    "browser": "Chrome",
+    "platform": "leetcode"
+  },
+  "session": {
+    "sessionId": "sess_mqg634xw_3c9cm4wy",
+    "questionTitle": "Subarray Product Less Than K",
+    "questionSlug": "subarray-product-less-than-k",
+    "difficulty": "Medium",
+    "startTime": 1781585633732,
+    "endTime": null,
+    "status": "active",
+    "events": [
+      {
+        "eventId": "evt_mqg634y7_q37k15ki",
+        "type": "QUESTION_OPENED",
+        "timestamp": 1781585633743,
+        "metadata": {
+          "questionTitle": "Subarray Product Less Than K",
+          "questionSlug": "subarray-product-less-than-k",
+          "difficulty": "Medium"
+        }
+      },
+      {
+        "eventId": "evt_mqg63b79_x4rns0q9",
+        "type": "FIRST_EDIT",
+        "timestamp": 1781585641845
+      },
+      {
+        "eventId": "evt_mqg63xkx_6jektjop",
+        "type": "MAJOR_REWRITE",
+        "timestamp": 1781585670849,
+        "metadata": {
+          "similarity": 0
+        }
+      },
+      {
+        "eventId": "evt_mqg6f9rd_er7oxqvq",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781586199849
+      },
+      {
+        "eventId": "evt_mqg70w95_ifbb08nd",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781587208777,
+        "metadata": {
+          "durationSeconds": 1008
+        }
+      },
+      {
+        "eventId": "evt_mqg79vly_ji50pnfa",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781587627846
+      },
+      {
+        "eventId": "evt_mqg7a3le_vyxeeev4",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781587638194,
+        "metadata": {
+          "durationSeconds": 10
+        }
+      },
+      {
+        "eventId": "evt_mqg7ccvq_eew8l97c",
+        "type": "RUN_CODE",
+        "timestamp": 1781587743542,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqg7ccwk_yfrg5a0y",
+        "type": "FIRST_RUN",
+        "timestamp": 1781587743572
+      },
+      {
+        "eventId": "evt_mqg7cfr0_l72qk472",
+        "type": "RUN_RESULT",
+        "timestamp": 1781587747260,
+        "metadata": {
+          "status": "Runtime Error",
+          "sourcePanel": "run",
+          "confidence": 0.48,
+          "failedInput": "nums=[1,2,3]\nk=0",
+          "errorText": "Line 10: Char 26:\n=================================================================\n==22==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x502000000140 at pc 0x55cb260b7df3 bp 0x7ffce05578f0 sp 0x7ffce05578e8\nREAD of size 4 at 0x502000000140 thread T0\n    #0 0x55cb260b7df2 in Solution::numSubarrayProductLessThanK(std::vector<int, std::allocator<int>>&, int) solution.cpp:10:26\n    #1 0x55cb260b74f1 in __helper__ solution.cpp:10:28\n    #2 0x55cb260b74f1 in main solution.cpp:10:40\n    #3 0x7f0d1f3b21c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 8e9fd827446c24067541ac5390e6f527fb5947bb)\n    #4 0x7f0d1f3b228a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 8e9fd827446c24067541ac5390e6f527fb5947bb)",
+          "errorCategory": "HeapBufferOverflow"
+        }
+      },
+      {
+        "eventId": "evt_mqg7ehr1_phr9kzc0",
+        "type": "RUN_CODE",
+        "timestamp": 1781587843165,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqg7emsz_pj0iygom",
+        "type": "SUBMIT",
+        "timestamp": 1781587849715,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqg7emxa_6l5mm1ti",
+        "type": "FIRST_SUBMIT",
+        "timestamp": 1781587849870
+      },
+      {
+        "eventId": "evt_mqg7eq8p_ivtrxoup",
+        "type": "SUBMISSION_RESULT",
+        "timestamp": 1781587854169,
+        "metadata": {
+          "status": "Accepted",
+          "sourcePanel": "submit",
+          "confidence": 0.42,
+          "runtime": "0 ms",
+          "memory": "0.00 MB",
+          "failedInput": "nums=[10,5,2,6]\nk=100"
+        }
+      }
+    ],
+    "snapshots": [
+      {
+        "snapshotId": "snap_mqg63ae9_0pr0h4js",
+        "timestamp": 1781585640801,
+        "trigger": "SESSION_START",
+        "code": "c",
+        "language": null,
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
+        "similarityToPrevious": null
+      },
+      {
+        "snapshotId": "snap_mqg63xkw_ipkcw677",
+        "timestamp": 1781585670848,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {            }};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "e0a01fa783932d44231cd72b2beaa4a7ff50f1e5da3d02f903eb7c70bc1837b9",
+        "similarityToPrevious": 0
+      },
+      {
+        "snapshotId": "snap_mqg64kq6_tzblikl4",
+        "timestamp": 1781585700846,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        vector<int>prefix;    }        for(int i = 0; i <nu)};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "f7e642b819c439b1dac38f6fb576eab88304318276034bafe49a5f1f0c71ae59",
+        "similarityToPrevious": 0.75
+      },
+      {
+        "snapshotId": "snap_mqg657vo_vo8g5qtx",
+        "timestamp": 1781585730852,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        vector<int>prefix;        prefix[0] = nums[0];        for(int i = 1; i <nums.size() ; i++){                    }    }};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "6f120e2d02cbdc11c4299e7ba7241def28e157ec1c28d1a0e0db50fa36144e39",
+        "similarityToPrevious": 0.78
+      },
+      {
+        "snapshotId": "snap_mqg65v0x_440ijm5c",
+        "timestamp": 1781585760849,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        vector<int>prefix;        prefix[0] = nums[0];        for(int i = 1; i <nums.size() ; i++){            prefix[i] = nums[i]*nums[i-1];        }    }        };",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "5049d55de27cb63c860fa19e5725c67386f012f1b33c2718562add7edc459d8b",
+        "similarityToPrevious": 0.93
+      },
+      {
+        "snapshotId": "snap_mqg692rj_60zafd70",
+        "timestamp": 1781585910847,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        for(int i = 0 ; i<nums.size() ;i++){                            }    }};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "50014a9fffcea7cea24de078375c8d5c28fb9e7b8fc4669fa0e4cff9b08a0632",
+        "similarityToPrevious": 0.76
+      },
+      {
+        "snapshotId": "snap_mqg69pww_rtrhy7zd",
+        "timestamp": 1781585940848,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int l = 0;        for(int i = 0 ; i<nums.size() ;i++){                    }            }        int r};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "56090fd5348fbd2e2e1b8d25e5965a5f0e1535e7ec99365ef91c4b113ba39691",
+        "similarityToPrevious": 0.94
+      },
+      {
+        "snapshotId": "snap_mqg6ad2d_u5a2fhwf",
+        "timestamp": 1781585970853,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int l = 0;        for(int i = 0 ; i<nums.size() ;i++){                    }            }        int r = 1;};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "49a7befd6768a07076cdf6428ae29e9f11a2802fee9a690a5114fe07a9b99315",
+        "similarityToPrevious": 0.95
+      },
+      {
+        "snapshotId": "snap_mqg6b07i_ch133aqr",
+        "timestamp": 1781586000846,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int l = 0;        for(int i = 0 ; i<nums.size() ;i++){                    }            }        int r = 1;        };",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "23333da82b197625aeccc6c5de22f4fbe97f8c29f10b5064e04145c91dfc260b",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqg6bncv_yoqwmbzt",
+        "timestamp": 1781586030847,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int l = 0;        for(int i = 0 ; i<nums.size() ;i++){            product            }            }        int r = 1;        product = nums0};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "fff2357bfaf447f18f21ccc17c212c05acff72bc71afa1ec0cc35462daf1621f",
+        "similarityToPrevious": 0.96
+      },
+      {
+        "snapshotId": "snap_mqg6cai6_9o3oopr5",
+        "timestamp": 1781586060846,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int l = 0;        for(int i = 0 ; i<nums.size() ;i++){            product*        }            }        int r = 1;        product = nums[0];};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "50e5ac23107f97ee28fc1a64d60c26029806081c9b3fe28caca1b7c6879aa401",
+        "similarityToPrevious": 0.92
+      },
+      {
+        "snapshotId": "snap_mqg6cxnj_z6hbsb7x",
+        "timestamp": 1781586090847,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {                    }};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "3d71562015d33b067c963dfe4e332faa69f59835775a53584f6ccf96288c2ff8",
+        "similarityToPrevious": 0.63
+      },
+      {
+        "snapshotId": "snap_mqg71da9_yo1ewz50",
+        "timestamp": 1781587230849,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for            }};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "0eb2eb5677343d654c25854a50e1c4b352243d9aecc9b34ae726b5e3c09acad7",
+        "similarityToPrevious": 0.76
+      },
+      {
+        "snapshotId": "snap_mqg720fl_3nphz3zg",
+        "timestamp": 1781587260849,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                            }    }};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "ee0c0f45b80a4d5d7dddc75e39e88d998879d35ce4c497f3e0cf68ee60f1a004",
+        "similarityToPrevious": 0.8
+      },
+      {
+        "snapshotId": "snap_mqg72nkv_35xlq7iv",
+        "timestamp": 1781587290847,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                    if(product*right<k){        }                product            }    }};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "634d24b39c74442e1f72990fabbb83720194799a4c9c9f6d12183a483ac96cce",
+        "similarityToPrevious": 0.95
+      },
+      {
+        "snapshotId": "snap_mqg73aqb_rlguyn5o",
+        "timestamp": 1781587320851,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                    if(product*right<k){        }                product*=right;            }    }};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "a54f007847f589bf1477bf3a8436ae4e7cab8434256e115d6f6e90938d633974",
+        "similarityToPrevious": 0.98
+      },
+      {
+        "snapshotId": "snap_mqg74l0u_01xhl7s9",
+        "timestamp": 1781587380846,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                    if(product*right<k){        }                product*=right;            }            else {                left++;            }    }            count = right-left-1;};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "f41cc240a202f12ca07b1a32aa376234cec46ca8d5b10754e0449cefece10e9f",
+        "similarityToPrevious": 0.92
+      },
+      {
+        "snapshotId": "snap_mqg7586a_olzmdyus",
+        "timestamp": 1781587410850,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                    if(product*nums[right<k){        }                product*=right;            }            else {                left++;            }    }            count = right-left-1;};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "9280e046b993d33d81ecb7ba04d9aeb83b6ebcafb450025d3acae949422299e3",
+        "similarityToPrevious": 0.97
+      },
+      {
+        "snapshotId": "snap_mqg75vbl_z9t6sa20",
+        "timestamp": 1781587440849,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                    if(product*nums[right]<k){        }                product*=nums[right];            }            else {                left++;            }    }            count = right-left-1;};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "2ccdcc47dd8588f8f9cb23b4319ed848a9ba6c729376ef117d59e94c47f63fb5",
+        "similarityToPrevious": 0.96
+      },
+      {
+        "snapshotId": "snap_mqg76igu_rhwpvukg",
+        "timestamp": 1781587470846,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                    if(product*nums[right]<k){        }                product*=nums[right];            }            else {                left++;            }    }            count = right-left-1;                product/numsa};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "97eff16d4782d2e1e7e9d92171174b610716cc78cb9f87c4f6b7caa69713bf6a",
+        "similarityToPrevious": 0.97
+      },
+      {
+        "snapshotId": "snap_mqg775m7_0im6nqvo",
+        "timestamp": 1781587500847,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                    if(product*nums[right]<k){        }                product*=nums[right];            }            else {                left++;            }    }            count = right-left-1;                                product/=nums[left];};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "f2fa384c9dbf1ee0e75dd333869ecfbcc6195e6cf7dcb29ce9324f5a019293e0",
+        "similarityToPrevious": 0.96
+      },
+      {
+        "snapshotId": "snap_mqg77srj_fl3xjw73",
+        "timestamp": 1781587530847,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                    if(product*nums[right]<k){        }                product*=nums[right];            }            else {                left++;            }    }            count += right-left-1;                                product/=nums[left];};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "a252f1bc8e1d8e9b39e93d1b543fa65d51b1679a78d483f5ba4755c6e30ae506",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqg7bnni_e3ujs7fg",
+        "timestamp": 1781587710846,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){                    product*=nums[right];        }            while(product>=k){                            }    }};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "0beb2531dbc4b9487bef9cfe3eefc734d970ec8636bd2f2ee8f1814a710fae97",
+        "similarityToPrevious": 0.82
+      },
+      {
+        "snapshotId": "snap_mqg7casw_77wloc1o",
+        "timestamp": 1781587740848,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){        return count            product*=nums[right];        }            while(product>=k){                product/=nums[left];            }    }                left++;            count+=(right-left+1);};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "668f53c870abad65e60dbbf4d6cd128c45567232a300eadecb55dd346dc997fa",
+        "similarityToPrevious": 0.87
+      },
+      {
+        "snapshotId": "snap_mqg7ccwd_lwwoocmd",
+        "timestamp": 1781587743565,
+        "trigger": "RUN_CODE",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){        return count;            product*=nums[right];        }            while(product>=k){                product/=nums[left];            }    }                left++;            count+=(right-left+1);};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "be5f7dbf764a131d770215b10904c3fb7c861419f0248c29254a9829a5354a75",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqg7e88y_vtyd83c3",
+        "timestamp": 1781587830850,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){        return count;            product*=nums[right];        }            while(product>=k){                product/=nums[left];            }    }                left++;            count+=(right-left+1);        if(k<=1)reu};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "89492b35327eeffe54d127b6ef350f3c6cb7fee461708fece9181f91019ffda0",
+        "similarityToPrevious": 0.94
+      },
+      {
+        "snapshotId": "snap_mqg7ehrn_bu3dc53a",
+        "timestamp": 1781587843187,
+        "trigger": "RUN_CODE",
+        "code": "class Solution {public:    int numSubarrayProductLessThanK(vector<int>& nums, int k) {        int left = 0;        int count = 0;        long long product = 1;        for(int right = 0 ; right<nums.size() ; right++){        return count;            product*=nums[right];        }            while(product>=k){                product/=nums[left];            }    }                left++;            count+=(right-left+1);        if(k<=1)return 0;};",
+        "language": "cpp",
+        "questionSlug": "subarray-product-less-than-k",
+        "snapshotHash": "5c23c335638462b764b51c2aec086e56d4553f1a1ad164609777e3e3fa850fd9",
+        "similarityToPrevious": 0.98
+      }
+    ],
+    "attemptHistory": [
+      {
+        "status": "Runtime Error",
+        "passed": null,
+        "total": null,
+        "runtime": null,
+        "memory": null,
+        "failedInput": "nums=[1,2,3]\nk=0",
+        "actualOutput": null,
+        "expectedOutput": null,
+        "errorText": "Line 10: Char 26:\n=================================================================\n==22==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x502000000140 at pc 0x55cb260b7df3 bp 0x7ffce05578f0 sp 0x7ffce05578e8\nREAD of size 4 at 0x502000000140 thread T0\n    #0 0x55cb260b7df2 in Solution::numSubarrayProductLessThanK(std::vector<int, std::allocator<int>>&, int) solution.cpp:10:26\n    #1 0x55cb260b74f1 in __helper__ solution.cpp:10:28\n    #2 0x55cb260b74f1 in main solution.cpp:10:40\n    #3 0x7f0d1f3b21c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 8e9fd827446c24067541ac5390e6f527fb5947bb)\n    #4 0x7f0d1f3b228a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 8e9fd827446c24067541ac5390e6f527fb5947bb)",
+        "errorCategory": "HeapBufferOverflow",
+        "sourcePanel": "run",
+        "confidence": 0.48,
+        "type": "RUN",
+        "timestamp": 1781587747307
+      },
+      {
+        "status": "Accepted",
+        "passed": null,
+        "total": null,
+        "runtime": "0 ms",
+        "memory": "0.00 MB",
+        "failedInput": "nums=[10,5,2,6]\nk=100",
+        "actualOutput": null,
+        "expectedOutput": null,
+        "errorText": null,
+        "errorCategory": null,
+        "sourcePanel": "submit",
+        "confidence": 0.42,
+        "type": "SUBMIT",
+        "timestamp": 1781587854174
+      }
+    ],
+    "metrics": {
+      "timeToFirstEdit": 8,
+      "timeToFirstRun": 2109,
+      "timeToFirstSubmit": 2216,
+      "totalRuns": 2,
+      "totalSubmissions": 1,
+      "totalSnapshots": 27,
+      "totalActiveDuration": 1255,
+      "sessionDuration": 2273
+    }
+  }
+}

@@ -1,0 +1,486 @@
+{
+  "metadata": {
+    "userId": "5105179b-fa48-4ad4-abf6-3303bfd1c529",
+    "leetexVersion": "0.3.1-alpha",
+    "exportedAt": "2026-06-16T04:51:51.692Z",
+    "browser": "Chrome",
+    "platform": "leetcode"
+  },
+  "session": {
+    "attemptHistory": [
+      {
+        "actualOutput": null,
+        "confidence": 0.38,
+        "errorCategory": "CompileError",
+        "errorText": "Line 6: Char 17: error: use of undeclared identifier 'c'\n    6 |             if (c == '*') {\n      |                 ^",
+        "expectedOutput": null,
+        "failedInput": null,
+        "memory": null,
+        "passed": null,
+        "runtime": null,
+        "sourcePanel": "run",
+        "status": "Compilation Error",
+        "timestamp": 1781585230752,
+        "total": null,
+        "type": "RUN"
+      },
+      {
+        "actualOutput": null,
+        "confidence": 0.38,
+        "errorCategory": "CompileError",
+        "errorText": "Line 6: Char 18: error: expected unqualified-id\n    6 |             char = s[i];\n      |                  ^",
+        "expectedOutput": null,
+        "failedInput": null,
+        "memory": null,
+        "passed": null,
+        "runtime": null,
+        "sourcePanel": "run",
+        "status": "Compilation Error",
+        "timestamp": 1781585257297,
+        "total": null,
+        "type": "RUN"
+      },
+      {
+        "actualOutput": null,
+        "confidence": 0.38,
+        "errorCategory": "CompileError",
+        "errorText": "Line 8: Char 31: error: no viable conversion from 'iterator' (aka '__normal_iterator<char *, std::basic_string<char, std::char_traits<char>, std::allocator<char>>>') to 'size_type' (aka 'unsigned long')\n    8 |                 answer.substr(answer.begin(), answer.size() - 2);\n      |                               ^~~~~~~~~~~~~~\n/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/basic_string.h:3208:24: note: passing argument to parameter '__pos' here\n 3199 |       substr(size_type __pos = 0, size_type __n = npos) const\n      |                        ^\n1 error generated.",
+        "expectedOutput": null,
+        "failedInput": null,
+        "memory": null,
+        "passed": null,
+        "runtime": null,
+        "sourcePanel": "run",
+        "status": "Compilation Error",
+        "timestamp": 1781585266569,
+        "total": null,
+        "type": "RUN"
+      },
+      {
+        "actualOutput": null,
+        "confidence": 0.42,
+        "errorCategory": null,
+        "errorText": null,
+        "expectedOutput": null,
+        "failedInput": "s=\"a#b%*\"",
+        "memory": "0.00 MB",
+        "passed": null,
+        "runtime": "0 ms",
+        "sourcePanel": "submit",
+        "status": "Accepted",
+        "timestamp": 1781585378726,
+        "total": null,
+        "type": "SUBMIT"
+      },
+      {
+        "status": "Accepted",
+        "passed": 969,
+        "total": 969,
+        "runtime": "0 ms",
+        "memory": "39.73 MB",
+        "failedInput": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "errorText": null,
+        "errorCategory": null,
+        "sourcePanel": "submit",
+        "confidence": 0.44,
+        "type": "SUBMIT",
+        "timestamp": 1781585490750
+      }
+    ],
+    "difficulty": "Medium",
+    "endTime": null,
+    "events": [
+      {
+        "eventId": "evt_mqg5fxzp_kz1pf5yj",
+        "metadata": {
+          "difficulty": "Medium",
+          "questionSlug": "process-string-with-special-operations-i",
+          "questionTitle": "Process String with Special Operations I"
+        },
+        "timestamp": 1781584551637,
+        "type": "QUESTION_OPENED"
+      },
+      {
+        "eventId": "evt_mqg5it6y_lqnn3k1z",
+        "timestamp": 1781584685386,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqg5kv9m_bywhszlf",
+        "timestamp": 1781584781386,
+        "type": "FIRST_EDIT"
+      },
+      {
+        "eventId": "evt_mqg5kv9n_ykhfdq6s",
+        "metadata": {
+          "durationSeconds": 96
+        },
+        "timestamp": 1781584781387,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqg5ufhq_l4m24z84",
+        "metadata": {
+          "source": "click"
+        },
+        "timestamp": 1781585227502,
+        "type": "RUN_CODE"
+      },
+      {
+        "eventId": "evt_mqg5ufil_egrtp48k",
+        "timestamp": 1781585227533,
+        "type": "FIRST_RUN"
+      },
+      {
+        "eventId": "evt_mqg5uhxw_dlgxq0f9",
+        "metadata": {
+          "confidence": 0.38,
+          "errorCategory": "CompileError",
+          "errorText": "Line 6: Char 17: error: use of undeclared identifier 'c'\n    6 |             if (c == '*') {\n      |                 ^",
+          "sourcePanel": "run",
+          "status": "Compilation Error"
+        },
+        "timestamp": 1781585230676,
+        "type": "RUN_RESULT"
+      },
+      {
+        "eventId": "evt_mqg5uzq8_guy6ev7y",
+        "metadata": {
+          "source": "click"
+        },
+        "timestamp": 1781585253728,
+        "type": "RUN_CODE"
+      },
+      {
+        "eventId": "evt_mqg5v2h6_7bezevf5",
+        "metadata": {
+          "confidence": 0.38,
+          "errorCategory": "CompileError",
+          "errorText": "Line 6: Char 18: error: expected unqualified-id\n    6 |             char = s[i];\n      |                  ^",
+          "sourcePanel": "run",
+          "status": "Compilation Error"
+        },
+        "timestamp": 1781585257290,
+        "type": "RUN_RESULT"
+      },
+      {
+        "eventId": "evt_mqg5v71g_e4d7i5t7",
+        "metadata": {
+          "source": "click"
+        },
+        "timestamp": 1781585263204,
+        "type": "RUN_CODE"
+      },
+      {
+        "eventId": "evt_mqg5v9mq_0x3gs5l5",
+        "metadata": {
+          "confidence": 0.38,
+          "errorCategory": "CompileError",
+          "errorText": "Line 8: Char 31: error: no viable conversion from 'iterator' (aka '__normal_iterator<char *, std::basic_string<char, std::char_traits<char>, std::allocator<char>>>') to 'size_type' (aka 'unsigned long')\n    8 |                 answer.substr(answer.begin(), answer.size() - 2);\n      |                               ^~~~~~~~~~~~~~\n/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/basic_string.h:3208:24: note: passing argument to parameter '__pos' here\n 3199 |       substr(size_type __pos = 0, size_type __n = npos) const\n      |                        ^\n1 error generated.",
+          "sourcePanel": "run",
+          "status": "Compilation Error"
+        },
+        "timestamp": 1781585266562,
+        "type": "RUN_RESULT"
+      },
+      {
+        "eventId": "evt_mqg5xhn1_u2mrjzy6",
+        "metadata": {
+          "source": "click"
+        },
+        "timestamp": 1781585370253,
+        "type": "RUN_CODE"
+      },
+      {
+        "eventId": "evt_mqg5xlbq_jmxujqfk",
+        "metadata": {
+          "source": "click"
+        },
+        "timestamp": 1781585375030,
+        "type": "SUBMIT"
+      },
+      {
+        "eventId": "evt_mqg5xlf4_oa5tmgav",
+        "timestamp": 1781585375152,
+        "type": "FIRST_SUBMIT"
+      },
+      {
+        "eventId": "evt_mqg5xo5p_yrzpf12m",
+        "metadata": {
+          "confidence": 0.42,
+          "failedInput": "s=\"a#b%*\"",
+          "memory": "0.00 MB",
+          "runtime": "0 ms",
+          "sourcePanel": "submit",
+          "status": "Accepted"
+        },
+        "timestamp": 1781585378701,
+        "type": "SUBMISSION_RESULT"
+      },
+      {
+        "eventId": "evt_mqg5zzx9_1gis4kqw",
+        "type": "MAJOR_REWRITE",
+        "timestamp": 1781585487261,
+        "metadata": {
+          "similarity": 0
+        }
+      },
+      {
+        "eventId": "evt_mqg602km_yk5trjgn",
+        "type": "SUBMIT",
+        "timestamp": 1781585490694,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqg602lx_t4201two",
+        "type": "SUBMISSION_RESULT",
+        "timestamp": 1781585490741,
+        "metadata": {
+          "status": "Accepted",
+          "sourcePanel": "submit",
+          "confidence": 0.44,
+          "passed": 969,
+          "total": 969,
+          "runtime": "0 ms",
+          "memory": "39.73 MB"
+        }
+      },
+      {
+        "eventId": "evt_mqg60el6_b8dwug7v",
+        "type": "FIRST_EDIT",
+        "timestamp": 1781585506266
+      }
+    ],
+    "metrics": {
+      "timeToFirstEdit": 229,
+      "timeToFirstRun": 676,
+      "timeToFirstSubmit": 823,
+      "totalRuns": 4,
+      "totalSubmissions": 2,
+      "totalSnapshots": 21,
+      "totalActiveDuration": 864,
+      "sessionDuration": 960
+    },
+    "questionSlug": "process-string-with-special-operations-i",
+    "questionTitle": "Process String with Special Operations I",
+    "sessionId": "sess_mqg5fxu4_n03xwje4",
+    "snapshots": [
+      {
+        "code": "class Solution {public:    string processStr(string s) {            }};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": null,
+        "snapshotHash": "bb9835fc0446b9913f2062708cdbde804afd734e1a0379fa1b0d6fdb290fc34d",
+        "snapshotId": "snap_mqg5fyk5_i9o58x37",
+        "timestamp": 1781584552373,
+        "trigger": "SESSION_START"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        if ( c == '*'){            sub        }    }};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.72,
+        "snapshotHash": "50f013b2dc5ddcfe46cb903a71a4b351a1ff1c29a1d8c5b9c48a4c31d29b7979",
+        "snapshotId": "snap_mqg5lqwe_lxssk3gy",
+        "timestamp": 1781584822382,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        if ( c == '*'){            c.substr(s.)        }    }};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.91,
+        "snapshotHash": "a5b0a0fb7600e83e28b38de44616a5e22388b84fc0c80175b5b91e943659ae09",
+        "snapshotId": "snap_mqg5me1s_oinmt608",
+        "timestamp": 1781584852384,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        if ( c == '*'){            s.substr(s.begin() , s.size()-2);        }    }        else if()};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.71,
+        "snapshotHash": "33f2ec34418f6c3a6e692efc8df18af5f320db5dd569e2b3f88187c15157ee41",
+        "snapshotId": "snap_mqg5n178_aifoatjs",
+        "timestamp": 1781584882388,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        if ( c == '*'){            s.substr(s.begin() , s.size()-2);        }    }        else if( c== '#')};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.97,
+        "snapshotHash": "60bf7c09fe786099ab70a48d73c17f6fb7be147932bbd46c66cbca836799f4fd",
+        "snapshotId": "snap_mqg5nox6_pypuwwd0",
+        "timestamp": 1781584913130,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        if ( c == '*'){            s.substr(s.begin() , s.size()-2);        }        else if( c== '#'){                    }    }};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.98,
+        "snapshotHash": "2ca875835008751cd6dd6648e60cf4e0b2a19b7bfcfe0c47a41124dcbdf3012b",
+        "snapshotId": "snap_mqg5plsh_k6jtuef5",
+        "timestamp": 1781585002385,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        if ( c == '*'){            s.substr(s.begin() , s.size()-2);        }        else if( c== '#'){            for(inti  )        }    }};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.93,
+        "snapshotHash": "0c3a352bd65faab61b0eee6852679ef5572eef6230066b25b5669d98f43e46fd",
+        "snapshotId": "snap_mqg5q8xv_4y7jtu8a",
+        "timestamp": 1781585032387,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        if ( c == '*'){            s.substr(s.begin() , s.size()-2);        }        else if( c== '#'){            for(int i = 0 ; i<s.size() ; i++){        }                s+=s[i];            }    }            int n = s.siuz};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.82,
+        "snapshotHash": "b36b15df7bd0e4bad4aac68b5e2a33421b350beea1d3c79e7e34cd122393c951",
+        "snapshotId": "snap_mqg5qw37_mcskl3fp",
+        "timestamp": 1781585062387,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        if ( c == '*'){            s.substr(s.begin() , s.size()-2);        }        else if( c== '#'){            for(int i = 0 ; i<n; i++){        }                s+=s[i];            }            int n = s.size();        else if(c=='%'){            rever        }    }};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.87,
+        "snapshotHash": "f8fef8810c770a3e1762aaeb5d58ceee2f6cc1dfb3e25a1f8d77497302ce6a0e",
+        "snapshotId": "snap_mqg5rj8g_icwta17s",
+        "timestamp": 1781585092384,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        if ( c == '*'){            s.substr(s.begin() , s.size()-2);        }        else if( c== '#'){            for(int i = 0 ; i<n; i++){        }                s+=s[i];            }            int n = s.size();        else if(c=='%'){            reverse(s.begin() , s.end());        }    }};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.95,
+        "snapshotHash": "98e1d819f4681eab1ed3b0264337e38caf0578b0f811ddf812e6e1547ebb48ae",
+        "snapshotId": "snap_mqg5s6dr_xiao9vcd",
+        "timestamp": 1781585122383,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                s.substr(s.begin(), s.size() - 2);            } else if (c == '#') {                int n = s.size();                for (int i = 0; i < n; i++) {                    s += s[i];                }            } else if (c == '%') {                reverse(s.begin(), s.end());            }        }    }};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.83,
+        "snapshotHash": "8216b5b3de1e82dd1174e9e110025b911e73d803176457c9eb6a707ee20d4b25",
+        "snapshotId": "snap_mqg5stj3_w3cki11w",
+        "timestamp": 1781585152383,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                answer.substr(s.begin(), s.size() - 2);            } else if (c == '#') {                int n = s.size();                for (int i = 0; i < n; i++) {                    s += s[i];                }            } else if (c == '%') {                reverse(s.begin(), s.end());            }        }    }        string answer = \"\"};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.93,
+        "snapshotHash": "6d354ce345ead2e7ba0cb4ba00b654d3164a52b4ed0d26378a6bf075078e9ecc",
+        "snapshotId": "snap_mqg5tgog_1gdb535o",
+        "timestamp": 1781585182384,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                answer.substr(answer.begin(), answer.size() - 2);            } else if (c == '#') {                int n = answer.size();                for (int i = 0; i < n; i++) {                    answer += s[i];                }            } else if (c == '%') {                reverse(answer.begin(), .end());            }        }    }        string answer = \"\"};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "48b546383cccf2649b0e9605017174c405190a008a2b98ab4660155ad8986eed",
+        "snapshotId": "snap_mqg5u3tr_z4dztzxt",
+        "timestamp": 1781585212383,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                answer.substr(answer.begin(), answer.size() - 2);            } else if (c == '#') {                int n = answer.size();                for (int i = 0; i < n; i++) {                    answer += s[i];                }            } else if (c == '%') {                reverse(answer.begin(), answer.end());            }        }    }        string answer = \"\";        return answer;};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.94,
+        "snapshotHash": "8d014d4e372bd1cacd880ed9145fcac41c88e24be2760e76b96f5c975d730d6b",
+        "snapshotId": "snap_mqg5ufic_9xg7ddxh",
+        "timestamp": 1781585227524,
+        "trigger": "RUN_CODE"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                answer.substr(answer.begin(), answer.size() - 2);            } else if (c == '#') {                int n = answer.size();                for (int i = 0; i < n; i++) {                    answer += s[i];                }            } else if (c == '%') {                reverse(answer.begin(), answer.end());            }        }    }        string answer = \"\";        return answer;            char = s[i]};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.96,
+        "snapshotHash": "21f4e5394993fc3a8c4f91010f50789f6fca489b55293db2609b97b489d0d925",
+        "snapshotId": "snap_mqg5uqz7_xqa1y8tw",
+        "timestamp": 1781585242387,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                answer.substr(answer.begin(), answer.size() - 2);            } else if (c == '#') {                int n = answer.size();                for (int i = 0; i < n; i++) {                    answer += s[i];                }            } else if (c == '%') {                reverse(answer.begin(), answer.end());            }        }    }        string answer = \"\";        return answer;            char = s[i];            else answer+=c;};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.97,
+        "snapshotHash": "fe04797201b14a698e11376be108282ceb185884f68f00dbe299cddcb2cb4424",
+        "snapshotId": "snap_mqg5uzqy_uqogkpp6",
+        "timestamp": 1781585253754,
+        "trigger": "RUN_CODE"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                answer.substr(answer.begin(), answer.size() - 2);            } else if (c == '#') {                int n = answer.size();                for (int i = 0; i < n; i++) {                    answer += s[i];                }            } else if (c == '%') {                reverse(answer.begin(), answer.end());            }        }    }        string answer = \"\";        return answer;            char c = s[i];            else answer+=c;};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 1,
+        "snapshotHash": "3483027ec07a10f301b77b0b727baa836282fb74eb34598f484b3c3796a7e56c",
+        "snapshotId": "snap_mqg5v725_e8au0lpt",
+        "timestamp": 1781585263229,
+        "trigger": "RUN_CODE"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                if (!answer.empty())            } else if (c == '#') {                int n = answer.size();                for (int i = 0; i < n; i++) {                    answer += s[i];                }            } else if (c == '%') {                reverse(answer.begin(), answer.end());            }        }    }        string answer = \"\";        return answer;            char c = s[i];            else answer+=c;    answer.pop_back();};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.87,
+        "snapshotHash": "b8412bc37c09c35e5317815211e9c9de8cd8b639765f1d6872a8df42290716ca",
+        "snapshotId": "snap_mqg5wof2_nqqazn14",
+        "timestamp": 1781585332382,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                if (!answer.empty())            } else if (c == '#') {                answer += answ            } else if (c == '%') {                reverse(answer.begin(), answer.end());            } else        }    }        string answer = \"\";        return answer;            char c = s[i];                answer += c;                    answer.pop_back();};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.97,
+        "snapshotHash": "231f98ab551790a0de45af1e2eb93a5dc3cd7114964365fd6cb30ee56f8be90b",
+        "snapshotId": "snap_mqg5xbkq_6wvd0r8g",
+        "timestamp": 1781585362394,
+        "trigger": "PERIODIC"
+      },
+      {
+        "code": "class Solution {public:    string processStr(string s) {        for (int i = 0; i < s.size(); i++) {            if (c == '*') {                if (!answer.empty())            } else if (c == '#') {                answer += answer;            } else if (c == '%') {                reverse(answer.begin(), answer.end());            } else        }    }        string answer = \"\";        return answer;            char c = s[i];                answer += c;                    answer.pop_back();};",
+        "language": "cpp",
+        "questionSlug": "process-string-with-special-operations-i",
+        "similarityToPrevious": 0.99,
+        "snapshotHash": "cc4283cbf595534a8fb9c174664dca7f648be09f60a9fc0046b3cdb6cd8b6f89",
+        "snapshotId": "snap_mqg5xhnr_sxl8527b",
+        "timestamp": 1781585370279,
+        "trigger": "RUN_CODE"
+      },
+      {
+        "snapshotId": "snap_mqg5zzx5_ea9onvc3",
+        "timestamp": 1781585487258,
+        "trigger": "SESSION_START",
+        "code": "c",
+        "language": null,
+        "questionSlug": "process-string-with-special-operations-i",
+        "snapshotHash": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
+        "similarityToPrevious": 0
+      }
+    ],
+    "startTime": 1781584551436,
+    "status": "active"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "metadata": {
+    "userId": "5105179b-fa48-4ad4-abf6-3303bfd1c529",
+    "leetexVersion": "0.3.2-alpha",
+    "exportedAt": "2026-06-19T07:57:49.679Z",
+    "browser": "Chrome",
+    "platform": "leetcode"
+  },
+  "session": {
+    "sessionId": "sess_mqkmy6pt_2yn2ph46",
+    "questionTitle": "String To Integer Atoi",
+    "questionSlug": "string-to-integer-atoi",
+    "difficulty": null,
+    "startTime": 1781855820929,
+    "endTime": null,
+    "status": "active",
+    "events": [
+      {
+        "eventId": "evt_mqkmy6pv_auyk0rb8",
+        "type": "QUESTION_OPENED",
+        "timestamp": 1781855820931,
+        "metadata": {
+          "questionTitle": "String To Integer Atoi",
+          "questionSlug": "string-to-integer-atoi",
+          "difficulty": null
+        }
+      },
+      {
+        "eventId": "evt_mqkmy91i_gd3ommjf",
+        "type": "FIRST_EDIT",
+        "timestamp": 1781855823942
+      },
+      {
+        "eventId": "evt_mqkmy91i_8bykf1mq",
+        "type": "LANGUAGE_CHANGED",
+        "timestamp": 1781855823942,
+        "metadata": {
+          "oldLanguage": "python",
+          "newLanguage": "cpp"
+        }
+      },
+      {
+        "eventId": "evt_mqkmyce4_qgp9szb8",
+        "type": "EDITORIAL_OPENED",
+        "timestamp": 1781855828284,
+        "metadata": {
+          "trigger": "navigation",
+          "url": "https://leetcode.com/problems/string-to-integer-atoi/editorial/"
+        }
+      },
+      {
+        "eventId": "evt_mqkmye8y_86x91jse",
+        "type": "EDITORIAL_CLOSED",
+        "timestamp": 1781855830690,
+        "metadata": {
+          "durationMs": 2406,
+          "trigger": "navigation"
+        }
+      },
+      {
+        "eventId": "evt_mqkmye95_wmidbiev",
+        "type": "SOLUTION_OPENED",
+        "timestamp": 1781855830697,
+        "metadata": {
+          "trigger": "navigation",
+          "url": "https://leetcode.com/problems/string-to-integer-atoi/solutions/"
+        }
+      },
+      {
+        "eventId": "evt_mqkmyq37_w8af6799",
+        "type": "SOLUTION_CLOSED",
+        "timestamp": 1781855846035,
+        "metadata": {
+          "durationMs": 15338,
+          "trigger": "navigation"
+        }
+      },
+      {
+        "eventId": "evt_mqkmytvs_f4odnk96",
+        "type": "MAJOR_REWRITE",
+        "timestamp": 1781855850952,
+        "metadata": {
+          "similarity": 0.18
+        }
+      },
+      {
+        "eventId": "evt_mqkmyuhq_igjodrir",
+        "type": "SUBMIT",
+        "timestamp": 1781855851742,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqkmyui4_8740y1f8",
+        "type": "FIRST_SUBMIT",
+        "timestamp": 1781855851756
+      },
+      {
+        "eventId": "evt_mqkmz1pc_uq4ty9fo",
+        "type": "SUBMISSION_RESULT",
+        "timestamp": 1781855861088,
+        "metadata": {
+          "status": "Accepted",
+          "sourcePanel": "submit",
+          "confidence": 0.32,
+          "runtime": "0 ms",
+          "memory": "0.00 MB"
+        }
+      }
+    ],
+    "snapshots": [
+      {
+        "snapshotId": "snap_mqkmy6q0_gowt0j70",
+        "timestamp": 1781855820936,
+        "trigger": "SESSION_START",
+        "code": "class Solution:    def twoSum(self, nums: List[int], target: int) -> List[int]:        hash_map={}        for i,v in enumerate(nums):            if(target-v) in hash_map:                return i,hash_map[target-v]            else :                hash_map[v] = i",
+        "language": "python",
+        "questionSlug": "string-to-integer-atoi",
+        "snapshotHash": "c6aaaca4b7de0b388af5c53fcee967e42b900928cd2840076615092c2d9e8ae7",
+        "similarityToPrevious": null
+      },
+      {
+        "snapshotId": "snap_mqkmytvp_w69xv7ah",
+        "timestamp": 1781855850949,
+        "trigger": "PERIODIC",
+        "code": "// Step 3: Read digits and convert        long long res = 0;        while (i < n && isdigit(s[i])) {            int digit = s[i] - '0';            res = res * 10 + digit;                        if (sign * res <= INT_MIN) {                return INT_MIN;            }            i++;        }                    sign = -1;        } else if (s[i] == '-') {            i++;        if (s[i] == '+') {        int sign = 1;        // Step 2: Check for sign                }            return 0;        if (i == n) {",
+        "language": null,
+        "questionSlug": "string-to-integer-atoi",
+        "snapshotHash": "d2e6dc7cb641a82287f5eede765ca0e01e4dab3a00011022bf6b643202ad80d7",
+        "similarityToPrevious": 0.18
+      }
+    ],
+    "attemptHistory": [
+      {
+        "status": "Accepted",
+        "passed": null,
+        "total": null,
+        "runtime": "0 ms",
+        "memory": "0.00 MB",
+        "failedInput": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "errorText": null,
+        "errorCategory": null,
+        "sourcePanel": "submit",
+        "confidence": 0.32,
+        "type": "SUBMIT",
+        "timestamp": 1781855861147
+      }
+    ],
+    "metrics": {
+      "timeToFirstEdit": 3,
+      "timeToFirstRun": null,
+      "timeToFirstSubmit": 30,
+      "totalRuns": 0,
+      "totalSubmissions": 1,
+      "totalSnapshots": 2,
+      "totalActiveDuration": 48,
+      "sessionDuration": 48
+    },
+    "learningSources": {
+      "editorial": {
+        "visits": 1,
+        "timeMs": 2406
+      },
+      "solutions": {
+        "visits": 1,
+        "timeMs": 15338
+      },
+      "discussion": {
+        "visits": 0,
+        "timeMs": 0
+      }
+    }
+  }
+}

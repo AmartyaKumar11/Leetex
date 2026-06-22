@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "userId": "5105179b-fa48-4ad4-abf6-3303bfd1c529",
+    "leetexVersion": "0.3.2-alpha",
+    "exportedAt": "2026-06-19T07:51:04.600Z",
+    "browser": "Chrome",
+    "platform": "leetcode"
+  },
+  "session": {
+    "attemptHistory": [
+      {
+        "status": "Accepted",
+        "passed": null,
+        "total": null,
+        "runtime": "0 ms",
+        "memory": "0.00 MB",
+        "failedInput": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "errorText": null,
+        "errorCategory": null,
+        "sourcePanel": "submit",
+        "confidence": 0.32,
+        "type": "SUBMIT",
+        "timestamp": 1781855462335
+      }
+    ],
+    "difficulty": "Easy",
+    "endTime": null,
+    "events": [
+      {
+        "eventId": "evt_mqklwrlm_lalznbvs",
+        "metadata": {
+          "difficulty": "Easy",
+          "questionSlug": "two-sum",
+          "questionTitle": "Two Sum"
+        },
+        "timestamp": 1781854075066,
+        "type": "QUESTION_OPENED"
+      },
+      {
+        "eventId": "evt_mqkm2ty0_c969wht2",
+        "timestamp": 1781854358040,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqkm34kc_iwcz8yyj",
+        "metadata": {
+          "durationSeconds": 13
+        },
+        "timestamp": 1781854371804,
+        "type": "IDLE_ENDED"
+      },
+      {
+        "eventId": "evt_mqkm34kc_8nk07hnj",
+        "metadata": {
+          "source": "navigation",
+          "url": "https://leetcode.com/problems/two-sum/editorial/"
+        },
+        "timestamp": 1781854371804,
+        "type": "EDITORIAL_OPENED"
+      },
+      {
+        "eventId": "evt_mqkm5pc2_mncknh0d",
+        "timestamp": 1781854492034,
+        "type": "IDLE_STARTED"
+      },
+      {
+        "eventId": "evt_mqkmmx37_go6vg107",
+        "metadata": {
+          "trigger": "navigation",
+          "url": "https://leetcode.com/problems/two-sum/solutions/"
+        },
+        "timestamp": 1781855295235,
+        "type": "SOLUTION_OPENED"
+      },
+      {
+        "eventId": "evt_mqkmn6jq_yvatzdwo",
+        "metadata": {
+          "trigger": "navigation",
+          "url": "https://leetcode.com/problems/two-sum/solutions/"
+        },
+        "timestamp": 1781855307494,
+        "type": "SOLUTION_OPENED"
+      },
+      {
+        "eventId": "evt_mqkmnrqo_0w6lmv7k",
+        "metadata": {
+          "trigger": "navigation",
+          "url": "https://leetcode.com/problems/two-sum/solutions/"
+        },
+        "timestamp": 1781855334960,
+        "type": "SOLUTION_OPENED"
+      },
+      {
+        "eventId": "evt_mqkmpj76_5k9g0vwp",
+        "type": "SOLUTION_OPENED",
+        "timestamp": 1781855417202,
+        "metadata": {
+          "trigger": "navigation",
+          "url": "https://leetcode.com/problems/two-sum/solutions/"
+        }
+      },
+      {
+        "eventId": "evt_mqkmpl59_hqcpovu3",
+        "type": "SOLUTION_CLOSED",
+        "timestamp": 1781855419725,
+        "metadata": {
+          "durationMs": 2523,
+          "trigger": "navigation"
+        }
+      },
+      {
+        "eventId": "evt_mqkmpq8i_vca2j9o2",
+        "type": "EDITORIAL_OPENED",
+        "timestamp": 1781855426322,
+        "metadata": {
+          "trigger": "navigation",
+          "url": "https://leetcode.com/problems/two-sum/editorial/"
+        }
+      },
+      {
+        "eventId": "evt_mqkmpyjv_791d1xos",
+        "type": "EDITORIAL_CLOSED",
+        "timestamp": 1781855437099,
+        "metadata": {
+          "durationMs": 10777,
+          "trigger": "navigation"
+        }
+      },
+      {
+        "eventId": "evt_mqkmpyk0_k67ndfqa",
+        "type": "SOLUTION_OPENED",
+        "timestamp": 1781855437104,
+        "metadata": {
+          "trigger": "navigation",
+          "url": "https://leetcode.com/problems/two-sum/solutions/"
+        }
+      },
+      {
+        "eventId": "evt_mqkmqc5d_wkjpu4zs",
+        "type": "SOLUTION_CLOSED",
+        "timestamp": 1781855454721,
+        "metadata": {
+          "durationMs": 17617,
+          "trigger": "navigation"
+        }
+      },
+      {
+        "eventId": "evt_mqkmqe5s_31j0u90n",
+        "type": "SUBMIT",
+        "timestamp": 1781855457328,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqkmqe6a_wntnzec6",
+        "type": "FIRST_SUBMIT",
+        "timestamp": 1781855457346
+      },
+      {
+        "eventId": "evt_mqkmqi09_tagqu0i8",
+        "type": "SUBMISSION_RESULT",
+        "timestamp": 1781855462313,
+        "metadata": {
+          "status": "Accepted",
+          "sourcePanel": "submit",
+          "confidence": 0.32,
+          "runtime": "0 ms",
+          "memory": "0.00 MB"
+        }
+      }
+    ],
+    "learningSources": {
+      "editorial": {
+        "visits": 1,
+        "timeMs": 0
+      },
+      "solutions": {
+        "visits": 3,
+        "timeMs": 0
+      },
+      "discussion": {
+        "visits": 0,
+        "timeMs": 0
+      }
+    },
+    "metrics": {
+      "timeToFirstEdit": null,
+      "timeToFirstRun": null,
+      "timeToFirstSubmit": 1382,
+      "totalRuns": 0,
+      "totalSubmissions": 1,
+      "totalSnapshots": 1,
+      "totalActiveDuration": 1376,
+      "sessionDuration": 1389
+    },
+    "questionSlug": "two-sum",
+    "questionTitle": "Two Sum",
+    "sessionId": "sess_mqklwrlc_luct3hck",
+    "snapshots": [
+      {
+        "code": "class Solution:    def twoSum(self, nums: List[int], target: int) -> List[int]:        hash_map={}        for i,v in enumerate(nums):            if(target-v) in hash_map:                return i,hash_map[target-v]            else :                hash_map[v] = i",
+        "language": "python",
+        "questionSlug": "two-sum",
+        "similarityToPrevious": null,
+        "snapshotHash": "c6aaaca4b7de0b388af5c53fcee967e42b900928cd2840076615092c2d9e8ae7",
+        "snapshotId": "snap_mqklwrzt_dbc2u1oi",
+        "timestamp": 1781854075577,
+        "trigger": "SESSION_START"
+      }
+    ],
+    "startTime": 1781854075056,
+    "status": "active"
+  }
+}

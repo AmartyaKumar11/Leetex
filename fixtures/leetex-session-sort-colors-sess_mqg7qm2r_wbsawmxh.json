@@ -1,0 +1,417 @@
+{
+  "metadata": {
+    "userId": "5105179b-fa48-4ad4-abf6-3303bfd1c529",
+    "leetexVersion": "0.3.1-alpha",
+    "exportedAt": "2026-06-16T06:33:06.039Z",
+    "browser": "Chrome",
+    "platform": "leetcode"
+  },
+  "session": {
+    "sessionId": "sess_mqg7qm2r_wbsawmxh",
+    "questionTitle": "Sort Colors",
+    "questionSlug": "sort-colors",
+    "difficulty": "Medium",
+    "startTime": 1781588408643,
+    "endTime": null,
+    "status": "active",
+    "events": [
+      {
+        "eventId": "evt_mqg7qm3f_vxphneuu",
+        "type": "QUESTION_OPENED",
+        "timestamp": 1781588408667,
+        "metadata": {
+          "questionTitle": "Sort Colors",
+          "questionSlug": "sort-colors",
+          "difficulty": "Medium"
+        }
+      },
+      {
+        "eventId": "evt_mqg7t89n_8480ega9",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781588530715
+      },
+      {
+        "eventId": "evt_mqg8r5dm_ny4g1pge",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781590113274,
+        "metadata": {
+          "durationSeconds": 1582
+        }
+      },
+      {
+        "eventId": "evt_mqg8tqb7_pwatfd42",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781590233715
+      },
+      {
+        "eventId": "evt_mqg8ujhx_igdp8n8w",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781590271541,
+        "metadata": {
+          "durationSeconds": 37
+        }
+      },
+      {
+        "eventId": "evt_mqg8ul68_f7qxj8w4",
+        "type": "FIRST_EDIT",
+        "timestamp": 1781590273712
+      },
+      {
+        "eventId": "evt_mqg9175f_jgyqb7ym",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781590582131
+      },
+      {
+        "eventId": "evt_mqg97t2b_qmsh64bc",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781590890467,
+        "metadata": {
+          "durationSeconds": 308
+        }
+      },
+      {
+        "eventId": "evt_mqg9a76m_crzmy4nv",
+        "type": "RUN_CODE",
+        "timestamp": 1781591002078,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqg9a77c_4vqzv45u",
+        "type": "FIRST_RUN",
+        "timestamp": 1781591002104
+      },
+      {
+        "eventId": "evt_mqg9ab7h_3oatstiu",
+        "type": "RUN_RESULT",
+        "timestamp": 1781591007293,
+        "metadata": {
+          "status": "Compilation Error",
+          "sourcePanel": "run",
+          "confidence": 0.38,
+          "errorText": "Line 20: Char 9: error: void function 'sortColors' should not return a value [-Wreturn-mismatch]\n   20 |         return nums;\n      |         ^      ~~~~\n1 error generated.",
+          "errorCategory": "CompileError"
+        }
+      },
+      {
+        "eventId": "evt_mqg9alkr_5ftz02qr",
+        "type": "RUN_CODE",
+        "timestamp": 1781591020731,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqg9apze_n103fka0",
+        "type": "RUN_RESULT",
+        "timestamp": 1781591026442,
+        "metadata": {
+          "status": "Wrong Answer",
+          "sourcePanel": "run",
+          "confidence": 0.52,
+          "runtime": "0 ms",
+          "failedInput": "nums=[2,0,1]",
+          "actualOutput": "[1,0,2]",
+          "expectedOutput": "[0,1,2]"
+        }
+      },
+      {
+        "eventId": "evt_mqg9d6xc_jorhrz5r",
+        "type": "IDLE_STARTED",
+        "timestamp": 1781591141712
+      },
+      {
+        "eventId": "evt_mqg9iz9e_h8mr07si",
+        "type": "IDLE_ENDED",
+        "timestamp": 1781591411714,
+        "metadata": {
+          "durationSeconds": 270
+        }
+      },
+      {
+        "eventId": "evt_mqg9keb9_4ygaatb6",
+        "type": "RUN_CODE",
+        "timestamp": 1781591477877,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqg9kkbl_yd6s7obi",
+        "type": "RUN_RESULT",
+        "timestamp": 1781591485665,
+        "metadata": {
+          "status": "Wrong Answer",
+          "sourcePanel": "run",
+          "confidence": 0.52,
+          "runtime": "0 ms",
+          "failedInput": "nums=[2,0,1]",
+          "actualOutput": "[1,0,2]",
+          "expectedOutput": "[0,1,2]"
+        }
+      },
+      {
+        "eventId": "evt_mqg9lz08_atavl33s",
+        "type": "RUN_CODE",
+        "timestamp": 1781591551352,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqg9m48k_z7iqi1o9",
+        "type": "SUBMIT",
+        "timestamp": 1781591558132,
+        "metadata": {
+          "source": "click"
+        }
+      },
+      {
+        "eventId": "evt_mqg9m4di_db0s4a4z",
+        "type": "FIRST_SUBMIT",
+        "timestamp": 1781591558310
+      },
+      {
+        "eventId": "evt_mqg9mg3t_wzru3er2",
+        "type": "SUBMISSION_RESULT",
+        "timestamp": 1781591573513,
+        "metadata": {
+          "status": "Accepted",
+          "sourcePanel": "unknown",
+          "confidence": 0.32,
+          "runtime": "0 ms",
+          "failedInput": "nums=[2,0,1]"
+        }
+      }
+    ],
+    "snapshots": [
+      {
+        "snapshotId": "snap_mqg7qmwd_uptiskcl",
+        "timestamp": 1781588409709,
+        "trigger": "SESSION_START",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {            }};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "8d62f9cb4262c9845272e9bababa97cff0106a7a1009432301739db9b858c0e7",
+        "similarityToPrevious": null
+      },
+      {
+        "snapshotId": "snap_mqg8v58h_umtyvm3h",
+        "timestamp": 1781590299713,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;    }        int right = nums.size()-1;        int mid = left+1;        while()};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "1409eee77da34fd33bfff71375e7d47df9c14f5d866151a82e4029a96ee7efa1",
+        "similarityToPrevious": 0.61
+      },
+      {
+        "snapshotId": "snap_mqg8vsdt_gryqveo7",
+        "timestamp": 1781590329713,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;        int right = nums.size()-1;        int mid = left+1;        while(){            if(nums[mid] == 0){        }                swap(nums[mid])            }    }};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "00d44deb365f7607cb7e422f350313ee919ecb3427f87aed9587adb592366288",
+        "similarityToPrevious": 0.85
+      },
+      {
+        "snapshotId": "snap_mqg8wfj9_p4m02goa",
+        "timestamp": 1781590359717,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;        int right = nums.size()-1;        int mid = left+1;        while(){            if(nums[mid] == 0){        }                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 1){                swap(nums[mid] , nums)            }    }};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "9e390fb4d0518bf8791171fe1a6a733457f3458f9234097a7531ee625b3b5833",
+        "similarityToPrevious": 0.9
+      },
+      {
+        "snapshotId": "snap_mqg8x2oh_b885nrxo",
+        "timestamp": 1781590389713,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;        int right = nums.size()-1;        int mid = left+1;        while(){            if(nums[mid] == 0){        }                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 1){                swap(nums[mid] , nums[right]);            }    }            else mid++;        return nums;};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "503bf09b7158d19f76c50c3cd8148cf7fd07c0f255dc226c42d83c3922394fb0",
+        "similarityToPrevious": 0.91
+      },
+      {
+        "snapshotId": "snap_mqg8xq5b_g3t1nd8l",
+        "timestamp": 1781590420127,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;        int right = nums.size()-1;        int mid = left+1;        while(){            if(nums[mid] == 0){        }                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 1){                swap(nums[mid] , nums[right]);            }    }            else mid++;        return nums;                left++;                right--;};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "2af9fa5e782e242a9a1d53a3d694389eb1c8cbb983ee2fcf73aac9ab44110853",
+        "similarityToPrevious": 0.98
+      },
+      {
+        "snapshotId": "snap_mqg98074_7rbpp986",
+        "timestamp": 1781590899712,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;        int right = nums.size()-1;        int mid = left+1;        while(){            if(nums[mid] == 0){        }                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 2){                swap(nums[mid] , nums[right]);            }    }            else mid++;        return nums;                left++;                right--;};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "2ca03c721c44904a558523d627313bf9b8c3652b8d6cc320e95c74200308a217",
+        "similarityToPrevious": 0.97
+      },
+      {
+        "snapshotId": "snap_mqg99aht_729078u1",
+        "timestamp": 1781590959713,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;        int right = nums.size()-1;        int mid = left+1;        while(mid!=right){            if(nums[mid] == 0){        }                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 2){                swap(nums[mid] , nums[right]);            }    }            else mid++;        return nums;                left++;                right--;};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "3d9b933026b4b56d28509d50a8bc1dc8cad7f368112f67c8c06599aa0d906cb5",
+        "similarityToPrevious": 0.96
+      },
+      {
+        "snapshotId": "snap_mqg99xn4_trmkk33v",
+        "timestamp": 1781590989712,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;        int right = nums.size()-1;        int mid = 0;        while(mid!=right){            if(nums[mid] == 0){        }                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 2){                swap(nums[mid] , nums[right]);            }    }            else mid++;        return nums;                left++;                right--;};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "67cd9f15281a6b0dc8caeac3c7f80499cca75df09e7be1b096633c709facb6cd",
+        "similarityToPrevious": 0.99
+      },
+      {
+        "snapshotId": "snap_mqg9a777_3nb19fkj",
+        "timestamp": 1781591002099,
+        "trigger": "RUN_CODE",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;        int right = nums.size()-1;        int mid = 0;        while(mid!=right){            if(nums[mid] == 0){        }                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 2){                swap(nums[mid] , nums[right]);            }    }            else mid++;        return nums;                left++;                right--;                mid++;                mid++;};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "2fbc9d69cbdc535775e79d4f232335826f2b42ad1228e258e3e42dfcb9a12df3",
+        "similarityToPrevious": 1
+      },
+      {
+        "snapshotId": "snap_mqg9aksg_1kcullob",
+        "timestamp": 1781591019712,
+        "trigger": "PERIODIC",
+        "code": "class Solution {public:    void sortColors(vector<int>& nums) {        int left = 0;        int right = nums.size()-1;        int mid = 0;        while(mid!=right){            if(nums[mid] == 0){        }                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 2){                swap(nums[mid] , nums[right]);            }    }            else mid++;                left++;                right--;                mid++;                mid++;};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "c2c65f055db4dd042f448e1fbb24a14812f319397124a9b4044cf698a3042ea9",
+        "similarityToPrevious": 0.96
+      },
+      {
+        "snapshotId": "snap_mqg9jkv4_v3xc7pla",
+        "timestamp": 1781591439712,
+        "trigger": "PERIODIC",
+        "code": "int mid = 0;        while(mid!=right){            if(nums[mid] == 0){                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 2){                swap(nums[mid] , nums[right]);            }                left++;                right--;                mid++;                mid++;            else mid++;        }    }        int right = nums.size()-1;        int left = 0;    void sortColors(vector<int>& nums) {public:class Solution {",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "b36e8113c443638e5c4874d5bed70798ec91e0863fbfecc28b0c950ab9661acf",
+        "similarityToPrevious": 0.97
+      },
+      {
+        "snapshotId": "snap_mqg9kebt_0823qm7l",
+        "timestamp": 1781591477897,
+        "trigger": "RUN_CODE",
+        "code": "int mid = 0;        while(mid!=right){            if(nums[mid] == 0){                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 2){                swap(nums[mid] , nums[right]);            }                left++;                right--;                mid++;            else mid++;        }    }        int right = nums.size()-1;        int left = 0;    void sortColors(vector<int>& nums) {public:class Solution {};",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "7366b64e0d84ad00f8b0c92100fa68dc93466f67a1d80380544d571e53110224",
+        "similarityToPrevious": 0.98
+      },
+      {
+        "snapshotId": "snap_mqg9kv5u_jd4yw73c",
+        "timestamp": 1781591499714,
+        "trigger": "PERIODIC",
+        "code": "int mid = 0;        while(mid!=right){            if(nums[mid] == 0){                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 2){                swap(nums[mid] , nums[right]);            }                left++;                right--;                mid++;            else mid++;        }    }        int right = nums.size()-1;        int left = 0;    void sortColors(vector<int>& nums) {};public:class Solution {",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "a0a1122ae15b4dd3936a39b0e817332e16f184ef0676a6f22ec56dbfed65fc5a",
+        "similarityToPrevious": 0.98
+      },
+      {
+        "snapshotId": "snap_mqg9lz13_0mx28r7g",
+        "timestamp": 1781591551383,
+        "trigger": "RUN_CODE",
+        "code": "int mid = 0;        while(mid<=right){            if(nums[mid] == 0){                swap(nums[mid] , nums[left]);            }            else if(nums[mid] == 2){                swap(nums[mid] , nums[right]);            }                left++;                right--;                mid++;            else mid++;        }    }        int right = nums.size()-1;        int left = 0;    void sortColors(vector<int>& nums) {};public:class Solution {",
+        "language": "cpp",
+        "questionSlug": "sort-colors",
+        "snapshotHash": "a1824574e3f7d0975f3abfb940f87295f5c0a6ffc7db03012d817610549c225d",
+        "similarityToPrevious": 0.97
+      }
+    ],
+    "attemptHistory": [
+      {
+        "status": "Compilation Error",
+        "passed": null,
+        "total": null,
+        "runtime": null,
+        "memory": null,
+        "failedInput": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "errorText": "Line 20: Char 9: error: void function 'sortColors' should not return a value [-Wreturn-mismatch]\n   20 |         return nums;\n      |         ^      ~~~~\n1 error generated.",
+        "errorCategory": "CompileError",
+        "sourcePanel": "run",
+        "confidence": 0.38,
+        "type": "RUN",
+        "timestamp": 1781591007332
+      },
+      {
+        "status": "Wrong Answer",
+        "passed": null,
+        "total": null,
+        "runtime": "0 ms",
+        "memory": null,
+        "failedInput": "nums=[2,0,1]",
+        "actualOutput": "[1,0,2]",
+        "expectedOutput": "[0,1,2]",
+        "errorText": null,
+        "errorCategory": null,
+        "sourcePanel": "run",
+        "confidence": 0.52,
+        "type": "RUN",
+        "timestamp": 1781591026449
+      },
+      {
+        "status": "Wrong Answer",
+        "passed": null,
+        "total": null,
+        "runtime": "0 ms",
+        "memory": null,
+        "failedInput": "nums=[2,0,1]",
+        "actualOutput": "[1,0,2]",
+        "expectedOutput": "[0,1,2]",
+        "errorText": null,
+        "errorCategory": null,
+        "sourcePanel": "run",
+        "confidence": 0.52,
+        "type": "RUN",
+        "timestamp": 1781591485703
+      },
+      {
+        "status": "Accepted",
+        "passed": null,
+        "total": null,
+        "runtime": "0 ms",
+        "memory": null,
+        "failedInput": "nums=[2,0,1]",
+        "actualOutput": null,
+        "expectedOutput": null,
+        "errorText": null,
+        "errorCategory": null,
+        "sourcePanel": "unknown",
+        "confidence": 0.32,
+        "type": "SUBMIT",
+        "timestamp": 1781591573515
+      }
+    ],
+    "metrics": {
+      "timeToFirstEdit": 1865,
+      "timeToFirstRun": 2593,
+      "timeToFirstSubmit": 3149,
+      "totalRuns": 4,
+      "totalSubmissions": 1,
+      "totalSnapshots": 15,
+      "totalActiveDuration": 980,
+      "sessionDuration": 3177
+    }
+  }
+}
