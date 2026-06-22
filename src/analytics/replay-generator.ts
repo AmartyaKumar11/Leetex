@@ -3,6 +3,23 @@ import type { ReplayEntry, ReplayEntryCategory } from "~/types/session-analysis-
 import type { Session } from "~/types/session"
 import type { ResultStatus } from "~/types/results"
 
+const EVENT_CATEGORY_MAP: Record<string, ReplayEntryCategory> = {
+  [EVENT_TYPES.QUESTION_OPENED]: "SESSION",
+  [EVENT_TYPES.FIRST_EDIT]: "EDIT",
+  [EVENT_TYPES.LANGUAGE_CHANGED]: "EDIT",
+  [EVENT_TYPES.FIRST_RUN]: "RUN",
+  [EVENT_TYPES.RUN_CODE]: "RUN",
+  [EVENT_TYPES.FIRST_SUBMIT]: "SUBMIT",
+  [EVENT_TYPES.SUBMIT]: "SUBMIT",
+  [EVENT_TYPES.MAJOR_REWRITE]: "REWRITE",
+  [EVENT_TYPES.EDITORIAL_OPENED]: "LEARNING_SOURCE",
+  [EVENT_TYPES.EDITORIAL_CLOSED]: "LEARNING_SOURCE",
+  [EVENT_TYPES.SOLUTION_OPENED]: "LEARNING_SOURCE",
+  [EVENT_TYPES.SOLUTION_CLOSED]: "LEARNING_SOURCE",
+  [EVENT_TYPES.DISCUSSION_OPENED]: "LEARNING_SOURCE",
+  [EVENT_TYPES.DISCUSSION_CLOSED]: "LEARNING_SOURCE"
+}
+
 const REPLAY_EVENT_TYPES = new Set<string>([
   EVENT_TYPES.QUESTION_OPENED,
   EVENT_TYPES.FIRST_EDIT,
@@ -91,30 +108,7 @@ function resolveReplayCategory(event: SessionEvent): ReplayEntryCategory {
     return event.type === EVENT_TYPES.RUN_RESULT ? "RUN" : "SUBMIT"
   }
 
-  switch (event.type) {
-    case EVENT_TYPES.QUESTION_OPENED:
-      return "SESSION"
-    case EVENT_TYPES.FIRST_EDIT:
-    case EVENT_TYPES.LANGUAGE_CHANGED:
-      return "EDIT"
-    case EVENT_TYPES.FIRST_RUN:
-    case EVENT_TYPES.RUN_CODE:
-      return "RUN"
-    case EVENT_TYPES.FIRST_SUBMIT:
-    case EVENT_TYPES.SUBMIT:
-      return "SUBMIT"
-    case EVENT_TYPES.MAJOR_REWRITE:
-      return "REWRITE"
-    case EVENT_TYPES.EDITORIAL_OPENED:
-    case EVENT_TYPES.EDITORIAL_CLOSED:
-    case EVENT_TYPES.SOLUTION_OPENED:
-    case EVENT_TYPES.SOLUTION_CLOSED:
-    case EVENT_TYPES.DISCUSSION_OPENED:
-    case EVENT_TYPES.DISCUSSION_CLOSED:
-      return "LEARNING_SOURCE"
-    default:
-      return "SESSION"
-  }
+  return EVENT_CATEGORY_MAP[event.type] ?? "SESSION"
 }
 
 function resolveReplayLabel(event: SessionEvent): string {

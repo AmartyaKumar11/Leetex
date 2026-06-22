@@ -1,4 +1,5 @@
 import { EVENT_TYPES } from "~/types/events"
+import { createEmptyLearningSources } from "~/types/learning-source"
 import {
   createPlaceholderBehavioralFeatures,
   type BehavioralFeatures
@@ -6,7 +7,6 @@ import {
 import type { Session } from "~/types/session"
 import type { AttemptRecord } from "~/types/attempt"
 import type { ResultStatus } from "~/types/results"
-import { aggregateLearningSources } from "~/utils/learning-source-aggregation"
 
 export function extractBehavioralFeatures(session: Session): BehavioralFeatures {
   const placeholder = createPlaceholderBehavioralFeatures()
@@ -97,15 +97,15 @@ function extractRewriteFeatures(session: Session): BehavioralFeatures["rewrites"
 }
 
 function extractLearningFeatures(session: Session): BehavioralFeatures["learning"] {
-  const learningSources = aggregateLearningSources(session.events ?? [])
+  const sources = session.learningSources ?? createEmptyLearningSources()
 
   return {
-    editorialVisits: learningSources.editorial.visits,
-    editorialTimeMs: learningSources.editorial.timeMs,
-    solutionVisits: learningSources.solutions.visits,
-    solutionTimeMs: learningSources.solutions.timeMs,
-    discussionVisits: learningSources.discussion.visits,
-    discussionTimeMs: learningSources.discussion.timeMs
+    editorialVisits: sources.editorial.visits,
+    editorialTimeMs: sources.editorial.timeMs,
+    solutionVisits: sources.solutions.visits,
+    solutionTimeMs: sources.solutions.timeMs,
+    discussionVisits: sources.discussion.visits,
+    discussionTimeMs: sources.discussion.timeMs
   }
 }
 
