@@ -1,5 +1,6 @@
 import type { Difficulty } from "~/types/session"
 import type { LearningSourceId, LearningSourceView } from "~/types/learning-source"
+import { isObserverDebugEnabled, observerDebugLog } from "~/utils/observer-debug"
 
 const PROBLEM_PATH_PATTERN = /\/problems\/([^/]+)/
 
@@ -271,7 +272,10 @@ export function extractDifficulty(): Difficulty | null {
 
 export function extractEditorState(): { code: string; language: string | null } {
   const monacoState = extractMonacoEditorState()
-  const code = monacoState?.code ?? extractCodeFromDom()
+  const code =
+    monacoState?.code ??
+    extractCodeFromTextarea() ??
+    extractCodeFromDom()
   const language =
     monacoState?.language ?? extractSelectedLanguage() ?? inferLanguageFromCode(code)
 
@@ -353,6 +357,50 @@ function cleanTitle(raw: string): string {
 }
 
 function extractMonacoEditorState(): { code: string; language: string | null } | null {
+  if (isObserverDebugEnabled()) {
+    const win = window as Window & {
+      monaco?: MonacoGlobal
+      MonacoEnvironment?: unknown
+    }
+    const monacoGlobal = win.monaco
+    const editors = monacoGlobal?.editor?.getEditors?.()
+    const monacoElement = document.querySelector(".monaco-editor")
+    const monacoElementRecord = monacoElement as
+      | (Element & { _monacoEditor?: unknown; __monaco_editor__?: unknown })
+      | null
+
+    observerDebugLog("Monaco investigation: window.monaco exists", monacoGlobal != null)
+
+    observerDebugLog("Monaco investigation: getEditors() count", editors?.length ?? 0)
+
+    if (editors?.length) {
+      const sampleEditor = editors[0]
+      const editorValue = sampleEditor.getValue?.() ?? ""
+
+      observerDebugLog("Monaco investigation: editor.getValue()", {
+        characterLength: editorValue.length,
+        lineCount: editorValue.split("\n").length,
+        previewFirst120Chars: editorValue.slice(0, 120),
+        previewLast80Chars: editorValue.slice(-80)
+      })
+    }
+
+    if (!monacoGlobal) {
+      observerDebugLog(
+        "Monaco investigation: Monaco-related window keys",
+        Object.keys(window).filter((key) => key.toLowerCase().includes("monaco"))
+      )
+    }
+
+    observerDebugLog("Monaco investigation: alternative access paths", {
+      "(window as any).monaco": (window as Window & { monaco?: unknown }).monaco != null,
+      "(window as any).MonacoEnvironment": win.MonacoEnvironment != null,
+      "document.querySelector('.monaco-editor')": monacoElement != null,
+      "(monaco-editor)._monacoEditor": monacoElementRecord?._monacoEditor != null,
+      "(monaco-editor).__monaco_editor__": monacoElementRecord?.__monaco_editor__ != null
+    })
+  }
+
   const monaco = (window as Window & { monaco?: MonacoGlobal }).monaco
   const editors = monaco?.editor?.getEditors?.()
 
@@ -365,6 +413,29 @@ function extractMonacoEditorState(): { code: string; language: string | null } |
   const language = normalizeLanguageLabel(editor.getModel?.()?.getLanguageId() ?? null)
 
   return { code, language }
+}
+
+function extractCodeFromTextarea(): string | null {
+  const textareas = document.querySelectorAll<HTMLTextAreaElement>(
+    ".monaco-editor .inputarea, .monaco-editor textarea"
+  )
+
+  if (textareas.length === 0) {
+    observerDebugLog("Textarea Extraction: .inputarea not found")
+    return null
+  }
+
+  for (const textarea of textareas) {
+    const value = textarea.value
+
+    if (value.trim().length > 0) {
+      observerDebugLog("Textarea Extraction: success", { length: value.length })
+      return value
+    }
+  }
+
+  observerDebugLog("Textarea Extraction: textarea empty")
+  return null
 }
 
 function extractCodeFromDom(): string {
