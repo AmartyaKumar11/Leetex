@@ -29,6 +29,7 @@ export interface SessionSummary {
 
 export interface BehavioralFeatures {
   solving: {
+    /** All timing values are in milliseconds from session start. */
     timeToFirstEdit: number | null
     timeToFirstRun: number | null
     timeToFirstSubmit: number | null

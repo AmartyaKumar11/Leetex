@@ -10,6 +10,38 @@ import { EVENT_TYPES } from "~/types/events"
 import { computeCodeSimilarity } from "~/utils/code-similarity"
 import { firstEditDebugLog, hashCode } from "~/utils/code-hash"
 import { extractEditorState } from "~/utils/leetcode-dom"
+import { observerDebugLog } from "~/utils/observer-debug"
+
+function isBoilerplateCode(code: string): boolean {
+  if (!code || code.trim().length === 0) {
+    return true
+  }
+
+  const lines = code.split("\n")
+  const substantiveLines = lines.filter((line) => {
+    const trimmed = line.trim()
+
+    if (trimmed.length === 0) {
+      return false
+    }
+
+    if (/^[{}();]*$/.test(trimmed)) {
+      return false
+    }
+
+    if (/^(class\s|public:|private:|protected:|def |function |fn |func )/.test(trimmed)) {
+      return false
+    }
+
+    if (/^(int |void |string |vector|long |bool |char |return\s*;|#)/.test(trimmed)) {
+      return false
+    }
+
+    return true
+  })
+
+  return substantiveLines.length <= 2
+}
 
 export class SignalLayerService {
   private pollIntervalId: ReturnType<typeof setInterval> | null = null
@@ -25,6 +57,11 @@ export class SignalLayerService {
     if (snapshot) {
       this.baselineCode = snapshot.code
       this.lastKnownLanguage = snapshot.language
+
+      if (!isBoilerplateCode(snapshot.code)) {
+        await sessionManager.markAsReturningSession()
+        observerDebugLog("Returning session detected — editor had non-boilerplate code at start")
+      }
 
       firstEditDebugLog("Initial Snapshot Hash", {
         hash: hashCode(snapshot.code),

@@ -108,6 +108,7 @@ export class SessionManager {
       endTime: null,
       lastActivityTimestamp: sessionStart,
       status: "active",
+      isReturningSession: false,
       events: [],
       snapshots: [],
       attemptHistory: [],
@@ -308,6 +309,20 @@ export class SessionManager {
     return completedSession
   }
 
+  async markAsReturningSession(): Promise<void> {
+    if (!this.currentSession) {
+      return
+    }
+
+    this.currentSession = {
+      ...this.currentSession,
+      isReturningSession: true
+    }
+
+    await this.persistActiveSession()
+    observerDebugLog("Session marked as returning session")
+  }
+
   analyzeSession(session: Session | null = this.currentSession): SessionAnalysis | null {
     if (!session) {
       return null
@@ -420,6 +435,7 @@ function normalizeSession(session: Session): Session {
 
   return withAggregatedLearningSources({
     ...session,
+    isReturningSession: session.isReturningSession ?? false,
     lastActivityTimestamp,
     attemptHistory: session.attemptHistory ?? [],
     metrics: session.metrics ?? createEmptySessionMetrics(),

@@ -15,6 +15,7 @@ export interface Session {
   endTime: number | null
   lastActivityTimestamp: number
   status: SessionStatus
+  isReturningSession: boolean
   events: import("~/types/events").SessionEvent[]
   snapshots: import("~/types/snapshot").Snapshot[]
   attemptHistory: AttemptRecord[]

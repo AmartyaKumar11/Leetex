@@ -30,9 +30,12 @@ export const featureExtractor = new FeatureExtractor()
 
 function extractSolvingFeatures(session: Session): BehavioralFeatures["solving"] {
   const events = session.events ?? []
+  const isReturningSession = session.isReturningSession ?? false
 
   return {
-    timeToFirstEdit: findRelativeMs(events, session.startTime, EVENT_TYPES.FIRST_EDIT),
+    timeToFirstEdit: isReturningSession
+      ? null
+      : findRelativeMs(events, session.startTime, EVENT_TYPES.FIRST_EDIT),
     timeToFirstRun: findRelativeMs(events, session.startTime, EVENT_TYPES.FIRST_RUN),
     timeToFirstSubmit: findRelativeMs(events, session.startTime, EVENT_TYPES.FIRST_SUBMIT),
     totalRuns: countEvents(events, EVENT_TYPES.RUN_CODE),

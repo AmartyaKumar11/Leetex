@@ -329,6 +329,9 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.4.4: returning session detection — `isReturningSession` flag; null `timeToFirstEdit` when editor had prior code |
+| 2026-06-01 | v0.4.4: analytics solving timings documented as milliseconds (distinct from `session.metrics` seconds) |
+| 2026-06-01 | v0.4.4: Monaco code extraction via `.inputarea` textarea — fixes scrambled scroll snapshots |
 | 2026-06-01 | v0.4.4: analysis embedded in export payload — SessionAnalyticsEngine runs at export time |
 | 2026-06-01 | v0.4.3: ClassificationEngine + SnapshotAnalytics — deterministic session labels |
 | 2026-06-01 | v0.4.2: analytics test harness — `scripts/test-analytics.ts` + fixture folder mode |
