@@ -9,6 +9,7 @@ interface AboutLeetExCardProps {
   userId: string | null
   version: string
   extensionActive: boolean
+  isAuthenticated: boolean
 }
 
 function truncateUserId(userId: string): string {
@@ -18,7 +19,8 @@ function truncateUserId(userId: string): string {
 export function AboutLeetExCard({
   userId,
   version,
-  extensionActive
+  extensionActive,
+  isAuthenticated
 }: AboutLeetExCardProps) {
   const [copied, setCopied] = useState(false)
 
@@ -74,7 +76,9 @@ export function AboutLeetExCard({
             </Button>
           </div>
           <p className="text-[11px] leading-relaxed text-muted-foreground">
-            Included in exports so sessions can be traced to your installation.
+            {isAuthenticated
+              ? "Your Clerk account ID is included in exports."
+              : "Anonymous install ID until you sign in above."}
           </p>
         </div>
       </CardContent>

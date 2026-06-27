@@ -9,6 +9,11 @@ build/
 # Environment
 .env
 .env.*
+!.env.*.example
+
+# Clerk / Chrome extension signing (never commit private keys)
+*.pem
+key.pem
 
 # OS / IDE
 .DS_Store

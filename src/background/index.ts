@@ -1,5 +1,8 @@
+import { registerClerkAuthHandlers } from "~/background/clerk-auth"
 import { userIdentityService } from "~/services/user-identity-service"
 import { versionService } from "~/services/version-service"
+
+registerClerkAuthHandlers()
 
 function initializeIdentity(): void {
   void userIdentityService

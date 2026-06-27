@@ -5,13 +5,15 @@
   "description": "AI-powered coding learning OS — LeetCode session observer",
   "author": "LeetEx",
   "scripts": {
-    "dev": "plasmo dev",
+    "dev": "cross-env NODE_OPTIONS=--require=./scripts/graceful-fs-patch.cjs CHOKIDAR_USEPOLLING=1 PARCEL_WORKERS=1 plasmo dev",
+    "dev:clean": "node -e \"try{require('fs').rmSync('.plasmo/cache',{recursive:true,force:true})}catch(e){}\" && npm run dev",
     "build": "plasmo build",
     "package": "plasmo package",
     "typecheck": "tsc --noEmit",
     "analytics:test": "tsx scripts/test-analytics.ts"
   },
   "dependencies": {
+    "@clerk/chrome-extension": "^3.1.44",
     "@radix-ui/react-slot": "^1.2.5",
     "autoprefixer": "^10.5.0",
     "class-variance-authority": "^0.7.1",
@@ -31,17 +33,24 @@
     "@types/node": "22.10.2",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
+    "cross-env": "^10.1.0",
+    "graceful-fs": "^4.2.11",
     "prettier": "3.2.4",
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.19.4",
     "typescript": "5.3.3"
   },
   "manifest": {
+    "key": "$CRX_PUBLIC_KEY",
     "host_permissions": [
-      "https://leetcode.com/*"
+      "https://leetcode.com/*",
+      "http://localhost/*",
+      "$CLERK_FRONTEND_API/*"
     ],
     "permissions": [
-      "storage"
+      "cookies",
+      "storage",
+      "tabs"
     ]
   }
 }

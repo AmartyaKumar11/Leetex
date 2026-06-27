@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
-> **Last updated:** 2026-06-01  
+> **Last updated:** 2026-06-27  
 > **Current phase:** v0.4.0-alpha — Session Analytics & Replay Engine  
-> **Status:** Phase 4.4 analysis embedded in session exports
+> **Status:** Clerk auth scaffold + stable CRX ID wired
 
 ---
 
@@ -320,8 +320,9 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | v0.4.2 Analytics Test Harness | ✅ Done | 2026-06-01 | `npm run analytics:test` on exported session JSON fixtures |
 | v0.4.3 Classification + Snapshots | ✅ Done | 2026-06-01 | Deterministic labels + snapshot similarity metrics |
 | v0.4.4 Analysis Export Layer | ✅ Done | 2026-06-01 | `{ metadata, session, analysis }` export payload |
+| Clerk Auth + Stable CRX ID | ✅ Done | 2026-06-27 | `@clerk/chrome-extension`, RSA keypair, manifest `key`, Account card |
 
-**Next up:** v0.5 Cross Session Aggregation
+**Next up:** Clerk sign-in E2E verification + v0.5 Cross Session Aggregation
 
 ---
 
@@ -329,6 +330,7 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-27 | Clerk auth: stable CRX ID via RSA keypair; `CRX_PUBLIC_KEY` in `.env.chrome` / `.env.development` |
 | 2026-06-01 | v0.4.4: returning session detection — `isReturningSession` flag; null `timeToFirstEdit` when editor had prior code |
 | 2026-06-01 | v0.4.4: analytics solving timings documented as milliseconds (distinct from `session.metrics` seconds) |
 | 2026-06-01 | v0.4.4: Monaco code extraction via `.inputarea` textarea — fixes scrambled scroll snapshots |

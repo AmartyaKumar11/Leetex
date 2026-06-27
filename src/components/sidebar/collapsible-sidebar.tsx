@@ -19,6 +19,7 @@ import { formatTimelineForDisplay } from "~/utils/timeline-display"
 import { now } from "~/utils/time"
 
 import { AboutLeetExCard } from "~/components/sidebar/about-leetex-card"
+import { AuthSection } from "~/components/sidebar/auth-section"
 
 const COLLAPSED_STORAGE_KEY = "leetex-sidebar-collapsed"
 const SIDEBAR_WIDTH = 340
@@ -181,10 +182,16 @@ export function CollapsibleSidebar() {
                 />
                 <LearningInsightsCard insights={insights} />
                 <TimelineCard entries={timeline} />
+                <AuthSection
+                  isAuthenticated={alpha.isAuthenticated}
+                  email={alpha.email}
+                  onAuthChange={alpha.refreshAuth}
+                />
                 <AboutLeetExCard
                   userId={alpha.userId}
                   version={alpha.version}
                   extensionActive={Boolean(isActive)}
+                  isAuthenticated={alpha.isAuthenticated}
                 />
               </div>
             </div>
