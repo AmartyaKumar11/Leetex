@@ -5,22 +5,16 @@ import type { AuthBridgeResponse } from "~/constants/auth-messages"
 import { AUTH_MESSAGE, SIGN_IN_PAGE_PATH } from "~/constants/auth-messages"
 import { assertClerkPublishableKey, getClerkRedirectUrl } from "~/constants/clerk"
 
-let clerkClientPromise: Promise<Clerk> | null = null
-
-function getClerkClient(): Promise<Clerk> {
-  if (!clerkClientPromise) {
-    clerkClientPromise = createClerkClient({
-      publishableKey: assertClerkPublishableKey(),
-      background: true
-    })
-  }
-
-  return clerkClientPromise
+async function createBackgroundClerk(): Promise<Clerk> {
+  return createClerkClient({
+    publishableKey: assertClerkPublishableKey(),
+    background: true
+  })
 }
 
 async function readAuthState(): Promise<AuthBridgeResponse> {
   try {
-    const clerk = await getClerkClient()
+    const clerk = await createBackgroundClerk()
 
     return {
       isSignedIn: Boolean(clerk.user),
@@ -55,15 +49,67 @@ export function registerClerkAuthHandlers(): void {
       return true
     }
 
+    if (message?.type === AUTH_MESSAGE.GET_TOKEN) {
+      void (async () => {
+        try {
+          const clerk = await createBackgroundClerk()
+          const token = await clerk.session?.getToken({ skipCache: true })
+          sendResponse({ token: token ?? null })
+        } catch (error) {
+          console.error("[LeetEx] Clerk token retrieval failed", error)
+          sendResponse({ token: null })
+        }
+      })()
+
+      return true
+    }
+
     if (message?.type === AUTH_MESSAGE.SIGN_OUT) {
       void (async () => {
         try {
-          const clerk = await getClerkClient()
+          const clerk = await createBackgroundClerk()
           await clerk.signOut({ redirectUrl: getClerkRedirectUrl("popup.html") })
           sendResponse({ success: true })
         } catch (error) {
           console.error("[LeetEx] Clerk sign out failed", error)
           sendResponse({ success: false })
+        }
+      })()
+
+      return true
+    }
+
+    if (message?.type === AUTH_MESSAGE.SYNC_SESSION) {
+      void (async () => {
+        const backendUrl = process.env.PLASMO_PUBLIC_BACKEND_URL
+
+        if (!backendUrl || !message?.payload) {
+          sendResponse({ ok: false })
+          return
+        }
+
+        try {
+          const clerk = await createBackgroundClerk()
+          const token = await clerk.session?.getToken({ skipCache: true })
+
+          if (!token) {
+            sendResponse({ ok: false, status: 401 })
+            return
+          }
+
+          const response = await fetch(`${backendUrl}/sessions/sync`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(message.payload)
+          })
+
+          sendResponse({ ok: response.ok, status: response.status })
+        } catch (error) {
+          console.error("[LeetEx] Session sync failed", error)
+          sendResponse({ ok: false })
         }
       })()
 

@@ -83,6 +83,10 @@ export class ResultExtractionService {
     })
 
     await sessionManager.recordAttempt(kind === "run" ? "RUN" : "SUBMIT", result)
+
+    if (kind === "submit") {
+      sessionManager.syncActiveSession()
+    }
   }
 
   private cancelPendingCapture(): void {

@@ -20,6 +20,9 @@ export class LeetCodeSessionObserver {
   private lastSyncedView: LearningSourceView | null = null
   private urlObserver: MutationObserver | null = null
   private tabObserver: MutationObserver | null = null
+  private boundPageHide: (() => void) | null = null
+  private boundPageShow: ((event: PageTransitionEvent) => void) | null = null
+  private boundPopState: (() => void) | null = null
 
   async start(): Promise<void> {
     if (this.started) {
@@ -33,6 +36,7 @@ export class LeetCodeSessionObserver {
     this.attachClickListener()
     this.attachUrlObserver()
     this.attachTabObserver()
+    this.attachPageLifecycleHandlers()
 
     if (isLeetCodeProblemUrl()) {
       await this.handleProblemPage()
@@ -40,6 +44,10 @@ export class LeetCodeSessionObserver {
   }
 
   stop(): void {
+    if (!this.started) {
+      return
+    }
+
     this.started = false
     signalLayerService.stop()
     this.urlObserver?.disconnect()
@@ -47,6 +55,23 @@ export class LeetCodeSessionObserver {
     this.tabObserver?.disconnect()
     this.tabObserver = null
     document.removeEventListener("click", this.onDocumentClick, true)
+
+    if (this.boundPageHide) {
+      window.removeEventListener("pagehide", this.boundPageHide)
+      this.boundPageHide = null
+    }
+
+    if (this.boundPageShow) {
+      window.removeEventListener("pageshow", this.boundPageShow)
+      this.boundPageShow = null
+    }
+
+    if (this.boundPopState) {
+      window.removeEventListener("popstate", this.boundPopState)
+      this.boundPopState = null
+    }
+
+    void this.finalizeSessionOnLeave()
   }
 
   private attachClickListener(): void {
@@ -68,9 +93,62 @@ export class LeetCodeSessionObserver {
       subtree: true
     })
 
-    window.addEventListener("popstate", () => {
+    this.boundPopState = this.onPopState
+    window.addEventListener("popstate", this.boundPopState)
+  }
+
+  private onPopState = (): void => {
+    this.lastUrl = location.href
+    void this.handleNavigation()
+  }
+
+  private attachPageLifecycleHandlers(): void {
+    this.boundPageHide = () => {
+      void this.finalizeSessionOnLeave()
+    }
+
+    this.boundPageShow = (event: PageTransitionEvent) => {
+      this.lastUrl = location.href
+
+      if (event.persisted) {
+        void this.handleBfcacheRestore()
+        return
+      }
+
       void this.handleNavigation()
-    })
+    }
+
+    window.addEventListener("pagehide", this.boundPageHide)
+    window.addEventListener("pageshow", this.boundPageShow)
+  }
+
+  private async finalizeSessionOnLeave(): Promise<void> {
+    if (!sessionManager.getCurrentSession()) {
+      this.currentSlug = null
+      this.lastSyncedView = null
+      return
+    }
+
+    signalLayerService.stop()
+    this.currentSlug = null
+    this.lastSyncedView = null
+    learningSourceTrackingService.reset()
+    await sessionManager.endSession()
+  }
+
+  private async handleBfcacheRestore(): Promise<void> {
+    signalLayerService.stop()
+    this.lastSyncedView = null
+    learningSourceTrackingService.reset()
+    this.currentSlug = null
+
+    if (sessionManager.getCurrentSession()) {
+      await sessionManager.endSession()
+    }
+
+    if (isLeetCodeProblemUrl()) {
+      await this.handleProblemPage()
+    }
   }
 
   private attachTabObserver(): void {
@@ -128,12 +206,8 @@ export class LeetCodeSessionObserver {
 
   private async handleNavigation(): Promise<void> {
     if (!isLeetCodeProblemUrl()) {
-      if (this.currentSlug) {
-        signalLayerService.stop()
-        await sessionManager.endSession()
-        this.currentSlug = null
-        this.lastSyncedView = null
-        learningSourceTrackingService.reset()
+      if (this.currentSlug || sessionManager.getCurrentSession()) {
+        await this.finalizeSessionOnLeave()
       }
 
       return

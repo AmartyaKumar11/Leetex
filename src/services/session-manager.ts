@@ -10,6 +10,7 @@ import {
 import { snapshotHashService } from "~/services/snapshot-hash-service"
 import { snapshotSchedulerService } from "~/services/snapshot-scheduler-service"
 import { StorageService } from "~/services/storage-service"
+import { syncService } from "~/services/sync-service"
 import type { AttemptRecord, AttemptType } from "~/types/attempt"
 import type { EventType, RegisterEventOptions, SessionEvent } from "~/types/events"
 import type { RegisterSnapshotOptions, Snapshot, SnapshotTrigger } from "~/types/snapshot"
@@ -278,10 +279,24 @@ export class SessionManager {
     await this.persistActiveSession()
   }
 
+  syncActiveSession(): void {
+    const session = this.currentSession
+
+    if (!session || session.status !== "active") {
+      return
+    }
+
+    void syncService.syncSession(session)
+  }
+
   async endSession(endTime?: number): Promise<Session | null> {
     if (!this.currentSession) {
       return null
     }
+
+    const sessionToComplete = this.currentSession
+    this.currentSession = null
+    this.notifyListeners()
 
     await learningSourceTrackingService.closeOnSessionEnd()
     snapshotSchedulerService.stop()
@@ -289,22 +304,19 @@ export class SessionManager {
     const resolvedEndTime = endTime ?? now()
 
     const completedSession: Session = sessionMetricsService.attach({
-      ...this.currentSession,
+      ...sessionToComplete,
       endTime: resolvedEndTime,
       lastActivityTimestamp: Math.max(
-        resolveLastActivityTimestamp(this.currentSession),
+        resolveLastActivityTimestamp(sessionToComplete),
         resolvedEndTime
       ),
       status: "completed"
     })
 
-    this.currentSession = completedSession
-
     await StorageService.appendToHistory(completedSession)
     await StorageService.clearActiveSession()
 
-    this.currentSession = null
-    this.notifyListeners()
+    void syncService.syncSession(completedSession)
 
     return completedSession
   }

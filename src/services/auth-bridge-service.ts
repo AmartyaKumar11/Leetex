@@ -56,3 +56,23 @@ export async function signOut(): Promise<void> {
     })
   })
 }
+
+export async function getToken(): Promise<string | null> {
+  return new Promise((resolve) => {
+    chrome.runtime.sendMessage({ type: AUTH_MESSAGE.GET_TOKEN }, (response: { token?: string | null }) => {
+      if (chrome.runtime.lastError) {
+        resolve(null)
+        return
+      }
+
+      resolve(response?.token ?? null)
+    })
+  })
+}
+
+export const authBridgeService = {
+  getAuthState,
+  getToken,
+  openSignInPage,
+  signOut
+}

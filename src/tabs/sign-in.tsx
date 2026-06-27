@@ -2,10 +2,12 @@ import {
   AuthenticateWithRedirectCallback,
   Show,
   SignIn,
-  SignUp
+  SignUp,
+  useAuth
 } from "@clerk/chrome-extension"
 import { useEffect, useMemo, useState } from "react"
 
+import { AUTH_MESSAGE } from "~/constants/auth-messages"
 import { CLERK_EXTENSION_APPEARANCE } from "~/constants/clerk-appearance"
 import { getClerkRedirectUrl } from "~/constants/clerk"
 import { ClerkLeetExProvider } from "~/providers/clerk-leetex-provider"
@@ -28,6 +30,7 @@ function parseAuthRoute(hash: string): AuthRoute {
 
 function SignInTabContent() {
   const [hash, setHash] = useState(() => window.location.hash)
+  const { isSignedIn } = useAuth()
   const signInRedirect = useMemo(() => getClerkRedirectUrl("tabs/sign-in.html"), [])
 
   useEffect(() => {
@@ -35,6 +38,16 @@ function SignInTabContent() {
     window.addEventListener("hashchange", onHashChange)
     return () => window.removeEventListener("hashchange", onHashChange)
   }, [])
+
+  useEffect(() => {
+    if (!isSignedIn) {
+      return
+    }
+
+    chrome.runtime.sendMessage({ type: AUTH_MESSAGE.AUTH_CHANGED }, () => {
+      void chrome.runtime.lastError
+    })
+  }, [isSignedIn])
 
   const route = useMemo(() => parseAuthRoute(hash), [hash])
 

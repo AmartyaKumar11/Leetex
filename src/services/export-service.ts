@@ -1,5 +1,6 @@
 import { LEETEX_PLATFORM } from "~/constants/version"
 import { sessionAnalyticsEngine } from "~/analytics/session-analytics-engine"
+import { getAuthState } from "~/services/auth-bridge-service"
 import { sessionMetricsService } from "~/services/session-metrics-service"
 import { userIdentityService } from "~/services/user-identity-service"
 import { versionService } from "~/services/version-service"
@@ -22,13 +23,23 @@ const EXPORT_ERROR_MESSAGES: Record<ExportValidationError, string> = {
   missing_session: "Export blocked: no active session to export."
 }
 
+async function resolveExportUserId(): Promise<string | null> {
+  const authState = await getAuthState()
+
+  if (authState.isSignedIn && authState.userId) {
+    return authState.userId
+  }
+
+  return userIdentityService.getUserId()
+}
+
 export class ExportService {
   async validateExport(session: Session | null): Promise<ExportFailure | null> {
     if (!session) {
       return this.failure("missing_session")
     }
 
-    const userId = await userIdentityService.getUserId()
+    const userId = await resolveExportUserId()
 
     if (!userId) {
       return this.failure("missing_user_id")
@@ -48,7 +59,7 @@ export class ExportService {
       return null
     }
 
-    const userId = await userIdentityService.getUserId()
+    const userId = await resolveExportUserId()
 
     if (!userId) {
       return null

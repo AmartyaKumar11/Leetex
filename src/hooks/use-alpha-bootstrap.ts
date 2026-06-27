@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 
 import { consentService } from "~/services/consent-service"
+import { AUTH_MESSAGE } from "~/constants/auth-messages"
 import { getAuthState } from "~/services/auth-bridge-service"
 import { userIdentityService } from "~/services/user-identity-service"
 import { versionService } from "~/services/version-service"
@@ -61,12 +62,28 @@ export function useAlphaBootstrap(): AlphaBootstrapState {
       void refreshAuth()
     }
 
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        void refreshAuth()
+      }
+    }
+
+    const onAuthChanged = (message: { type?: string }) => {
+      if (message?.type === AUTH_MESSAGE.AUTH_CHANGED) {
+        void refreshAuth()
+      }
+    }
+
     window.addEventListener("focus", onFocus)
+    document.addEventListener("visibilitychange", onVisibilityChange)
+    chrome.runtime.onMessage.addListener(onAuthChanged)
 
     return () => {
       cancelled = true
       window.clearInterval(interval)
       window.removeEventListener("focus", onFocus)
+      document.removeEventListener("visibilitychange", onVisibilityChange)
+      chrome.runtime.onMessage.removeListener(onAuthChanged)
     }
   }, [refreshAuth])
 
