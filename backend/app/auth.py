@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from functools import lru_cache
 
 from fastapi import Depends, HTTPException, status
@@ -6,6 +7,7 @@ import jwt
 from jwt import PyJWKClient, PyJWTError
 
 from app.config import get_settings
+from app.database import get_supabase
 
 security = HTTPBearer(auto_error=False)
 
@@ -50,7 +52,32 @@ def verify_clerk_token(token: str) -> dict:
         ) from exc
 
 
-async def get_current_user_id(
+def _extract_email_from_claims(claims: dict) -> str | None:
+    for key in ("email", "primary_email_address"):
+        value = claims.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+
+    return None
+
+
+def _upsert_user(clerk_user_id: str, email: str | None) -> None:
+    record: dict[str, str] = {
+        "clerk_user_id": clerk_user_id,
+        "last_active_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+    if email:
+        record["email"] = email
+
+    get_supabase().table("users").upsert(record, on_conflict="clerk_user_id").execute()
+
+
+def refresh_user_profile(clerk_user_id: str, email: str | None) -> None:
+    _upsert_user(clerk_user_id, email)
+
+
+async def upsert_current_user(
     credentials: HTTPAuthorizationCredentials | None = Depends(security),
 ) -> str:
     if credentials is None or credentials.scheme.lower() != "bearer":
@@ -67,12 +94,14 @@ async def get_current_user_id(
         )
 
     claims = verify_clerk_token(token)
-    user_id = claims.get("sub")
+    clerk_user_id = claims.get("sub")
 
-    if not user_id:
+    if not clerk_user_id:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid authentication token",
         )
 
-    return user_id
+    _upsert_user(clerk_user_id, _extract_email_from_claims(claims))
+
+    return clerk_user_id

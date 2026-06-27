@@ -3,6 +3,7 @@ import type { Session } from "~/types/session"
 
 export interface ExportMetadata {
   userId: string
+  email?: string | null
   leetexVersion: string
   exportedAt: string
   browser: string

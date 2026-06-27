@@ -5,11 +5,36 @@ export function getClerkExtensionUrl(): string {
 }
 
 export function getClerkExtensionOrigin(): string {
-  return new URL(chrome.runtime.getURL(".")).origin
+  const origin = new URL(chrome.runtime.getURL(".")).origin
+
+  if (origin.includes("invalid") || !chrome.runtime?.id) {
+    throw new Error(
+      "LeetEx extension context is invalid. Reload the extension at chrome://extensions."
+    )
+  }
+
+  return origin
 }
 
 export function getClerkRedirectUrl(path: string): string {
-  return chrome.runtime.getURL(path)
+  const url = chrome.runtime.getURL(path)
+
+  if (url.includes("invalid") || !chrome.runtime?.id) {
+    throw new Error(
+      "LeetEx extension context is invalid. Reload the extension at chrome://extensions."
+    )
+  }
+
+  return url
+}
+
+export function getSignInTabBaseUrl(): string {
+  return getClerkRedirectUrl("tabs/sign-in.html")
+}
+
+export function getSignInTabUrl(hash: "#/sign-in" | "#/sign-up" | "#/sso-callback" = "#/sign-in"): string {
+  const base = getSignInTabBaseUrl()
+  return `${base}${hash}`
 }
 
 export function assertClerkPublishableKey(): string {

@@ -9,7 +9,7 @@ import { useEffect, useMemo, useState } from "react"
 
 import { AUTH_MESSAGE } from "~/constants/auth-messages"
 import { CLERK_EXTENSION_APPEARANCE } from "~/constants/clerk-appearance"
-import { getClerkRedirectUrl } from "~/constants/clerk"
+import { getSignInTabBaseUrl, getSignInTabUrl } from "~/constants/clerk"
 import { ClerkLeetExProvider } from "~/providers/clerk-leetex-provider"
 
 import "~/style.css"
@@ -30,8 +30,10 @@ function parseAuthRoute(hash: string): AuthRoute {
 
 function SignInTabContent() {
   const [hash, setHash] = useState(() => window.location.hash)
-  const { isSignedIn } = useAuth()
-  const signInRedirect = useMemo(() => getClerkRedirectUrl("tabs/sign-in.html"), [])
+  const { isLoaded, isSignedIn } = useAuth()
+  const signInUrl = useMemo(() => getSignInTabUrl("#/sign-in"), [])
+  const signUpUrl = useMemo(() => getSignInTabUrl("#/sign-up"), [])
+  const redirectUrl = useMemo(() => getSignInTabBaseUrl(), [])
 
   useEffect(() => {
     const onHashChange = () => setHash(window.location.hash)
@@ -50,6 +52,14 @@ function SignInTabContent() {
   }, [isSignedIn])
 
   const route = useMemo(() => parseAuthRoute(hash), [hash])
+
+  if (!isLoaded) {
+    return (
+      <div className="leetex-root dark flex min-h-screen items-center justify-center bg-background p-6">
+        <p className="text-sm text-muted-foreground">Loading sign in...</p>
+      </div>
+    )
+  }
 
   if (route === "sso-callback") {
     return (
@@ -77,23 +87,28 @@ function SignInTabContent() {
             {route === "sign-up" ? "Create your LeetEx account" : "Sign in to LeetEx"}
           </h1>
           <p className="text-xs leading-relaxed text-muted-foreground">
-            Keep this tab open while you check your email for an OTP code.
+            Keep this tab open while you check your email for an OTP code. Use email + password or
+            OTP only.
           </p>
         </div>
 
         {route === "sign-up" ? (
           <SignUp
             routing="hash"
+            signInUrl={signInUrl}
+            signUpUrl={signUpUrl}
             appearance={CLERK_EXTENSION_APPEARANCE}
-            forceRedirectUrl={signInRedirect}
-            fallbackRedirectUrl={signInRedirect}
+            forceRedirectUrl={redirectUrl}
+            fallbackRedirectUrl={redirectUrl}
           />
         ) : (
           <SignIn
             routing="hash"
+            signInUrl={signInUrl}
+            signUpUrl={signUpUrl}
             appearance={CLERK_EXTENSION_APPEARANCE}
-            forceRedirectUrl={signInRedirect}
-            fallbackRedirectUrl={signInRedirect}
+            forceRedirectUrl={redirectUrl}
+            fallbackRedirectUrl={redirectUrl}
           />
         )}
       </Show>

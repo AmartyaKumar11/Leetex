@@ -2,7 +2,7 @@ from collections import Counter
 
 from fastapi import APIRouter, Depends
 
-from app.auth import get_current_user_id
+from app.auth import upsert_current_user
 from app.database import get_supabase
 from app.models import UserProfile
 
@@ -11,7 +11,7 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 @router.get("/me", response_model=UserProfile)
 async def get_current_user_profile(
-    user_id: str = Depends(get_current_user_id),
+    user_id: str = Depends(upsert_current_user),
 ) -> UserProfile:
     supabase = get_supabase()
     result = (

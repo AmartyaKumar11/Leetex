@@ -3,8 +3,9 @@ from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.auth import get_current_user_id
+from app.auth import refresh_user_profile, upsert_current_user
 from app.database import get_supabase
+from app.db_helpers import extract_session_scalar_fields, upsert_problem
 from app.models import (
     SessionDetail,
     SessionSummary,
@@ -59,7 +60,7 @@ def _row_to_detail(row: dict[str, Any]) -> SessionDetail:
 @router.post("/sync", response_model=SessionSyncResponse)
 async def sync_session(
     payload: SessionSyncPayload,
-    user_id: str = Depends(get_current_user_id),
+    user_id: str = Depends(upsert_current_user),
 ) -> SessionSyncResponse:
     session_data = payload.session
     session_id = session_data.get("sessionId")
@@ -72,22 +73,35 @@ async def sync_session(
 
     synced_at = datetime.now(timezone.utc).isoformat()
     analysis = payload.analysis
+    question_slug = session_data.get("questionSlug")
+    question_title = session_data.get("questionTitle")
+    difficulty = session_data.get("difficulty")
+
+    supabase = get_supabase()
+    problem_id = upsert_problem(supabase, question_slug, question_title, difficulty)
+
+    metadata = payload.metadata if isinstance(payload.metadata, dict) else {}
+    export_email = metadata.get("email")
+    if isinstance(export_email, str) and export_email.strip():
+        refresh_user_profile(user_id, export_email.strip())
 
     record = {
         "session_id": session_id,
         "clerk_user_id": user_id,
-        "question_slug": session_data.get("questionSlug"),
-        "question_title": session_data.get("questionTitle"),
-        "difficulty": session_data.get("difficulty"),
+        "problem_id": problem_id,
+        "question_slug": question_slug,
+        "question_title": question_title,
+        "difficulty": difficulty,
         "accepted": _extract_accepted(analysis),
         "classifications": _extract_classifications(analysis),
         "metadata": payload.metadata,
         "session_data": session_data,
         "analysis_data": analysis,
         "synced_at": synced_at,
+        "updated_at": synced_at,
+        **extract_session_scalar_fields(session_data, analysis),
     }
 
-    supabase = get_supabase()
     supabase.table("sessions").upsert(record, on_conflict="session_id").execute()
 
     return SessionSyncResponse(session_id=session_id)
@@ -95,7 +109,7 @@ async def sync_session(
 
 @router.get("", response_model=list[SessionSummary])
 async def list_sessions(
-    user_id: str = Depends(get_current_user_id),
+    user_id: str = Depends(upsert_current_user),
 ) -> list[SessionSummary]:
     supabase = get_supabase()
     result = (
@@ -114,7 +128,7 @@ async def list_sessions(
 @router.get("/{session_id}", response_model=SessionDetail)
 async def get_session(
     session_id: str,
-    user_id: str = Depends(get_current_user_id),
+    user_id: str = Depends(upsert_current_user),
 ) -> SessionDetail:
     supabase = get_supabase()
     result = (

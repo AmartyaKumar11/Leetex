@@ -59,6 +59,7 @@ export class ExportService {
       return null
     }
 
+    const authState = await getAuthState()
     const userId = await resolveExportUserId()
 
     if (!userId) {
@@ -67,6 +68,7 @@ export class ExportService {
 
     const metadata: ExportMetadata = {
       userId,
+      email: authState.isSignedIn ? authState.email : null,
       leetexVersion: versionService.currentVersion,
       exportedAt: toISOString(Date.now()),
       browser: getBrowserLabel(),
