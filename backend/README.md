@@ -27,7 +27,22 @@ On every authenticated request the backend upserts `users`. On `/sessions/sync` 
 
 ## Run
 
+From repo root (extension + API together):
+
 ```bash
+npm run dev:all
+```
+
+Backend only:
+
+```bash
+npm run dev:backend
+```
+
+Or manually:
+
+```bash
+cd backend
 uvicorn app.main:app --reload
 ```
 

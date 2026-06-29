@@ -6,6 +6,8 @@
   "author": "LeetEx",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--require=./scripts/graceful-fs-patch.cjs CHOKIDAR_USEPOLLING=1 PARCEL_WORKERS=1 plasmo dev",
+    "dev:backend": "node scripts/dev-backend.cjs",
+    "dev:all": "concurrently -k -n backend,ext -c blue,magenta \"npm run dev:backend\" \"npm run dev\"",
     "dev:clean": "node -e \"try{require('fs').rmSync('.plasmo/cache',{recursive:true,force:true})}catch(e){}\" && npm run dev",
     "build": "plasmo build",
     "package": "plasmo package",
@@ -33,6 +35,7 @@
     "@types/node": "22.10.2",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
+    "concurrently": "^9.2.3",
     "cross-env": "^10.1.0",
     "graceful-fs": "^4.2.11",
     "prettier": "3.2.4",
