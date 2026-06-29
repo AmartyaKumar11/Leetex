@@ -55,6 +55,8 @@ function buildSession(overrides: Partial<Session> = {}): Session {
     metrics: createEmptySessionMetrics(),
     learningSources: createEmptyLearningSources(),
     learningSourceVisits: [],
+    topicTags: [],
+    leetcodeId: null,
     ...overrides
   }
 }

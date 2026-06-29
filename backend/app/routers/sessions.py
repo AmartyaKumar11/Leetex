@@ -76,9 +76,23 @@ async def sync_session(
     question_slug = session_data.get("questionSlug")
     question_title = session_data.get("questionTitle")
     difficulty = session_data.get("difficulty")
+    topic_tags_raw = session_data.get("topicTags", [])
+    topic_tags = (
+        [str(tag) for tag in topic_tags_raw]
+        if isinstance(topic_tags_raw, list)
+        else []
+    )
+    leetcode_id_raw = session_data.get("leetcodeId")
 
     supabase = get_supabase()
-    problem_id = upsert_problem(supabase, question_slug, question_title, difficulty)
+    problem_id = upsert_problem(
+        supabase,
+        question_slug,
+        question_title,
+        difficulty,
+        topic_tags=topic_tags,
+        leetcode_id_raw=leetcode_id_raw,
+    )
 
     metadata = payload.metadata if isinstance(payload.metadata, dict) else {}
     export_email = metadata.get("email")
@@ -92,6 +106,7 @@ async def sync_session(
         "question_slug": question_slug,
         "question_title": question_title,
         "difficulty": difficulty,
+        "topic_tags": topic_tags,
         "accepted": _extract_accepted(analysis),
         "classifications": _extract_classifications(analysis),
         "metadata": payload.metadata,

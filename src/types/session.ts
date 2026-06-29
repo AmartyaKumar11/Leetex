@@ -22,6 +22,8 @@ export interface Session {
   metrics: SessionMetrics
   learningSources: LearningSources
   learningSourceVisits: LearningSourceVisit[]
+  topicTags: string[]
+  leetcodeId: string | null
 }
 
 export type SessionJSON = Session

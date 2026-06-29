@@ -349,6 +349,78 @@ export function waitForQuestionMetadata(
   })
 }
 
+export interface ProblemMetadata {
+  questionId: string | null
+  title: string
+  slug: string
+  difficulty: string | null
+  topicTags: string[]
+}
+
+export async function fetchProblemMetadata(slug: string): Promise<ProblemMetadata | null> {
+  try {
+    observerDebugLog("fetchProblemMetadata: starting", { slug })
+
+    const response = await fetch("https://leetcode.com/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Referer: `https://leetcode.com/problems/${slug}/`
+      },
+      body: JSON.stringify({
+        query: `
+          query getProblemMetadata($titleSlug: String!) {
+            question(titleSlug: $titleSlug) {
+              questionId
+              title
+              difficulty
+              topicTags {
+                name
+                slug
+              }
+            }
+          }
+        `,
+        variables: { titleSlug: slug }
+      })
+    })
+
+    observerDebugLog("fetchProblemMetadata: response status", {
+      status: response.status,
+      ok: response.ok
+    })
+
+    if (!response.ok) {
+      observerDebugLog("fetchProblemMetadata: response not ok")
+      return null
+    }
+
+    const data = await response.json()
+    observerDebugLog("fetchProblemMetadata: data received", { data })
+
+    const question = data?.data?.question
+
+    if (!question) {
+      observerDebugLog("fetchProblemMetadata: question is null in response")
+      return null
+    }
+
+    const result = {
+      questionId: question.questionId ?? null,
+      title: question.title,
+      slug,
+      difficulty: question.difficulty ?? null,
+      topicTags: (question.topicTags ?? []).map((t: { name: string }) => t.name)
+    }
+
+    observerDebugLog("fetchProblemMetadata: success", result)
+    return result
+  } catch (e) {
+    observerDebugLog("fetchProblemMetadata: caught error", { error: String(e) })
+    return null
+  }
+}
+
 function cleanTitle(raw: string): string {
   return raw
     .replace(/^\d+\.\s*/, "")

@@ -6,6 +6,7 @@ import type { LearningSourceView } from "~/types/learning-source"
 import {
   detectLearningSourceView,
   extractQuestionSlug,
+  fetchProblemMetadata,
   isLearningSourceTab,
   isLeetCodeProblemUrl,
   isRunCodeButton,
@@ -238,17 +239,19 @@ export class LeetCodeSessionObserver {
     }
 
     try {
-      const metadata = await waitForQuestionMetadata(
-        TITLE_POLL_MAX_ATTEMPTS,
-        TITLE_POLL_INTERVAL_MS
-      )
+      const [metadata, problemMetadata] = await Promise.all([
+        waitForQuestionMetadata(TITLE_POLL_MAX_ATTEMPTS, TITLE_POLL_INTERVAL_MS),
+        fetchProblemMetadata(slug).catch(() => null)
+      ])
 
       this.currentSlug = metadata.slug
 
       await sessionManager.createSession({
         questionTitle: metadata.title,
         questionSlug: metadata.slug,
-        difficulty: metadata.difficulty
+        difficulty: metadata.difficulty,
+        topicTags: problemMetadata?.topicTags ?? [],
+        leetcodeId: problemMetadata?.questionId ?? null
       })
 
       await signalLayerService.onSessionReady()

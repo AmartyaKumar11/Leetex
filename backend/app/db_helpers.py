@@ -11,21 +11,28 @@ def upsert_problem(
     slug: str | None,
     title: str | None,
     difficulty: str | None,
+    topic_tags: list[str] | None = None,
+    leetcode_id_raw: str | None = None,
 ) -> str | None:
-    if not slug or not title:
+    if not slug:
         return None
 
     now = datetime.now(timezone.utc).isoformat()
+    problem_row: dict[str, Any] = {
+        "slug": slug,
+        "title": title or slug,
+        "difficulty": difficulty,
+        "topic_tags": topic_tags or [],
+        "updated_at": now,
+    }
 
-    supabase.table("problems").upsert(
-        {
-            "slug": slug,
-            "title": title,
-            "difficulty": difficulty,
-            "updated_at": now,
-        },
-        on_conflict="slug",
-    ).execute()
+    if leetcode_id_raw:
+        try:
+            problem_row["leetcode_id"] = int(leetcode_id_raw)
+        except (ValueError, TypeError):
+            pass
+
+    supabase.table("problems").upsert(problem_row, on_conflict="slug").execute()
 
     result = supabase.table("problems").select("id").eq("slug", slug).limit(1).execute()
     rows = result.data or []

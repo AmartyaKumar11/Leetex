@@ -244,6 +244,8 @@ function normalizeExportSession(raw: Session): Session {
     metrics: raw.metrics ?? createEmptySessionMetrics(),
     learningSources: raw.learningSources ?? createEmptyLearningSources(),
     learningSourceVisits: raw.learningSourceVisits ?? [],
+    topicTags: raw.topicTags ?? [],
+    leetcodeId: raw.leetcodeId ?? null,
     lastActivityTimestamp:
       raw.lastActivityTimestamp ??
       resolveLastActivityTimestamp({

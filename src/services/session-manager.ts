@@ -81,6 +81,8 @@ export class SessionManager {
     questionTitle: string
     questionSlug: string
     difficulty: Difficulty | null
+    topicTags: string[]
+    leetcodeId: string | null
   }): Promise<Session> {
     const activityTimestamp = now()
 
@@ -89,6 +91,19 @@ export class SessionManager {
         const lastActivity = resolveLastActivityTimestamp(this.currentSession)
 
         if (!isSessionTimedOut(lastActivity, activityTimestamp, SESSION_TIMEOUT_MS)) {
+          const session = this.currentSession
+          const topicTags =
+            input.topicTags.length > 0 ? input.topicTags : (session.topicTags ?? [])
+          const leetcodeId = input.leetcodeId ?? session.leetcodeId ?? null
+
+          if (
+            topicTags !== session.topicTags ||
+            leetcodeId !== session.leetcodeId
+          ) {
+            this.currentSession = { ...session, topicTags, leetcodeId }
+            await this.persistActiveSession()
+          }
+
           return this.currentSession
         }
 
@@ -115,7 +130,9 @@ export class SessionManager {
       attemptHistory: [],
       metrics: createEmptySessionMetrics(),
       learningSources: createEmptyLearningSources(),
-      learningSourceVisits: []
+      learningSourceVisits: [],
+      topicTags: input.topicTags,
+      leetcodeId: input.leetcodeId
     }
 
     this.currentSession = session
@@ -407,7 +424,7 @@ export class SessionManager {
       return true
     }
 
-    const { questionTitle, questionSlug, difficulty } = session
+    const { questionTitle, questionSlug, difficulty, topicTags, leetcodeId } = session
 
     observerDebugLog("Session timed out — starting new session", {
       sessionId: session.sessionId,
@@ -418,7 +435,13 @@ export class SessionManager {
     })
 
     await this.endSession(lastActivity)
-    await this.createSession({ questionTitle, questionSlug, difficulty })
+    await this.createSession({
+      questionTitle,
+      questionSlug,
+      difficulty,
+      topicTags: topicTags ?? [],
+      leetcodeId: leetcodeId ?? null
+    })
 
     return this.currentSession?.status === "active"
   }
@@ -448,6 +471,8 @@ function normalizeSession(session: Session): Session {
   return withAggregatedLearningSources({
     ...session,
     isReturningSession: session.isReturningSession ?? false,
+    topicTags: session.topicTags ?? [],
+    leetcodeId: session.leetcodeId ?? null,
     lastActivityTimestamp,
     attemptHistory: session.attemptHistory ?? [],
     metrics: session.metrics ?? createEmptySessionMetrics(),

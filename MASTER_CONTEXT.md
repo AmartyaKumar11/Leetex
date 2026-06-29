@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
 > **Last updated:** 2026-06-01  
-> **Current phase:** v0.5 — Backend + Auth + Auto-Sync  
-> **Status:** In progress — extension sync + FastAPI backend scaffolded
+> **Current phase:** v0.6 — Problem Metadata Layer  
+> **Status:** In progress — topic tags via LeetCode GraphQL + problems/sessions upsert
 
 ---
 
@@ -322,8 +322,9 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | v0.4.4 Analysis Export Layer | ✅ Done | 2026-06-01 | `{ metadata, session, analysis }` export payload |
 | Clerk Auth + Stable CRX ID | ✅ Done | 2026-06-27 | `@clerk/chrome-extension`, RSA keypair, manifest `key`, Account card |
 | v0.5 Backend + Auth + Auto-Sync | 🔄 In progress | 2026-06-01 | JWT bridge, sync service, FastAPI + Supabase ingestion |
+| v0.6 Problem Metadata Layer | 🔄 In progress | 2026-06-01 | GraphQL topic tags, `topicTags`/`leetcodeId` on session, problems upsert on sync |
 
-**Next up:** v0.5 verification — E2E sync to backend, Supabase schema deploy
+**Next up:** v0.6 verification — Two Sum export shows topic tags; Supabase `problems` + `sessions` populated
 
 ---
 
@@ -331,6 +332,7 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | v0.6 (in progress): LeetCode GraphQL `fetchProblemMetadata`, session `topicTags`/`leetcodeId`, backend problems+sessions topic_tags upsert |
 | 2026-06-01 | v0.5 (in progress): `LEETEX_GET_TOKEN`, `SyncService`, Clerk userId in export, FastAPI backend scaffold |
 | 2026-06-27 | Clerk auth: stable CRX ID via RSA keypair; `CRX_PUBLIC_KEY` in `.env.chrome` / `.env.development` |
 | 2026-06-01 | v0.4.4: returning session detection — `isReturningSession` flag; null `timeToFirstEdit` when editor had prior code |
