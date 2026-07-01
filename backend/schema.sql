@@ -127,6 +127,65 @@ CREATE TABLE IF NOT EXISTS session_diagnoses (
   generated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- v0.7 MANUAL MIGRATION (run in Supabase SQL editor if these columns/constraints are absent)
+-- Do not run from application code.
+--
+-- ALTER TABLE session_diagnoses
+--   ADD COLUMN IF NOT EXISTS strengths TEXT[] DEFAULT '{}',
+--   ADD COLUMN IF NOT EXISTS improvement_suggestion TEXT,
+--   ADD COLUMN IF NOT EXISTS confidence NUMERIC(3,2);
+--
+-- DO $$ BEGIN
+--   IF NOT EXISTS (
+--     SELECT 1 FROM pg_constraint
+--     WHERE conname = 'chk_diagnoses_approach_taken'
+--   ) THEN
+--     ALTER TABLE session_diagnoses
+--       ADD CONSTRAINT chk_diagnoses_approach_taken
+--       CHECK (approach_taken IN (
+--         'direct_optimal',
+--         'brute_force_only',
+--         'brute_force_to_optimal',
+--         'trial_and_error',
+--         'copy_paste',
+--         'incomplete'
+--       ));
+--   END IF;
+-- END $$;
+--
+-- DO $$ BEGIN
+--   IF NOT EXISTS (
+--     SELECT 1 FROM pg_constraint
+--     WHERE conname = 'chk_diagnoses_confidence'
+--   ) THEN
+--     ALTER TABLE session_diagnoses
+--       ADD CONSTRAINT chk_diagnoses_confidence
+--       CHECK (confidence IS NULL OR (confidence >= 0 AND confidence <= 1));
+--   END IF;
+-- END $$;
+--
+-- DO $$ BEGIN
+--   IF NOT EXISTS (
+--     SELECT 1 FROM pg_constraint
+--     WHERE conname = 'chk_diagnoses_improvement_suggestion_length'
+--   ) THEN
+--     ALTER TABLE session_diagnoses
+--       ADD CONSTRAINT chk_diagnoses_improvement_suggestion_length
+--       CHECK (improvement_suggestion IS NULL OR char_length(improvement_suggestion) <= 160);
+--   END IF;
+-- END $$;
+--
+-- DO $$ BEGIN
+--   IF NOT EXISTS (
+--     SELECT 1 FROM pg_constraint
+--     WHERE conname = 'chk_diagnoses_stuck_point_length'
+--   ) THEN
+--     ALTER TABLE session_diagnoses
+--       ADD CONSTRAINT chk_diagnoses_stuck_point_length
+--       CHECK (stuck_point IS NULL OR char_length(stuck_point) <= 120);
+--   END IF;
+-- END $$;
+
 DO $$ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_constraint

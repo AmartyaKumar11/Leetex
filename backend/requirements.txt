@@ -6,3 +6,5 @@ pydantic
 pydantic-settings
 python-dotenv
 PyJWT[crypto]
+google-generativeai
+apscheduler

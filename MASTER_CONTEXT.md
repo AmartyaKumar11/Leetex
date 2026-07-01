@@ -1,8 +1,8 @@
 # LeetEx - Master Context
 
-> **Last updated:** 2026-06-01  
-> **Current phase:** v0.6 — Problem Metadata Layer  
-> **Status:** In progress — topic tags via LeetCode GraphQL + problems/sessions upsert
+> **Last updated:** 2026-07-01  
+> **Current phase:** v0.7 — LLM Session Analysis Pipeline  
+> **Status:** In progress — backend worker for Gemini diagnosis + topic stats
 
 ---
 
@@ -323,8 +323,9 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 | Clerk Auth + Stable CRX ID | ✅ Done | 2026-06-27 | `@clerk/chrome-extension`, RSA keypair, manifest `key`, Account card |
 | v0.5 Backend + Auth + Auto-Sync | 🔄 In progress | 2026-06-01 | JWT bridge, sync service, FastAPI + Supabase ingestion |
 | v0.6 Problem Metadata Layer | 🔄 In progress | 2026-06-01 | GraphQL topic tags, `topicTags`/`leetcodeId` on session, problems upsert on sync |
+| v0.7 LLM Session Analysis Pipeline | 🔄 In progress | 2026-07-01 | FastAPI background worker, Gemini diagnosis, session_diagnoses + topic stats |
 
-**Next up:** v0.6 verification — Two Sum export shows topic tags; Supabase `problems` + `sessions` populated
+**Next up:** v0.7 verification — real synced session progresses `pending → processing → complete` and updates diagnosis + topic stats
 
 ---
 
@@ -332,6 +333,7 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-07-01 | v0.7 (in progress): backend analysis worker scaffold for Gemini diagnosis, validation, `session_diagnoses`, and `user_topic_stats` |
 | 2026-06-01 | Monaco extraction: `window.lcMonaco` (LeetCode's Monaco global) used for full file `getValue()` regardless of scroll; picks longest non-empty editor |
 | 2026-06-01 | Snapshot fix: sort Monaco `.view-line` elements by `style.top` to reconstruct correct file order when scrolled (replaces `.inputarea` viewport scramble) |
 | 2026-06-01 | v0.6 (in progress): LeetCode GraphQL `fetchProblemMetadata`, session `topicTags`/`leetcodeId`, backend problems+sessions topic_tags upsert |

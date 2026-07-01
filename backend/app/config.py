@@ -8,6 +8,8 @@ class Settings(BaseSettings):
     supabase_service_key: str
     clerk_publishable_key: str
     clerk_jwks_url: str
+    gemini_api_key: str | None = None
+    gemini_model: str = "gemini-2.0-flash"
     environment: str = "development"
 
     model_config = SettingsConfigDict(
