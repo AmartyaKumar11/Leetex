@@ -39,7 +39,9 @@ FIELD GUIDANCE:
 - debug_effectiveness: systematic = targeted changes with clear intent, random = shotgun changes hoping something works, none = no debugging needed or no runs made.
 - code_quality: clean = readable structure and naming, messy = works but hard to follow, incomplete = unfinished or has dead code.
 - relied_on_external: true only if editorial or solutions were visited. Use the behavioral summary — do not infer this from code quality alone.
-- confidence: reduce confidence if the session is under 3 minutes, has fewer than 3 snapshots, or the code journey is ambiguous."""
+- relied_on_external: Solutions visited under 5000ms may indicate a quick reference check. Over 10000ms strongly indicates the student studied or copied the solution. Weight the duration when assessing approach_taken.
+- confidence: reduce confidence if the session is under 3 minutes, has fewer than 3 snapshots, or the code journey is ambiguous.
+- confidence: also reduce confidence if isReturningSession is true — the behavioral baseline is contaminated by a previous sitting."""
 
 
 def build_prompt(session: dict, problem: dict, selected_snapshots: list[dict]) -> tuple[str, str]:
@@ -55,6 +57,14 @@ def build_prompt(session: dict, problem: dict, selected_snapshots: list[dict]) -
 
     time_to_first_edit = metrics.get("timeToFirstEdit")
     tte_str = f"{time_to_first_edit}s" if time_to_first_edit else "unknown"
+    attempts = session.get("attemptHistory", [])
+    attempt_history = " → ".join(
+        [
+            attempt.get("status", "Unknown")
+            for attempt in attempts
+            if isinstance(attempt, dict) and attempt.get("type") in ("RUN", "SUBMIT")
+        ]
+    ) or "none"
 
     user_prompt = f"""PROBLEM
 Title: {problem.get('title')} ({problem.get('difficulty', 'Unknown')})
@@ -64,7 +74,9 @@ BEHAVIORAL SUMMARY
 Time to first edit: {tte_str}
 Total runs: {metrics.get('totalRuns', 0)}
 Total submissions: {metrics.get('totalSubmissions', 0)}
+Attempt history: {attempt_history}
 Accepted: {'yes' if session.get('analysis', {}).get('summary', {}).get('accepted') else 'no'}
+Returning session: {'yes — prior code exists at session start' if session.get('isReturningSession') else 'no'}
 Editorial visited: {'yes (' + str(editorial.get('timeMs', 0)) + 'ms)' if editorial_visited else 'no'}
 Solutions visited: {'yes (' + str(solutions.get('timeMs', 0)) + 'ms)' if solutions_visited else 'no'}
 System classifications: {', '.join(classifications) if classifications else 'none'}
@@ -138,6 +150,21 @@ def select_snapshots(session: dict[str, Any]) -> list[dict[str, Any]]:
     for snapshot in selected:
         key = str(snapshot.get("snapshotId") or snapshot.get("timestamp") or len(deduped))
         deduped[key] = snapshot
+
+    for snapshot in snapshots:
+        if not isinstance(snapshot, dict):
+            continue
+
+        similarity = snapshot.get("similarityToPrevious")
+        if not isinstance(similarity, int | float) or similarity >= 0.6:
+            continue
+
+        key = str(snapshot.get("snapshotId") or snapshot.get("timestamp"))
+        if key not in deduped:
+            deduped[key] = {
+                **snapshot,
+                "relativeTimestamp": _relative_timestamp(snapshot, start_time),
+            }
 
     return sorted(
         deduped.values(),
