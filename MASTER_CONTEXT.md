@@ -332,6 +332,8 @@ v0.1 foundation (sessions, snapshots, v0.1 events, export) remains in place.
 
 | Date | Change |
 |------|--------|
+| 2026-06-01 | Monaco extraction: `window.lcMonaco` (LeetCode's Monaco global) used for full file `getValue()` regardless of scroll; picks longest non-empty editor |
+| 2026-06-01 | Snapshot fix: sort Monaco `.view-line` elements by `style.top` to reconstruct correct file order when scrolled (replaces `.inputarea` viewport scramble) |
 | 2026-06-01 | v0.6 (in progress): LeetCode GraphQL `fetchProblemMetadata`, session `topicTags`/`leetcodeId`, backend problems+sessions topic_tags upsert |
 | 2026-06-01 | v0.5 (in progress): `LEETEX_GET_TOKEN`, `SyncService`, Clerk userId in export, FastAPI backend scaffold |
 | 2026-06-27 | Clerk auth: stable CRX ID via RSA keypair; `CRX_PUBLIC_KEY` in `.env.chrome` / `.env.development` |
